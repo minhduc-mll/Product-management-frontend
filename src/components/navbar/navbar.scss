@@ -4,7 +4,7 @@
     align-items: center;
     font-size: 14px;
     color: #555;
-    border-bottom: 0.5px solid rgb(231, 228, 228);
+    border-bottom: 0.5px solid rgb(230, 230, 230);
   
     .wrapper {
         width: 100%;
@@ -17,14 +17,16 @@
             display: flex;
             align-items: center;
             border: 0.5px solid lightgray;
-            padding: 3px;
+            border-radius: 10px;
+            padding: 5px;
     
             input {
-            border: none;
-            outline: none;
-            background: transparent;
+                font-size: 14px;
+                border: none;
+                outline: none;
+                background: transparent;
     
-            &::placeholder {
+                &::placeholder {
                     font-size: 12px;
                 }
             }
@@ -39,15 +41,12 @@
                 align-items: center;
                 margin-right: 10px;
                 position: relative;
-        
-                .icon {
-                    font-size: 20px;
-                }
-        
+                
                 .avatar {
-                    width: 30px;
-                    height: 30px;
+                    width: 40px;
+                    height: 40px;
                     border-radius: 50%;
+                    cursor: pointer;
                 }
         
                 .counter {
@@ -67,5 +66,10 @@
                 }
             }
         }
+    }
+    
+    .icon {
+        font-size: 25px;
+        cursor: pointer;
     }
 }

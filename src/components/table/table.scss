@@ -1,12 +1,14 @@
-.table{
+.table {
     flex: 1;
-    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
-    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.5);
     padding: 20px;
-    color: red;
 
-    .listTitle {
+    .title {
         margin-bottom: 20px;
+        font-size: 16px;
+        font-weight: bold;
+        color: rgb(160, 160, 160);
     }
 
     .cellWrapper {
@@ -28,11 +30,11 @@
 
         &.Approved {
             color: green;
-            background-color: rgba(0, 128, 0, 0.151);
+            background-color: rgba(0, 128, 0, 0.1);
         }
         &.Pending {
             color: goldenrod;
-            background-color: rgba(189, 189, 3, 0.103);
+            background-color: rgba(189, 189, 3, 0.1);
         }
     }
 }

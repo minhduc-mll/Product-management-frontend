@@ -1,3 +1,8 @@
-.user{
-    background-color: aqua;
+.user {
+    display: flex;
+    width: 100%;
+    
+    .userContainer {
+        flex: 6;
+    }
 }
