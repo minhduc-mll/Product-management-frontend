@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 const userColumns = [
     { field: "id", headerName: "ID", width: 70 },
     {
@@ -9,8 +7,12 @@ const userColumns = [
         renderCell: (params) => {
             return (
                 <div className="cellWithImg">
-                <img className="cellImg" src={params.row.img} alt="avatar" />
-                {params.row.username}
+                    <img
+                        className="cellImg"
+                        src={params.row.img}
+                        alt="avatar"
+                    />
+                    {params.row.username}
                 </div>
             );
         },
@@ -33,13 +35,13 @@ const userColumns = [
         renderCell: (params) => {
             return (
                 <div className={`cellWithStatus ${params.row.status}`}>
-                {params.row.status}
+                    {params.row.status}
                 </div>
             );
         },
     },
 ];
-  
+
 //temporary data
 const userRows = [
     {
@@ -220,7 +222,7 @@ const userInputs = [
         placeholder: "Country",
     },
 ];
-  
+
 const productInputs = [
     {
         id: 1,
@@ -254,10 +256,4 @@ const productInputs = [
     },
 ];
 
-export {
-    userColumns,
-    userRows,
-    productRows,
-    userInputs,
-    productInputs,
-};
+export { userColumns, userRows, productRows, userInputs, productInputs };

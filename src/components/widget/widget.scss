@@ -2,23 +2,17 @@
     display: flex;
     flex: 1;
     justify-content: space-between;
-    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
-    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.5);
     height: 100px;
     border-radius: 10px;
     padding: 10px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 4px 10px 1px rgba(192, 192, 192, 0.5);
 
     .left,
     .right {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-
-        .title {
-            font-size: 14px;
-            font-weight: bold;
-            color: rgb(160, 160, 160);
-        }
 
         .counter {
             font-size: 30px;
@@ -45,10 +39,10 @@
         }
 
         .icon {
-          font-size: 20px;
-          padding: 5px;
-          border-radius: 5px;
-          align-self: flex-end;
+            font-size: 20px;
+            padding: 5px;
+            border-radius: 5px;
+            align-self: flex-end;
         }
     }
 }

@@ -1,12 +1,12 @@
 import "./navbar.scss";
 import avata from "../../assets/ava.jpg";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import FullscreenExitOutlinedIcon from "@mui/icons-material/FullscreenExitOutlined";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
-import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { DarkModeContext } from "../../context/darkModeContext";
 
@@ -16,11 +16,17 @@ const Navbar = () => {
     return (
         <div className="navbar">
             <div className="wrapper">
-                <div className="search">
-                    <input type="text" placeholder="Search..." />
-                    <SearchOutlinedIcon className="icon" />
+                <div className="left">
+                    <Link to="/" className="link">
+                        <div className="logo">
+                            <span className="character">h</span>
+                            <span className="character">g</span>
+                            <span className="character">t</span>
+                            <span className="character">p</span>
+                        </div>
+                    </Link>
                 </div>
-                <div className="items">
+                <div className="right">
                     <div className="item">
                         <LanguageOutlinedIcon className="icon" />
                         English
@@ -28,10 +34,14 @@ const Navbar = () => {
                     <div className="item">
                         <DarkModeOutlinedIcon
                             className="icon"
-                            onClick={() => dispatch({ type: "TOGGLE" })} />
+                            onClick={() => dispatch({ type: "DARK" })}
+                        />
                     </div>
                     <div className="item">
-                        <FullscreenExitOutlinedIcon className="icon" />
+                        <LightModeOutlinedIcon
+                            className="icon"
+                            onClick={() => dispatch({ type: "LIGHT" })}
+                        />
                     </div>
                     <div className="item">
                         <NotificationsNoneOutlinedIcon className="icon" />
@@ -42,19 +52,15 @@ const Navbar = () => {
                         <div className="counter">2</div>
                     </div>
                     <div className="item">
-                        <ListOutlinedIcon className="icon" />
+                        <SettingsOutlinedIcon className="icon" />
                     </div>
                     <div className="item">
-                        <img
-                            src={avata}
-                            alt=""
-                            className="avatar"
-                        />
+                        <img src={avata} alt="" className="avatar" />
                     </div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Navbar;

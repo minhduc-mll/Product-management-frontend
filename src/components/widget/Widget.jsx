@@ -4,6 +4,7 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+import { Link } from "react-router-dom";
 
 const Widget = ({ type }) => {
     let data;
@@ -15,8 +16,9 @@ const Widget = ({ type }) => {
     switch (type) {
         case "user":
             data = {
-                title:"USERS",
+                title: "USERS",
                 isMoney: false,
+                to: "/users",
                 link: "See all users",
                 icon: (
                     <PersonOutlinedIcon
@@ -31,9 +33,10 @@ const Widget = ({ type }) => {
             break;
         case "order":
             data = {
-                title:"ORDERS",
+                title: "PRODUCTS",
                 isMoney: false,
-                link: "View all orders",
+                to: "/products",
+                link: "View all products",
                 icon: (
                     <ShoppingCartOutlinedIcon
                         className="icon"
@@ -47,8 +50,9 @@ const Widget = ({ type }) => {
             break;
         case "earning":
             data = {
-                title:"EARNINGS",
-                isMoney: false,
+                title: "EARNINGS",
+                isMoney: true,
+                to: "/comingsoon",
                 link: "View net earnings",
                 icon: (
                     <MonetizationOnOutlinedIcon
@@ -63,8 +67,9 @@ const Widget = ({ type }) => {
             break;
         case "balance":
             data = {
-                title:"BALANCE",
-                isMoney: false,
+                title: "BALANCE",
+                isMoney: true,
+                to: "/comingsoon",
                 link: "See details",
                 icon: (
                     <AccountBalanceWalletOutlinedIcon
@@ -80,7 +85,7 @@ const Widget = ({ type }) => {
         default:
             break;
     }
-    
+
     return (
         <div className="widget">
             <div className="left">
@@ -88,7 +93,9 @@ const Widget = ({ type }) => {
                 <span className="counter">
                     {data.isMoney && "$"} {amount}
                 </span>
-                <span className="link">{data.link}</span>
+                <Link to={data.to} className="link">
+                    {data.link}
+                </Link>
             </div>
             <div className="right">
                 <div className="percentage positive">

@@ -1,22 +1,34 @@
 import "./datatable.scss";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
-const Datatable = ({ title, rows, columns }) => {
+const Datatable = ({ rows, columns }) => {
+    const [data, setData] = useState(rows);
+
+    const handleDelete = (id) => {
+        setData(data.filter((item) => item.id !== id));
+    };
+
     const actionColumn = [
         {
             field: "action",
             headername: "Action",
             width: 200,
-            renderCell: () => {
+            renderCell: (params) => {
                 return (
                     <div className="cellAction">
                         <Link to="/users/1" style={{ textDecoration: "none" }}>
                             <div className="viewButton">View</div>
                         </Link>
-                        <Link to="/users/1" style={{ textDecoration: "none" }}>
-                            <div className="deleteButton">Delete</div>
-                        </Link>
+
+                        <div
+                            className="deleteButton"
+                            onClick={() => handleDelete(params.row.id)}
+                        >
+                            Delete
+                        </div>
                     </div>
                 );
             },
@@ -25,11 +37,9 @@ const Datatable = ({ title, rows, columns }) => {
 
     return (
         <div className="datatable">
-            <div className="title">
-                {title}
-                <Link to="/users/new" className="link">
-                    Add new
-                </Link>
+            <div className="search">
+                <input type="text" placeholder="Search..." />
+                <SearchOutlinedIcon className="icon" />
             </div>
             <DataGrid
                 className="datagrid"

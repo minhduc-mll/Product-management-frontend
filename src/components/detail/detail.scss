@@ -1,0 +1,47 @@
+.detail {
+    flex: 2;
+    padding: 10px 20px;
+    display: flex;
+    gap: 20px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 4px 10px 1px rgba(192, 192, 192, 0.5);
+
+    .left {
+        .itemImg {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    }
+
+    .right {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .itemTitle {
+            .title {
+                font-size: 24px;
+                font-weight: bold;
+            }
+
+            .itemInfoDesc {
+                font-size: 18px;
+            }
+        }
+
+        .itemDetail {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: gray;
+
+            .icon {
+                font-size: 25px;
+                text-align: center;
+            }
+        }
+    }
+}

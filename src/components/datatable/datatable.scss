@@ -1,37 +1,42 @@
 .datatable {
     height: 600px;
     padding: 20px;
-    
-    .title {
-        width: 100%;
-        font-size: 24px;
-        color: gray;
-        margin-bottom: 10px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 4px 10px 1px rgba(192, 192, 192, 0.5);
+
+    .search {
+        width: fit-content;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-    
-        .link {
-            text-decoration: none;
-            color: green;
-            font-size: 16px;
-            font-weight: 400;
-            border: 1px solid green;
-            padding: 5px;
-            border-radius: 5px;
+        border: 0.5px solid gray;
+        border-radius: 10px;
+        padding: 5px;
+
+        input {
+            font-size: 14px;
+            border: none;
+            outline: none;
+            background: transparent;
+
+            &::placeholder {
+                font-size: 12px;
+            }
+        }
+
+        .icon {
+            font-size: 25px;
             cursor: pointer;
         }
     }
 
-    .dataGrid {
+    .datagrid {
         border: none;
-        outline: none;
     }
-  
+
     .cellWithImg {
         display: flex;
         align-items: center;
-    
+
         .cellImg {
             width: 32px;
             height: 32px;
@@ -40,30 +45,30 @@
             margin-right: 20px;
         }
     }
-  
+
     .cellWithStatus {
         padding: 5px;
         border-radius: 5px;
-    
+
         &.active {
             background-color: rgba(0, 128, 0, 0.1);
             color: green;
         }
         &.pending {
-            background-color: rgba(255, 217, 0, 0.1);
+            background-color: rgba(218, 165, 32, 0.1);
             color: goldenrod;
         }
         &.passive {
-            background-color: rgba(255, 0, 0, 0.1);
+            background-color: rgba(220, 20, 60, 0.1);
             color: crimson;
         }
     }
-  
+
     .cellAction {
         display: flex;
         align-items: center;
         gap: 15px;
-    
+
         .viewButton {
             padding: 2px 5px;
             border-radius: 5px;
@@ -71,7 +76,7 @@
             border: 1px dotted rgba(0, 0, 139, 0.5);
             cursor: pointer;
         }
-        
+
         .deleteButton {
             padding: 2px 5px;
             border-radius: 5px;
