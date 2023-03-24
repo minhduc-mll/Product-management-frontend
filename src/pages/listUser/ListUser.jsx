@@ -1,10 +1,10 @@
-import "./list.scss";
+import "./listUser.scss";
 import Datatable from "../../components/datatable/Datatable";
 import { Link } from "react-router-dom";
 
-const List = ({ target, rows, columns }) => {
+const ListUser = ({ target, rows, columns }) => {
     return (
-        <div className="list">
+        <div className="listUser">
             <div className="top">
                 <div className="title">Add new {target}</div>
                 <Link to={`/${target}s/new`} className="link">
@@ -12,10 +12,10 @@ const List = ({ target, rows, columns }) => {
                 </Link>
             </div>
             <div className="bottom">
-                <Datatable rows={rows} columns={columns} />
+                <Datatable target={target} rows={rows} columns={columns} />
             </div>
         </div>
     );
 };
 
-export default List;
+export default ListUser;

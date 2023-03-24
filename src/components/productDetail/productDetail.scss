@@ -1,0 +1,37 @@
+.productDetail {
+    border-radius: 10px;
+    padding: 20px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 4px 10px 1px rgba(192, 192, 192, 0.5);
+
+    .productImage {
+        text-align: center;
+        margin: 10px 20px;
+
+        .image {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+        }
+    }
+
+    .productItems {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .items {
+            text-align: center;
+
+            .itemDetail {
+                font-size: 14px;
+            }
+        }
+    }
+}

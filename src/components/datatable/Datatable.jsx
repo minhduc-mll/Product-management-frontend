@@ -4,7 +4,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-const Datatable = ({ rows, columns }) => {
+const Datatable = ({ target, rows, columns }) => {
     const [data, setData] = useState(rows);
 
     const handleDelete = (id) => {
@@ -19,7 +19,7 @@ const Datatable = ({ rows, columns }) => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
-                        <Link to="/users/1" style={{ textDecoration: "none" }}>
+                        <Link to={`/${target}s/${params.row.id}`} className="link">
                             <div className="viewButton">View</div>
                         </Link>
 
@@ -43,10 +43,11 @@ const Datatable = ({ rows, columns }) => {
             </div>
             <DataGrid
                 className="datagrid"
-                rows={rows}
+                rows={data}
                 columns={columns.concat(actionColumn)}
-                pageSize={9}
-                rowsPerPageOptions={[9]}
+                disableSelectionOnClick
+                pageSize={8}
+                rowsPerPageOptions={[8]}
                 checkboxSelection
             />
         </div>

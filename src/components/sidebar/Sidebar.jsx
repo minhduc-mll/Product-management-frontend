@@ -7,6 +7,7 @@ import ReportOutlinedIcon from "@mui/icons-material/ReportOutlined";
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
@@ -84,6 +85,13 @@ const Sidebar = () => {
                                 <span>Settings</span>
                             </li>
                         </Link>
+                        <li
+                            className="item"
+                            onClick={() => dispatch({ type: "TOGGLE" })}
+                        >
+                            <DarkModeOutlinedIcon className="icon" />
+                            <span>Switch Appearance</span>
+                        </li>
                         <Link to="/logout" className="link">
                             <li className="item">
                                 <ExitToAppIcon className="icon" />
@@ -91,16 +99,6 @@ const Sidebar = () => {
                             </li>
                         </Link>
                     </ul>
-                </div>
-                <div className="color">
-                    <div
-                        className="colorOption"
-                        onClick={() => dispatch({ type: "LIGHT" })}
-                    />
-                    <div
-                        className="colorOption"
-                        onClick={() => dispatch({ type: "DARK" })}
-                    />
                 </div>
             </div>
         </div>

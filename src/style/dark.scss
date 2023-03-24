@@ -1,19 +1,24 @@
 .app.dark {
     background-color: #111;
-    color: rgb(160, 160, 160);
+    color: white;
+
+    .title {
+        color: white;
+    }
 
     .navbar {
-        color: #bbb;
         background-color: #111;
     }
 
     .sidebar {
         background-color: rgb(20, 20, 20);
 
-        ul {
-            li {
-                &:hover {
-                    background-color: #333;
+        .menu {
+            .items {
+                .item {
+                    &:hover {
+                        background-color: #333;
+                    }
                 }
             }
         }
@@ -27,18 +32,24 @@
         background-color: #111;
 
         .tableCell {
-            color: gray;
+            color: white;
         }
     }
 
     .datatable {
+        .search {
+            input {
+                color: white;
+            }
+        }
+
         .datagrid {
-            color: gray;
+            color: white;
 
             .viewButton,
             .deleteButton {
-                color: gray;
-                border-color: gray;
+                color: white;
+                border-color: white;
             }
         }
     }

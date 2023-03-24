@@ -4,17 +4,17 @@ import Navbar from "./components/navbar/Navbar";
 import Sidebar from "./components/sidebar/Sidebar";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
-import List from "./pages/list/List";
+import ListProduct from "./pages/listProduct/ListProduct";
+import ListUser from "./pages/listUser/ListUser";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
 import Update from "./pages/update/Update";
 import ComingSoon from "./pages/comingSoon/ComingSoon";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { productInputs, userInputs, userRows, userColumns } from "./datasource";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
-import Form from "./components/form/Form";
-import Detail from "./components/detail/Detail";
+import { productInputs, userInputs, userRows, userColumns, productRows } from "./datasource";
+import ProductDetail from "./components/productDetail/ProductDetail";
 
 function App() {
     const { darkMode } = useContext(DarkModeContext);
@@ -33,19 +33,17 @@ function App() {
                             <Route path="login" element={<Login />} />
                             <Route path="comingsoon" element={<ComingSoon />} />
                             <Route
-                                path="form"
-                                element={<Form inputs={userInputs} />}
+                                path="settings"
+                                element={<ComingSoon />}
                             />
-                            <Route path="settings" element={<Detail />} />
 
                             <Route path="products">
                                 <Route
                                     index
                                     element={
-                                        <List
+                                        <ListProduct
                                             target="product"
-                                            rows={userRows}
-                                            columns={userColumns}
+                                            lists={productRows}
                                         />
                                     }
                                 />
@@ -62,13 +60,16 @@ function App() {
                                         />
                                     }
                                 />
-                                <Route path="update" element={<Update inputs={productInputs} />} />
+                                <Route
+                                    path="update"
+                                    element={<Update inputs={productInputs} />}
+                                />
                             </Route>
                             <Route path="customers">
                                 <Route
                                     index
                                     element={
-                                        <List
+                                        <ListUser
                                             target="customer"
                                             rows={userRows}
                                             columns={userColumns}
@@ -88,13 +89,16 @@ function App() {
                                         />
                                     }
                                 />
-                                <Route path="update" element={<Update inputs={userInputs} />} />
+                                <Route
+                                    path="update"
+                                    element={<Update inputs={userInputs} />}
+                                />
                             </Route>
                             <Route path="users">
                                 <Route
                                     index
                                     element={
-                                        <List
+                                        <ListUser
                                             target="user"
                                             rows={userRows}
                                             columns={userColumns}
@@ -111,7 +115,10 @@ function App() {
                                         <New title="user" inputs={userInputs} />
                                     }
                                 />
-                                <Route path="update" element={<Update inputs={userInputs} />} />
+                                <Route
+                                    path="update"
+                                    element={<Update inputs={userInputs} />}
+                                />
                             </Route>
                         </Route>
                     </Routes>

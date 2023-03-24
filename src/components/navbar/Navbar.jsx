@@ -27,32 +27,25 @@ const Navbar = () => {
                     </Link>
                 </div>
                 <div className="right">
-                    <div className="item">
-                        <LanguageOutlinedIcon className="icon" />
-                        English
+                    <div
+                        className="item"
+                        onClick={() => dispatch({ type: "DARK" })}
+                    >
+                        <DarkModeOutlinedIcon className="icon" />
                     </div>
-                    <div className="item">
-                        <DarkModeOutlinedIcon
-                            className="icon"
-                            onClick={() => dispatch({ type: "DARK" })}
-                        />
-                    </div>
-                    <div className="item">
-                        <LightModeOutlinedIcon
-                            className="icon"
-                            onClick={() => dispatch({ type: "LIGHT" })}
-                        />
-                    </div>
-                    <div className="item">
-                        <NotificationsNoneOutlinedIcon className="icon" />
-                        <div className="counter">1</div>
+                    <div
+                        className="item"
+                        onClick={() => dispatch({ type: "LIGHT" })}
+                    >
+                        <LightModeOutlinedIcon className="icon" />
                     </div>
                     <div className="item">
                         <ChatBubbleOutlineOutlinedIcon className="icon" />
-                        <div className="counter">2</div>
+                        <div className="counter">1</div>
                     </div>
                     <div className="item">
-                        <SettingsOutlinedIcon className="icon" />
+                        <NotificationsNoneOutlinedIcon className="icon" />
+                        <div className="counter">10</div>
                     </div>
                     <div className="item">
                         <img src={avata} alt="" className="avatar" />

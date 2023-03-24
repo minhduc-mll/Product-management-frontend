@@ -1,5 +1,5 @@
 import "./update.scss";
-import Detail from "../../components/detail/Detail";
+import UserDetail from "../../components/userDetail/UserDetail";
 import Form from "../../components/form/Form";
 
 const Update = ({ inputs }) => {
@@ -9,7 +9,7 @@ const Update = ({ inputs }) => {
                 <div className="title">Edit User</div>
             </div>
             <div className="bottom">
-                <Detail />
+                <UserDetail />
                 <Form inputs={inputs} />
             </div>
         </div>

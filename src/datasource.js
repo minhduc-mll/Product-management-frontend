@@ -47,7 +47,7 @@ const userRows = [
     {
         id: 1,
         username: "Snow",
-        img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+        img: "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
         status: "active",
         email: "1snow@gmail.com",
         age: 35,
@@ -166,6 +166,16 @@ const productRows = [
         amount: 920,
         method: "Online",
         status: "Approved",
+    },
+    {
+        id: 2342355,
+        product: "ASUS ROG Strix",
+        img: "https://m.media-amazon.com/images/I/81hH5vK-MCL._AC_UY327_FMwebp_QL65_.jpg",
+        customer: "Harold Carol",
+        date: "1 March",
+        amount: 2000,
+        method: "Online",
+        status: "Pending",
     },
     {
         id: 2342355,

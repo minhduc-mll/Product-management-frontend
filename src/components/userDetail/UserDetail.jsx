@@ -1,4 +1,4 @@
-import "./detail.scss";
+import "./userDetail.scss";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import PhoneIphoneOutlinedIcon from "@mui/icons-material/PhoneIphoneOutlined";
@@ -6,9 +6,9 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 import LocationSearchingOutlinedIcon from "@mui/icons-material/LocationSearchingOutlined";
 
-const Detail = () => {
+const UserDetail = () => {
     return (
-        <div className="detail">
+        <div className="userDetail">
             <div className="left">
                 <img
                     src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
@@ -52,4 +52,4 @@ const Detail = () => {
     );
 };
 
-export default Detail;
+export default UserDetail;

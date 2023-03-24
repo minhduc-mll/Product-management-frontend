@@ -7,6 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { productRows } from "../../datasource";
+import { Link } from "react-router-dom";
 
 const List = ({ title }) => {
     return (
@@ -41,10 +42,16 @@ const List = ({ title }) => {
                                     <div className="cellWrapper">
                                         <img
                                             src={row.img}
-                                            alt=""
+                                            alt="image"
                                             className="image"
                                         />
-                                        {row.product}
+                                        <Link
+                                            to={`/products/${row.id}`}
+                                            className="link"
+                                            key={row.id}
+                                        >
+                                            {row.product}
+                                        </Link>
                                     </div>
                                 </TableCell>
                                 <TableCell className="tableCell">

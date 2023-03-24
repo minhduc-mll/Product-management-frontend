@@ -8,33 +8,36 @@
         margin-bottom: 20px;
         font-size: 16px;
         font-weight: bold;
-        color: rgb(160, 160, 160);
     }
 
-    .cellWrapper {
-        display: flex;
-        align-items: center;
+    .tableContainer {
+        border: none;
+        
+        .cellWrapper {
+            display: flex;
+            align-items: center;
 
-        .image {
-            width: 32px;
-            height: 32px;
+            .image {
+                width: 32px;
+                height: 32px;
+                border-radius: 5px;
+                margin-right: 10px;
+                object-fit: cover;
+            }
+        }
+
+        .status {
+            padding: 5px;
             border-radius: 5px;
-            margin-right: 10px;
-            object-fit: cover;
-        }
-    }
 
-    .status {
-        padding: 5px;
-        border-radius: 5px;
-
-        &.Approved {
-            color: green;
-            background-color: rgba(0, 128, 0, 0.1);
-        }
-        &.Pending {
-            color: goldenrod;
-            background-color: rgba(218, 165, 32, 0.1);
+            &.Approved {
+                color: green;
+                background-color: rgba(0, 128, 0, 0.1);
+            }
+            &.Pending {
+                color: goldenrod;
+                background-color: rgba(218, 165, 32, 0.1);
+            }
         }
     }
 }

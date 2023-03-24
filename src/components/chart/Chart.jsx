@@ -23,8 +23,6 @@ const Chart = ({ title, aspect }) => {
             <div className="title">{title}</div>
             <ResponsiveContainer width="100%" aspect={aspect}>
                 <AreaChart
-                    width={730}
-                    height={250}
                     data={data}
                     margin={{ top: 10, right: 20, left: 20, bottom: 0 }}
                 >

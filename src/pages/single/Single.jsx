@@ -2,7 +2,7 @@ import "./single.scss";
 import Chart from "../../components/chart/Chart";
 import Table from "../../components/table/Table";
 import { Link } from "react-router-dom";
-import Detail from "../../components/detail/Detail";
+import UserDetail from "../../components/userDetail/UserDetail";
 
 const Single = ({ target }) => {
     return (
@@ -14,7 +14,7 @@ const Single = ({ target }) => {
                 </Link>
             </div>
             <div className="mid">
-                <Detail />
+                <UserDetail />
                 <Chart title="User Spending ( Last 6 Months )" aspect={3 / 1} />
             </div>
             <div className="bottom">
