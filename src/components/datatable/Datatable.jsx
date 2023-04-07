@@ -1,34 +1,38 @@
 import "./datatable.scss";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import { SearchOutlined } from "@mui/icons-material";
 import { DataGrid } from "@mui/x-data-grid";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Datatable = ({ target, rows, columns }) => {
-    const [data, setData] = useState(rows);
+    const navigate = useNavigate();
 
     const handleDelete = (id) => {
-        setData(data.filter((item) => item.id !== id));
+        return true;
     };
 
     const actionColumn = [
         {
             field: "action",
             headername: "Action",
-            width: 200,
+            width: 155,
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
-                        <Link to={`/${target}s/${params.row.id}`} className="link">
-                            <div className="viewButton">View</div>
-                        </Link>
+                        <button
+                            className="viewButton"
+                            onClick={() => {
+                                navigate(`/${target}s/${params.row._id}`);
+                            }}
+                        >
+                            View
+                        </button>
 
-                        <div
+                        <button
                             className="deleteButton"
                             onClick={() => handleDelete(params.row.id)}
                         >
                             Delete
-                        </div>
+                        </button>
                     </div>
                 );
             },
@@ -39,16 +43,15 @@ const Datatable = ({ target, rows, columns }) => {
         <div className="datatable">
             <div className="search">
                 <input type="text" placeholder="Search..." />
-                <SearchOutlinedIcon className="icon" />
+                <SearchOutlined className="icon" />
             </div>
             <DataGrid
                 className="datagrid"
-                rows={data}
+                rows={rows}
                 columns={columns.concat(actionColumn)}
                 disableSelectionOnClick
                 pageSize={8}
                 rowsPerPageOptions={[8]}
-                checkboxSelection
             />
         </div>
     );

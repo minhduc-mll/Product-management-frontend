@@ -5,7 +5,7 @@
     position: sticky;
     top: 0;
     z-index: 999;
-    
+
     .wrapper {
         width: 100%;
         padding: 20px;
@@ -18,7 +18,7 @@
             justify-content: center;
 
             .logo {
-                font-size: 36px;
+                font-size: 32px;
                 font-weight: bold;
                 color: #57f851;
                 cursor: pointer;
@@ -41,19 +41,12 @@
                 cursor: pointer;
 
                 .icon {
-                    font-size: 30px;
-                }
-
-                .avatar {
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    cursor: pointer;
+                    font-size: 26px;
                 }
 
                 .counter {
-                    width: 18px;
-                    height: 18px;
+                    width: 16px;
+                    height: 16px;
                     position: absolute;
                     top: -5px;
                     right: -5px;
@@ -63,8 +56,56 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    font-size: 11px;
+                    font-size: 10px;
                     font-weight: bold;
+                }
+            }
+
+            .user {
+                position: relative;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                .avatar {
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                }
+
+                .options {
+                    list-style: none;
+                    position: absolute;
+                    top: 50px;
+                    right: 0;
+                    padding: 10px;
+                    background-color: white;
+                    border-radius: 10px;
+                    z-index: 999;
+                    border: 1px solid lightgrey;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                    width: 200px;
+
+                    .userTitle {
+                        text-align: center;
+                        font-size: 18px;
+                        font-weight: bold;
+                    }
+
+                    .optionItem {
+                        padding: 5px;
+                        border-radius: 10px;
+                        display: flex;
+                        justify-content: space-between;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: #eee;
+                        }
+                    }
                 }
             }
         }

@@ -1,4 +1,4 @@
-.productDetail {
+.productCard {
     border-radius: 10px;
     padding: 20px;
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
@@ -6,11 +6,11 @@
 
     .productImage {
         text-align: center;
-        margin: 10px 20px;
+        margin: 5px 15px 10px;
 
         .image {
-            width: 150px;
-            height: 150px;
+            width: 100%;
+            height: 100%;
             border-radius: 10px;
         }
     }
@@ -22,16 +22,12 @@
         gap: 10px;
 
         .title {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
         }
 
-        .items {
-            text-align: center;
-
-            .itemDetail {
-                font-size: 14px;
-            }
+        .itemDetail {
+            font-size: 14px;
         }
     }
 }

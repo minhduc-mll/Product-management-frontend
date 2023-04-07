@@ -1,7 +1,11 @@
+html,
+body,
+#root {
+    height: 100%;
+}
+
 .app {
-    .container {
-        display: flex;
-    }
+    height: 100%;
 
     .link {
         text-decoration: none;
@@ -12,6 +16,25 @@
         font-size: 16px;
         font-weight: bold;
         color: black;
+    }
+
+    .status {
+        margin-top: 20px;
+        padding: 5px;
+        border-radius: 5px;
+
+        &.pending {
+            color: crimson;
+            background-color: rgba(220, 20, 60, 0.1);
+        }
+        &.sold {
+            color: goldenrod;
+            background-color: rgba(218, 165, 32, 0.1);
+        }
+        &.done {
+            color: green;
+            background-color: rgba(0, 128, 0, 0.1);
+        }
     }
 }
 

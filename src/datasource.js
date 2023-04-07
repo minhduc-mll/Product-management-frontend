@@ -1,47 +1,3 @@
-const userColumns = [
-    { field: "id", headerName: "ID", width: 70 },
-    {
-        field: "user",
-        headerName: "User",
-        width: 230,
-        renderCell: (params) => {
-            return (
-                <div className="cellWithImg">
-                    <img
-                        className="cellImg"
-                        src={params.row.img}
-                        alt="avatar"
-                    />
-                    {params.row.username}
-                </div>
-            );
-        },
-    },
-    {
-        field: "email",
-        headerName: "Email",
-        width: 230,
-    },
-
-    {
-        field: "age",
-        headerName: "Age",
-        width: 100,
-    },
-    {
-        field: "status",
-        headerName: "Status",
-        width: 160,
-        renderCell: (params) => {
-            return (
-                <div className={`cellWithStatus ${params.row.status}`}>
-                    {params.row.status}
-                </div>
-            );
-        },
-    },
-];
-
 //temporary data
 const userRows = [
     {
@@ -178,7 +134,7 @@ const productRows = [
         status: "Pending",
     },
     {
-        id: 2342355,
+        id: 2342356,
         product: "ASUS ROG Strix",
         img: "https://m.media-amazon.com/images/I/81hH5vK-MCL._AC_UY327_FMwebp_QL65_.jpg",
         customer: "Harold Carol",
@@ -266,4 +222,4 @@ const productInputs = [
     },
 ];
 
-export { userColumns, userRows, productRows, userInputs, productInputs };
+export { userRows, productRows, userInputs, productInputs };

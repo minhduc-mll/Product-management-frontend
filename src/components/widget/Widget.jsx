@@ -1,9 +1,11 @@
 import "./widget.scss";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+import {
+    KeyboardArrowUp,
+    PersonOutlined,
+    ShoppingCartOutlined,
+    MonetizationOnOutlined,
+    AccountBalanceWalletOutlined,
+} from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 const Widget = ({ type }) => {
@@ -21,7 +23,7 @@ const Widget = ({ type }) => {
                 to: "/users",
                 link: "See all users",
                 icon: (
-                    <PersonOutlinedIcon
+                    <PersonOutlined
                         className="icon"
                         style={{
                             color: "crimson",
@@ -38,7 +40,7 @@ const Widget = ({ type }) => {
                 to: "/products",
                 link: "View all products",
                 icon: (
-                    <ShoppingCartOutlinedIcon
+                    <ShoppingCartOutlined
                         className="icon"
                         style={{
                             color: "goldenrod",
@@ -55,7 +57,7 @@ const Widget = ({ type }) => {
                 to: "/comingsoon",
                 link: "View net earnings",
                 icon: (
-                    <MonetizationOnOutlinedIcon
+                    <MonetizationOnOutlined
                         className="icon"
                         style={{
                             color: "green",
@@ -72,7 +74,7 @@ const Widget = ({ type }) => {
                 to: "/comingsoon",
                 link: "See details",
                 icon: (
-                    <AccountBalanceWalletOutlinedIcon
+                    <AccountBalanceWalletOutlined
                         className="icon"
                         style={{
                             color: "purple",
@@ -99,7 +101,7 @@ const Widget = ({ type }) => {
             </div>
             <div className="right">
                 <div className="percentage positive">
-                    <KeyboardArrowUpIcon className="icon" /> {diff}%
+                    <KeyboardArrowUp className="icon" /> {diff}%
                 </div>
                 {data.icon}
             </div>

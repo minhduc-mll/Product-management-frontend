@@ -1,3 +1,119 @@
 .login {
-    background-color: aqua;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    padding: 0 24px;
+    color: #000;
+    animation: rotate 6s infinite alternate linear;
+
+    .login-card {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        margin: 0 20px;
+        padding: 30px;
+        border: 2px solid gray;
+        border-radius: 12.5px;
+        background: #fff;
+        text-align: center;
+
+        h1 {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        h2 {
+            color: rgba(0, 0, 0, 0.5);
+            font-size: 1rem;
+            font-weight: 500;
+            margin: 0 0 30px;
+        }
+
+        .login-form {
+            display: grid;
+            gap: 16px;
+
+            input,
+            button {
+                width: 100%;
+                height: 50px;
+            }
+
+            label {
+                color: gray;
+                font-family: inherit;
+                font-size: 18px;
+                text-align: left;
+                transition: all 0.375s;
+            }
+
+            input,
+            textarea {
+                border: 2px solid #ebebeb;
+                font-family: inherit;
+                font-size: 15px;
+                padding: 0 16px;
+                border-radius: 1.25rem;
+                transition: all 0.375s;
+
+                &:hover {
+                    border: 2px solid #0d9e64;
+                }
+            }
+
+            button {
+                cursor: pointer;
+                width: 100%;
+                padding: 0 16px;
+                border-radius: 1.25rem;
+                background: #1dbf73;
+                color: #f9f9f9;
+                border: 0;
+                font-family: inherit;
+                font-size: 1rem;
+                font-weight: 600;
+                text-align: center;
+                letter-spacing: 2px;
+                transition: all 0.375s;
+
+                &:hover {
+                    background: #0d9e64;
+                }
+            }
+
+            .link {
+                color: #1dbf73;
+                font-size: 0.9rem;
+                text-align: left;
+                margin-bottom: 6px;
+                transition: all 0.375s;
+
+                &:hover {
+                    color: #0d9e64;
+                }
+            }
+
+            .error {
+                color: red;
+                font-size: 12px;
+            }
+        }
+    }
+
+    @keyframes rotate {
+        100% {
+            background-position: 15% 50%;
+        }
+    }
+
+    @media (min-width: 500px) {
+        .login {
+            padding: 0;
+        }
+        .login-card {
+            margin: 0;
+            width: 400px;
+        }
+    }
 }

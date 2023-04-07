@@ -1,77 +1,48 @@
 .sidebar {
     flex: 1;
     height: calc(100vh - 50px);
-    background-color: rgb(251, 251, 255);
+    //background-color: rgb(251, 251, 255);
     border-radius: 10px;
     position: sticky;
     top: 50px;
 
     .wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
         padding: 20px;
 
-        .menu {
-            margin-bottom: 15px;
-
-            .title {
-                margin-bottom: 5px;
-                color: gray;
-            }
-
-            .items {
-                list-style: none;
-                margin: 0;
-                padding: 0;
-
-                .item {
-                    display: flex;
-                    align-items: center;
-                    padding: 5px;
-                    border-radius: 10px;
-                    cursor: pointer;
-
-                    &.active {
-                        background-color: #ddd;
-                    }
-
-                    &:hover {
-                        background-color: #ddd;
-                    }
-
-                    .icon {
-                        font-size: 25px;
-                    }
-
-                    span {
-                        font-size: 16px;
-                        font-weight: 600;
-                        margin-left: 10px;
-                    }
-                }
-            }
+        .title {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: gray;
         }
 
-        .color {
-            display: flex;
-            align-items: center;
-            margin: 10px;
-            justify-content: space-evenly;
-
-            .colorOption {
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
-                border: 1px solid gray;
-                margin: 5px;
+        .item {
+            .itemButton {
+                display: flex;
+                align-items: center;
+                padding: 5px 20px 5px 10px;
+                border-radius: 10px;
                 cursor: pointer;
 
-                &:nth-child(1) {
-                    background-color: #fff;
+                .icon {
+                    font-size: 25px;
                 }
-                &:nth-child(2) {
-                    background-color: #111;
+
+                span {
+                    font-size: 16px;
+                    margin-left: 10px;
                 }
-                &:nth-child(3) {
-                    background-color: #57f851;
+
+                &.active {
+                    font-weight: bold;
+                    padding: 5px 15px;
+                }
+
+                &:hover {
+                    background-color: #eee;
+                    padding: 5px 15px;
                 }
             }
         }

@@ -1,84 +1,60 @@
 import "./app.scss";
-import "./style/dark.scss";
-import Navbar from "./components/navbar/Navbar";
-import Sidebar from "./components/sidebar/Sidebar";
-import Home from "./pages/home/Home";
-import Login from "./pages/login/Login";
-import ListProduct from "./pages/listProduct/ListProduct";
-import ListUser from "./pages/listUser/ListUser";
-import Single from "./pages/single/Single";
-import New from "./pages/new/New";
-import Update from "./pages/update/Update";
-import ComingSoon from "./pages/comingSoon/ComingSoon";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useContext } from "react";
-import { DarkModeContext } from "./context/darkModeContext";
-import { productInputs, userInputs, userRows, userColumns, productRows } from "./datasource";
-import ProductDetail from "./components/productDetail/ProductDetail";
+import Login from "pages/login/Login";
+import Layout from "pages/layout/Layout";
+import Home from "pages/home/Home";
+import Products from "pages/products/Products";
+import Product from "pages/product/Product";
+import NewProduct from "pages/newProduct/NewProduct";
+import Customers from "pages/customers/Customers";
+import Users from "pages/users/Users";
+import Single from "pages/single/Single";
+import New from "pages/new/New";
+import Update from "pages/update/Update";
+import UpdateUser from "pages/updateUser/UpdateUser";
+import ComingSoon from "pages/comingSoon/ComingSoon";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { productInputs, userInputs } from "./datasource";
 
 function App() {
-    const { darkMode } = useContext(DarkModeContext);
+    const queryClient = new QueryClient();
+    console.log("App");
 
     return (
-        <div className={darkMode ? "app dark" : "app"}>
-            <BrowserRouter>
-                <Navbar />
-
-                <div className="container">
-                    <Sidebar />
-
+        <div className="app">
+            <QueryClientProvider client={queryClient}>
+                <BrowserRouter>
                     <Routes>
-                        <Route path="/">
-                            <Route index element={<Home />} />
-                            <Route path="login" element={<Login />} />
-                            <Route path="comingsoon" element={<ComingSoon />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/" element={<Layout />}>
                             <Route
-                                path="settings"
+                                index
+                                element={<Navigate to="dashboard" replace />}
+                            />
+                            <Route path="dashboard" element={<Home />} />
+                            <Route
+                                path="transactions"
                                 element={<ComingSoon />}
                             />
+                            <Route path="feedback" element={<ComingSoon />} />
+                            <Route path="analytics" element={<ComingSoon />} />
+                            <Route path="settings" element={<ComingSoon />} />
+                            <Route path="comingsoon" element={<ComingSoon />} />
 
                             <Route path="products">
-                                <Route
-                                    index
-                                    element={
-                                        <ListProduct
-                                            target="product"
-                                            lists={productRows}
-                                        />
-                                    }
-                                />
-                                <Route
-                                    path=":productId"
-                                    element={<Single target="product" />}
-                                />
-                                <Route
-                                    path="new"
-                                    element={
-                                        <New
-                                            title="product"
-                                            inputs={productInputs}
-                                        />
-                                    }
-                                />
+                                <Route index element={<Products />} />
+                                <Route path=":id" element={<Product />} />
+                                <Route path="new" element={<NewProduct />} />
                                 <Route
                                     path="update"
                                     element={<Update inputs={productInputs} />}
                                 />
                             </Route>
                             <Route path="customers">
+                                <Route index element={<Customers />} />
                                 <Route
-                                    index
-                                    element={
-                                        <ListUser
-                                            target="customer"
-                                            rows={userRows}
-                                            columns={userColumns}
-                                        />
-                                    }
-                                />
-                                <Route
-                                    path=":customerId"
-                                    element={<Single target="customer" />}
+                                    path=":id"
+                                    element={<Single text="Customer" />}
                                 />
                                 <Route
                                     path="new"
@@ -95,19 +71,10 @@ function App() {
                                 />
                             </Route>
                             <Route path="users">
+                                <Route index element={<Users />} />
                                 <Route
-                                    index
-                                    element={
-                                        <ListUser
-                                            target="user"
-                                            rows={userRows}
-                                            columns={userColumns}
-                                        />
-                                    }
-                                />
-                                <Route
-                                    path=":userId"
-                                    element={<Single target="user" />}
+                                    path=":id"
+                                    element={<Single text="User" />}
                                 />
                                 <Route
                                     path="new"
@@ -116,14 +83,14 @@ function App() {
                                     }
                                 />
                                 <Route
-                                    path="update"
-                                    element={<Update inputs={userInputs} />}
+                                    path="update/:id"
+                                    element={<UpdateUser text="User" />}
                                 />
                             </Route>
                         </Route>
                     </Routes>
-                </div>
-            </BrowserRouter>
+                </BrowserRouter>
+            </QueryClientProvider>
         </div>
     );
 }

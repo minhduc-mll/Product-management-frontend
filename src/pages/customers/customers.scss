@@ -1,0 +1,119 @@
+.customers {
+    flex: 5;
+    width: 100%;
+
+    .top {
+        padding: 20px;
+        margin: 20px;
+        -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
+        box-shadow: 2px 4px 10px 1px rgba(192, 192, 192, 0.5);
+
+        .menuTitle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+
+            .title {
+                font-size: 20px;
+            }
+
+            .addButton {
+                color: green;
+                font-size: 16px;
+                background-color: transparent;
+                border: 1px solid green;
+                padding: 5px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .left {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                input {
+                    width: 100px;
+                    padding: 5px;
+                    border: 1px solid gray;
+                    border-radius: 5px;
+                    background-color: transparent;
+                    outline: none;
+
+                    &::placeholder {
+                        color: gray;
+                    }
+                }
+
+                button {
+                    padding: 5px 10px;
+                    background-color: green;
+                    color: white;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+            }
+
+            .right {
+                position: relative;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                .sortBy {
+                    color: gray;
+                    font-weight: 300;
+                }
+
+                .sortType {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    font-weight: bold;
+                    cursor: pointer;
+
+                    .icon {
+                        font-size: 20px;
+                    }
+                }
+
+                .rightMenu {
+                    padding: 20px;
+                    background-color: white;
+                    border: 0.5px solid lightgrey;
+                    border-radius: 5px;
+                    position: absolute;
+                    top: 30px;
+                    right: 0;
+                    z-index: 9;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                    color: gray;
+
+                    span {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+
+    .bottom {
+        display: grid;
+        gap: 10px;
+        margin: 20px;
+
+        .item {
+            cursor: pointer;
+        }
+    }
+}
