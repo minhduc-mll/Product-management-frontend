@@ -6,7 +6,7 @@
         padding: 20px;
         margin: 20px;
         -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
-        box-shadow: 2px 4px 10px 1px rgba(192, 192, 192, 0.5);
+        box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
 
         .menuTitle {
             display: flex;
@@ -19,13 +19,19 @@
             }
 
             .addButton {
-                color: green;
                 font-size: 16px;
-                background-color: transparent;
-                border: 1px solid green;
+                font-weight: 400;
                 padding: 5px;
                 border-radius: 5px;
+                color: var(--primary-lime-green);
+                border: 1px solid var(--primary-lime-green);
+                background-color: transparent;
                 cursor: pointer;
+
+                &:hover {
+                    color: white;
+                    background-color: var(--primary-lime-green);
+                }
             }
         }
 
@@ -50,15 +56,23 @@
                     &::placeholder {
                         color: gray;
                     }
+
+                    &:hover {
+                        border-color: var(--primary-lime-green);
+                    }
                 }
 
                 button {
                     padding: 5px 10px;
-                    background-color: green;
+                    border-radius: 5px;
                     color: white;
                     border: none;
-                    border-radius: 5px;
+                    background-color: var(--primary-lime-green);
                     cursor: pointer;
+
+                    &:hover {
+                        background-color: var(--primary-sea-green);
+                    }
                 }
             }
 
@@ -83,6 +97,10 @@
                     .icon {
                         font-size: 20px;
                     }
+
+                    &:hover {
+                        color: var(--primary-lime-green);
+                    }
                 }
 
                 .rightMenu {
@@ -101,6 +119,11 @@
 
                     span {
                         cursor: pointer;
+
+                        &:hover {
+                            background-color: #ddd;
+                            color: black;
+                        }
                     }
                 }
             }
@@ -111,9 +134,5 @@
         display: grid;
         gap: 10px;
         margin: 20px;
-
-        .item {
-            cursor: pointer;
-        }
     }
 }

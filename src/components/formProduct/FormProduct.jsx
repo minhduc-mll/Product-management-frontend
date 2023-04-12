@@ -1,15 +1,16 @@
-import "./form.scss";
+import "./formProduct.scss";
 import { DriveFolderUploadOutlined } from "@mui/icons-material";
 import { useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { apiRequest } from "utils/apiAxios";
+import { apiRequest, cloudinaryUpload } from "utils/apiAxios";
 import { formReducer, initialProduct } from "utils/formReducer";
 import defaultImage from "assets/no-image.jpg";
 
-const Form = ({ target, inputs }) => {
+const FormProduct = ({ inputs }) => {
     const [formObject, dispatch] = useReducer(formReducer, initialProduct);
     const [files, setFiles] = useState([]);
+    const [uploading, setUploading] = useState(false);
 
     const navigate = useNavigate();
     const queryClient = useQueryClient();
@@ -26,38 +27,45 @@ const Form = ({ target, inputs }) => {
         e.preventDefault();
         const files = e.target.files;
         setFiles(files);
+        try {
+            setUploading(true);
+            const cover = await cloudinaryUpload(files[0]);
 
-        if (files) {
-            const image = files[0];
+            const images = await Promise.all(
+                [...files].map(async (file) => {
+                    const url = await cloudinaryUpload(file);
+                    return url;
+                })
+            );
+
             dispatch({
-                type: "ADD_AVATAR",
-                payload: { image },
+                type: "ADD_IMAGES",
+                payload: { cover, images },
             });
+            setUploading(false);
+        } catch (err) {
+            console.log(err.message);
         }
     };
 
     const { mutate } = useMutation({
         mutationFn: async (formObject) => {
-            const res = await apiRequest.post(`/${target}s`, formObject);
+            const res = await apiRequest.post("/products", formObject);
             console.log(res.data);
         },
         onSuccess: () => {
-            queryClient.invalidateQueries([`/${target}s`]);
-            navigate(`/${target}s`);
+            queryClient.invalidateQueries(["products"]);
+            navigate(`/products/${formObject.productId}`);
         },
     });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        for (const key in formObject) {
-            formData.append(key, formObject[key]);
-        }
-        mutate(formData);
+        mutate(formObject);
     };
 
     return (
-        <div className="form">
+        <div className="formProduct">
             <form action="" onSubmit={handleSubmit}>
                 <div className="left">
                     <label htmlFor="file">
@@ -79,7 +87,9 @@ const Form = ({ target, inputs }) => {
                         type="file"
                         id="file"
                         multiple
-                        onChange={(e) => handleUpload(e)}
+                        onChange={(e) => {
+                            handleUpload(e);
+                        }}
                     />
                 </div>
                 <div className="right">
@@ -97,7 +107,13 @@ const Form = ({ target, inputs }) => {
                         ))}
                     </div>
                     <div className="sendButton">
-                        <button type="submit">Send</button>
+                        {uploading ? (
+                            <div className="button">Uploading...</div>
+                        ) : (
+                            <button type="submit" className="button">
+                                Send
+                            </button>
+                        )}
                     </div>
                 </div>
             </form>
@@ -105,4 +121,4 @@ const Form = ({ target, inputs }) => {
     );
 };
 
-export default Form;
+export default FormProduct;

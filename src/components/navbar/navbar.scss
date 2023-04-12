@@ -48,11 +48,12 @@
                     width: 16px;
                     height: 16px;
                     position: absolute;
-                    top: -5px;
-                    right: -5px;
+                    top: 0;
+                    right: 0;
+                    transform: translate(50%, -50%);
+                    color: white;
                     background-color: red;
                     border-radius: 50%;
-                    color: white;
                     display: flex;
                     align-items: center;
                     justify-content: center;

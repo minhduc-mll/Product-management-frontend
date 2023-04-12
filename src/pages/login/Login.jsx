@@ -18,7 +18,7 @@ const Login = () => {
                 password,
             });
             localStorage.setItem("currentUser", JSON.stringify(res.data));
-            navigate("/");
+            navigate(`/dashboard`);
         } catch (err) {
             setError(err.response.data);
         }
@@ -29,7 +29,7 @@ const Login = () => {
             <div className="login-card">
                 <h1>Login</h1>
                 <h2>Enter your credentials</h2>
-                <form className="login-form" onSubmit={handleSubmit}>
+                <form className="login-form" onSubmit={(e) => handleSubmit(e)}>
                     <label htmlFor="">Username</label>
                     <input
                         name="username"

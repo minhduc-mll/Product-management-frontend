@@ -1,15 +1,33 @@
+:root {
+    --primary-light: #FFF;
+    --primary-dark: #111;
+    --primary-blue: #1677FF;
+    --primary-dark-blue: #5A54F9;
+    --primary-purple: #9E339F;
+    --primary-pink: #ED4192;
+    --primary-dark-red: #E0282E;
+    --primary-dark-orange: #F4801A;
+    --primary-gold: #F2BD27;
+    --primary-sea-green: #00B96B;
+    --primary-lime-green: #52C41A;
+}
+
 html,
 body,
-#root {
+#root,
+.app {
     height: 100%;
+    width: 100%;
 }
 
 .app {
-    height: 100%;
-
     .link {
         text-decoration: none;
         color: inherit;
+
+        &:hover {
+            color: var(--primary-lime-green);
+        }
     }
 
     .title {
@@ -38,17 +56,25 @@ body,
     }
 }
 
-html *::-webkit-scrollbar {
+::-webkit-scrollbar {
     border-radius: 0;
     width: 0;
 }
 
-html *::-webkit-scrollbar-thumb {
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
     border-radius: 4px;
     background-color: rgba(22, 24, 35, 0.1);
 }
 
-html *::-webkit-scrollbar-track {
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
     border-radius: 0;
     background-color: rgba(0, 0, 0, 0);
 }

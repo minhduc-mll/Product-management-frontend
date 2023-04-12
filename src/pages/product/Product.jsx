@@ -1,9 +1,10 @@
 import "./product.scss";
 import UserDetail from "components/userDetail/UserDetail";
 import { useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 import dateFormat from "dateformat";
+import defaultImage from "assets/no-image.jpg";
 
 const Product = () => {
     const navigate = useNavigate();
@@ -16,11 +17,10 @@ const Product = () => {
         data: product,
     } = useQuery({
         queryKey: [id],
-        queryFn: async () =>
-            await apiRequest.get(`/products/${id}`).then((res) => {
-                console.log(res.data);
-                return res.data;
-            }),
+        queryFn: async () => {
+            const res = await apiRequest.get(`/products/${id}`);
+            return res.data;
+        },
         enabled: !!id,
     });
 
@@ -32,11 +32,10 @@ const Product = () => {
         data: dataSeller,
     } = useQuery({
         queryKey: [seller],
-        queryFn: async () =>
-            await apiRequest.get(`/users/${seller}`).then((res) => {
-                console.log(res.data);
-                return res.data;
-            }),
+        queryFn: async () => {
+            const res = await apiRequest.get(`/users/${seller}`);
+            return res.data;
+        },
         enabled: !!seller,
     });
 
@@ -48,26 +47,54 @@ const Product = () => {
         data: dataCustomer,
     } = useQuery({
         queryKey: [customer],
-        queryFn: async () =>
-            await apiRequest.get(`/customers/${customer}`).then((res) => {
-                console.log(res.data);
-                return res.data;
-            }),
+        queryFn: async () => {
+            const res = await apiRequest.get(`/customers/${customer}`);
+            return res.data;
+        },
         enabled: !!customer,
     });
+
+    const queryClient = useQueryClient();
+
+    const { mutate } = useMutation({
+        mutationFn: async () => {
+            await apiRequest.delete(`/products/${id}`);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries(["products"]);
+            navigate(`/products`);
+        },
+    });
+
+    const handleDelete = async () => {
+        mutate();
+    };
 
     return (
         <div className="product">
             <div className="top">
                 <div className="title">Infomation</div>
-                <button
-                    className="editButton"
-                    onClick={() => {
-                        navigate(`/products/update/${id}`);
-                    }}
-                >
-                    Edit
-                </button>
+                <div className="buttons">
+                    <button
+                        className="addButton"
+                        onClick={() => {
+                            navigate(`/products/new`);
+                        }}
+                    >
+                        Add New
+                    </button>
+                    <button
+                        className="updateButton"
+                        onClick={() => {
+                            navigate(`/products/update/${id}`);
+                        }}
+                    >
+                        Update
+                    </button>
+                    <button className="deleteButton" onClick={handleDelete}>
+                        Delete
+                    </button>
+                </div>
             </div>
             <div className="bottom">
                 {isLoading || error ? (
@@ -77,9 +104,7 @@ const Product = () => {
                         <div className="productImage">
                             <img
                                 src={
-                                    product.cover
-                                        ? product.cover
-                                        : "https://res.cloudinary.com/dupx03lpv/image/upload/v1680785301/hgtp/no-image.jpg"
+                                    product.cover ? product.cover : defaultImage
                                 }
                                 alt=""
                                 className="image"

@@ -12,12 +12,11 @@ const UpdateUser = ({ text }) => {
     const { id } = useParams();
 
     const { isLoading, error, data, refetch } = useQuery({
-        queryKey: [`${lcText}`],
-        queryFn: () =>
-            apiRequest.get(`/${lcText}s/${id}`).then((res) => {
-                console.log(res.data);
-                return res.data;
-            }),
+        queryKey: [id],
+        queryFn: async () => {
+            const res = await apiRequest.get(`/${lcText}s/${id}`);
+            return res.data;
+        },
         enabled: !!id,
     });
 

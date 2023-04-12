@@ -12,6 +12,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { apiRequest, getCurrentUser } from "utils/apiAxios";
 import { useMode, useModeDispatch } from "utils/darkModeContext";
+import defaultAvatar from "assets/no-avatar.jpg";
 
 const Navbar = () => {
     const darkMode = useMode();
@@ -26,17 +27,17 @@ const Navbar = () => {
         try {
             dispatch({ type: "TOGGLE" });
         } catch (err) {
-            console.log(err);
+            console.log(err.message);
         }
     };
 
     const handleLogout = async () => {
         try {
-            await apiRequest.post("/auth/logout");
+            await apiRequest.post(`/auth/logout`);
             localStorage.removeItem("currentUser");
-            navigate("/login");
+            navigate(`/login`);
         } catch (err) {
-            console.log(err);
+            console.log(err.message);
         }
     };
 
@@ -82,10 +83,7 @@ const Navbar = () => {
                     {currentUser ? (
                         <div className="user" ref={menuRef}>
                             <img
-                                src={
-                                    currentUser?.img ||
-                                    "https://res.cloudinary.com/dupx03lpv/image/upload/v1680784810/hgtp/no-avata.jpg"
-                                }
+                                src={currentUser?.img || defaultAvatar}
                                 alt=""
                                 className="avatar"
                                 onClick={handleOpenMenu}

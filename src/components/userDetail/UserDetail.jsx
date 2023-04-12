@@ -7,17 +7,14 @@ import {
     PlaceOutlined,
 } from "@mui/icons-material";
 import dateFormat from "dateformat";
+import defaultAvatar from "assets/no-avatar.jpg";
 
 const UserDetail = ({ user }) => {
     return (
         <div className="userDetail">
             <div className="userImage">
                 <img
-                    src={
-                        user?.image
-                            ? user.image
-                            : "https://res.cloudinary.com/dupx03lpv/image/upload/v1680784810/hgtp/no-avata.jpg"
-                    }
+                    src={user?.image ? user.image : defaultAvatar}
                     alt="avata"
                     className="image"
                 />
@@ -31,7 +28,11 @@ const UserDetail = ({ user }) => {
                     ) : (
                         ""
                     )}
-                    {user?.role ? <span className="desc">{user.role}</span> : ""}
+                    {user?.role ? (
+                        <span className="desc">{user.role}</span>
+                    ) : (
+                        ""
+                    )}
                 </div>
                 {user?.username ? (
                     <div className="itemDetail">

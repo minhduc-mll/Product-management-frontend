@@ -1,58 +1,89 @@
 .customerCard {
-    display: flex;
-    border-radius: 36px;
-    padding: 10px 20px;
-    gap: 10px;
+    position: relative;
+    border-radius: 100px;
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
-    box-shadow: 2px 4px 10px 1px rgba(192, 192, 192, 0.5);
+    box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
+    cursor: pointer;
 
-    .customerImage {
-        display: flex;
+    &:hover {
+        -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
+        box-shadow: 2px 4px 10px 1px var(--primary-lime-green);
 
-        .image {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            object-fit: cover;
+        .deleteCard {
+            display: flex;
         }
     }
 
-    .customerItems {
+    .deleteCard {
+        display: none;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translate(-50%, -50%);
+
+        .icon {
+            font-size: 25px;
+            cursor: pointer;
+
+            &:hover {
+                color: var(--primary-lime-green);
+            }
+        }
+    }
+
+    .wrapper {
         display: flex;
-        align-items: center;
+        padding: 10px 20px;
         gap: 10px;
 
-        .itemTitle {
-            .title {
-                font-size: 18px;
-                font-weight: bold;
-            }
+        .customerImage {
+            display: flex;
 
-            .desc {
-                display: flex;
-                align-items: center;
-                margin-top: 5px;
-                font-size: 14px;
-                font-weight: 400px;
+            .image {
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                object-fit: cover;
             }
         }
 
-        .items {
+        .customerItems {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 20px;
+            align-items: center;
+            gap: 10px;
 
-            .itemDetail {
+            .itemTitle {
+                .title {
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+
+                .desc {
+                    display: flex;
+                    align-items: center;
+                    margin-top: 5px;
+                    font-size: 14px;
+                    font-weight: 400px;
+                }
+            }
+
+            .items {
                 display: flex;
-                align-items: center;
-                gap: 10px;
-                font-size: 14px;
-                color: gray;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                gap: 20px;
 
-                .icon {
-                    font-size: 25px;
-                    text-align: center;
+                .itemDetail {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    font-size: 14px;
+                    color: gray;
+
+                    .icon {
+                        font-size: 25px;
+                        text-align: center;
+                    }
                 }
             }
         }

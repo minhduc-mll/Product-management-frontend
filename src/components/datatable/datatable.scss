@@ -1,38 +1,35 @@
 .datatable {
-    height: 600px;
-    padding: 20px;
+    height: 75vh;
+    padding: 20px 20px 0 20px;
     display: flex;
     flex-direction: column;
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
-    box-shadow: 2px 4px 10px 1px rgba(192, 192, 192, 0.5);
-
-    .search {
-        width: fit-content;
-        display: flex;
-        align-items: center;
-        border: 0.5px solid gray;
-        border-radius: 100px;
-        padding: 5px;
-
-        input {
-            font-size: 14px;
-            border: none;
-            outline: none;
-            background: transparent;
-
-            &::placeholder {
-                font-size: 12px;
-            }
-        }
-
-        .icon {
-            font-size: 25px;
-            cursor: pointer;
-        }
-    }
+    box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
 
     .datagrid {
         border: none;
+        font-size: 14px;
+        font-weight: 400;
+
+        .MuiDataGrid-root {
+            border: none;
+        }
+        .MuiDataGrid-cell {
+            border-bottom: none;
+        }
+        .MuiDataGrid-withBorderColor {
+            border: none;
+            border-color: dimgrey;
+        }
+        .MuiDataGrid-sortIcon {
+            color: black;
+        }
+        .MuiDataGrid-menuIconButton {
+            color: black;
+        }
+        .MuiDataGrid-toolbarContainer .MuiButton-text {
+            color: grey;
+        }
 
         .cellRole {
             padding: 5px;
@@ -66,6 +63,11 @@
                 color: darkblue;
                 border: 1px dotted rgba(0, 0, 139, 0.5);
                 cursor: pointer;
+
+                &:hover {
+                    color: white;
+                    background-color: darkblue;
+                }
             }
 
             .deleteButton {
@@ -77,6 +79,11 @@
                 color: crimson;
                 border: 1px dotted rgba(220, 20, 60, 0.5);
                 cursor: pointer;
+
+                &:hover {
+                    color: white;
+                    background-color: crimson;
+                }
             }
         }
     }

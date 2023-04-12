@@ -9,21 +9,33 @@
         align-items: center;
         justify-content: space-between;
         -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
-        box-shadow: 2px 4px 10px 1px rgba(192, 192, 192, 0.5);
+        box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
 
         .title {
             font-size: 20px;
         }
 
-        .editButton {
-            color: green;
-            background-color: transparent;
-            font-size: 16px;
-            font-weight: 400;
-            border: 1px solid green;
-            padding: 5px;
-            border-radius: 5px;
-            cursor: pointer;
+        .buttons {
+            display: flex;
+            gap: 10px;
+
+            .addButton,
+            .updateButton,
+            .deleteButton {
+                font-size: 16px;
+                font-weight: 400;
+                padding: 5px;
+                border-radius: 5px;
+                color: var(--primary-lime-green);
+                border: 1px solid var(--primary-lime-green);
+                background-color: transparent;
+                cursor: pointer;
+
+                &:hover {
+                    color: white;
+                    background-color: var(--primary-lime-green);
+                }
+            }
         }
     }
 
@@ -33,7 +45,7 @@
         padding: 20px;
         margin: 20px;
         -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
-        box-shadow: 2px 4px 10px 1px rgba(192, 192, 192, 0.5);
+        box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
 
         .productDetail {
             display: flex;
@@ -72,6 +84,9 @@
 
             .productInfo {
                 flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
             }
         }
     }

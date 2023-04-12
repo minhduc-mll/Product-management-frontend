@@ -4,6 +4,13 @@
     place-items: center;
     padding: 0 24px;
     color: #000;
+    background: linear-gradient(
+            rgba(255, 255, 255, 0.5),
+            rgba(255, 255, 255, 0.5)
+        ),
+        url("https://cdn1.epicgames.com/ue/product/Screenshot/HighresScreenshot00006-1920x1080-4492761cda27fc89c9cc1e4979551e95.jpg?resize=1&w=1920");
+    background-size: cover;
+    // background-image: "../assets/background.svg";
     animation: rotate 6s infinite alternate linear;
 
     .login-card {
@@ -63,7 +70,6 @@
             }
 
             button {
-                cursor: pointer;
                 width: 100%;
                 padding: 0 16px;
                 border-radius: 1.25rem;
@@ -76,6 +82,7 @@
                 text-align: center;
                 letter-spacing: 2px;
                 transition: all 0.375s;
+                cursor: pointer;
 
                 &:hover {
                     background: #0d9e64;

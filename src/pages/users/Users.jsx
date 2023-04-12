@@ -3,12 +3,13 @@ import Datatable from "components/datatable/Datatable";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
+import dateFormat from "dateformat";
 
 const userColumns = [
     {
         field: "username",
         headerName: "User",
-        width: 160,
+        flex: 1,
         renderCell: (params) => {
             return <div className="cellUser">{params.row.username}</div>;
         },
@@ -16,27 +17,36 @@ const userColumns = [
     {
         field: "name",
         headerName: "Name",
-        width: 160,
+        flex: 1,
     },
     {
         field: "email",
         headerName: "Email",
-        width: 160,
+        flex: 1,
     },
     {
         field: "phone",
         headerName: "Phone",
-        width: 150,
+        flex: 1,
     },
     {
         field: "birthday",
         headerName: "Birthday",
-        width: 100,
+        flex: 1,
+        renderCell: (params) => {
+            return params.row.birthday ? (
+                <div className="cellUser">
+                    {dateFormat(params.row.birthday, "dd-mm-yyyy")}
+                </div>
+            ) : (
+                ""
+            );
+        },
     },
     {
         field: "role",
         headerName: "Role",
-        width: 100,
+        flex: 0.5,
         renderCell: (params) => {
             return (
                 <div className={`cellRole ${params.row.role}`}>
@@ -52,10 +62,10 @@ const Users = () => {
 
     const { isLoading, error, data } = useQuery({
         queryKey: ["users"],
-        queryFn: () =>
-            apiRequest.get(`/users`).then((res) => {
-                return res.data;
-            }),
+        queryFn: async () => {
+            const res = await apiRequest.get(`/users`);
+            return res.data;
+        },
     });
 
     return (

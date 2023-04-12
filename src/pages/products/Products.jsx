@@ -1,5 +1,5 @@
 import "./products.scss";
-import { KeyboardArrowDownOutlined } from "@mui/icons-material";
+import { KeyboardArrowDownOutlined, SearchOutlined } from "@mui/icons-material";
 import ProductDetail from "components/productCard/ProductCard";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,19 +7,19 @@ import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 
 const Products = () => {
-    const navigate = useNavigate();
-
     const [open, setOpen] = useState(false);
     const [sort, setSort] = useState("sales");
     const minRef = useRef();
     const maxRef = useRef();
 
+    const navigate = useNavigate();
+
     const { isLoading, error, data, refetch } = useQuery({
         queryKey: ["products"],
-        queryFn: () =>
-            apiRequest.get(`/products`).then((res) => {
-                return res.data;
-            }),
+        queryFn: async () => {
+            const res = await apiRequest.get(`/products`);
+            return res.data;
+        },
     });
 
     const reSort = (type) => {
@@ -46,6 +46,10 @@ const Products = () => {
                     </button>
                 </div>
                 <div className="menu">
+                    <div className="search">
+                        <input type="text" placeholder="Search..." />
+                        <SearchOutlined className="icon" />
+                    </div>
                     <div className="left">
                         <span>Price</span>
                         <input ref={minRef} type="number" placeholder="min" />
@@ -92,13 +96,7 @@ const Products = () => {
                     : error
                     ? "get products error"
                     : data.map((item) => (
-                          <div
-                              className="item"
-                              key={item.productId}
-                              onClick={() => {
-                                  navigate(`/products/${item.productId}`);
-                              }}
-                          >
+                          <div className="item" key={item.productId}>
                               <ProductDetail product={item} />
                           </div>
                       ))}

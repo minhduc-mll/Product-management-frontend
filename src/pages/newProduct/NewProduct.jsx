@@ -1,5 +1,5 @@
 import "./newProduct.scss";
-import Form from "components/form/Form";
+import FormProduct from "components/formProduct/FormProduct";
 
 const productInputs = [
     {
@@ -32,14 +32,14 @@ const productInputs = [
     },
     {
         id: 5,
-        name: "timeArrived",
+        name: "arrivalDate",
         label: "Arival date",
         type: "date",
         placeholder: "Arival date",
     },
     {
         id: 6,
-        name: "timeDelivery",
+        name: "deliveryDate",
         label: "Delivery date",
         type: "date",
         placeholder: "Delivery date",
@@ -60,14 +60,14 @@ const productInputs = [
     },
     {
         id: 9,
-        name: "customer",
+        name: "customerId",
         label: "Customer",
         type: "text",
         placeholder: "Customer",
     },
     {
         id: 10,
-        name: "seller",
+        name: "sellerId",
         label: "Seller",
         type: "text",
         placeholder: "Seller",
@@ -81,7 +81,7 @@ const NewProduct = () => {
                 <div className="title">Add New Product</div>
             </div>
             <div className="bottom">
-                <Form target="product" inputs={productInputs} />
+                <FormProduct target="product" inputs={productInputs} />
             </div>
         </div>
     );

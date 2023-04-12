@@ -14,14 +14,23 @@ const Single = ({ text }) => {
     const { id } = useParams();
 
     const { isLoading, error, data, refetch } = useQuery({
-        queryKey: [`${lcText}`],
-        queryFn: () =>
-            apiRequest.get(`/${lcText}s/${id}`).then((res) => {
-                console.log(res.data);
-                return res.data;
-            }),
+        queryKey: [id],
+        queryFn: async () => {
+            const res = await apiRequest.get(`/${lcText}s/${id}`);
+            console.log(res.data);
+            return res.data;
+        },
         enabled: !!id,
     });
+
+    const handleDelete = async () => {
+        try {
+            await apiRequest.delete(`/${lcText}s/${id}`);
+            navigate(`/${lcText}s`);
+        } catch (err) {
+            console.log(err.message);
+        }
+    };
 
     useEffect(() => {
         refetch();
@@ -31,14 +40,27 @@ const Single = ({ text }) => {
         <div className="single">
             <div className="top">
                 <div className="title">Infomation</div>
-                <button
-                    className="editButton"
-                    onClick={() => {
-                        navigate(`/${lcText}s/update/${id}`);
-                    }}
-                >
-                    Edit
-                </button>
+                <div className="buttons">
+                    <button
+                        className="addButton"
+                        onClick={() => {
+                            navigate(`/${lcText}s/new`);
+                        }}
+                    >
+                        Add New
+                    </button>
+                    <button
+                        className="updateButton"
+                        onClick={() => {
+                            navigate(`/${lcText}s/update/${id}`);
+                        }}
+                    >
+                        Update
+                    </button>
+                    <button className="deleteButton" onClick={handleDelete}>
+                        Delete
+                    </button>
+                </div>
             </div>
             <div className="mid">
                 {isLoading || error ? (

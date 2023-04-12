@@ -1,13 +1,29 @@
 import "./datatable.scss";
-import { SearchOutlined } from "@mui/icons-material";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiRequest } from "utils/apiAxios";
 
 const Datatable = ({ target, rows, columns }) => {
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
 
-    const handleDelete = (id) => {
-        return true;
+    const { mutate } = useMutation({
+        mutationFn: async (id) => {
+            await apiRequest.delete(`/${target}s/${id}`);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries([`${target}s`]);
+            navigate(`/${target}s`);
+        },
+    });
+
+    const handleDelete = async (id) => {
+        mutate(id);
+    };
+
+    const handleView = async (id) => {
+        navigate(`/${target}s/${id}`);
     };
 
     const actionColumn = [
@@ -20,16 +36,14 @@ const Datatable = ({ target, rows, columns }) => {
                     <div className="cellAction">
                         <button
                             className="viewButton"
-                            onClick={() => {
-                                navigate(`/${target}s/${params.row._id}`);
-                            }}
+                            onClick={() => handleView(params.row._id)}
                         >
                             View
                         </button>
 
                         <button
                             className="deleteButton"
-                            onClick={() => handleDelete(params.row.id)}
+                            onClick={() => handleDelete(params.row._id)}
                         >
                             Delete
                         </button>
@@ -41,17 +55,13 @@ const Datatable = ({ target, rows, columns }) => {
 
     return (
         <div className="datatable">
-            <div className="search">
-                <input type="text" placeholder="Search..." />
-                <SearchOutlined className="icon" />
-            </div>
             <DataGrid
                 className="datagrid"
                 rows={rows}
                 columns={columns.concat(actionColumn)}
-                disableSelectionOnClick
-                pageSize={8}
-                rowsPerPageOptions={[8]}
+                slots={{ toolbar: GridToolbar }}
+                autoPageSize
+                disableRowSelectionOnClick
             />
         </div>
     );

@@ -6,6 +6,10 @@
         color: white;
     }
 
+    input {
+        color: white;
+    }
+
     .navbar {
         background-color: #111;
 
@@ -27,12 +31,14 @@
     }
 
     .sidebar {
-        background-color: rgb(20, 20, 20);
+        background-color: #111;
 
-        .item {
-            .itemButton {
-                &:hover {
-                    background-color: #333;
+        .wrapper {
+            .item {
+                .itemButton {
+                    &:hover {
+                        background-color: #333;
+                    }
                 }
             }
         }
@@ -51,19 +57,22 @@
     }
 
     .datatable {
-        .search {
-            input {
-                color: white;
-            }
-        }
-
         .datagrid {
             color: white;
 
-            .viewButton,
-            .deleteButton {
+            .MuiDataGrid-sortIcon {
                 color: white;
-                border-color: white;
+            }
+            .MuiDataGrid-menuIconButton {
+                color: white;
+            }
+
+            .cellAction {
+                .viewButton,
+                .deleteButton {
+                    color: white;
+                    border-color: white;
+                }
             }
         }
     }

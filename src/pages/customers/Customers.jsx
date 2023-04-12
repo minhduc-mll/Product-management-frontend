@@ -16,10 +16,10 @@ const Customers = () => {
 
     const { isLoading, error, data, refetch } = useQuery({
         queryKey: ["customers"],
-        queryFn: () =>
-            apiRequest.get(`/customers`).then((res) => {
-                return res.data;
-            }),
+        queryFn: async () => {
+            const res = await apiRequest.get(`/customers`);
+            return res.data;
+        },
     });
 
     const reSort = (type) => {
@@ -92,15 +92,9 @@ const Customers = () => {
                     : error
                     ? "get customers error"
                     : data.map((item) => (
-                          <Link
-                              to={`/customers/${item._id}`}
-                              className="link"
-                              key={item._id}
-                          >
-                              <div className="item">
-                                  <CustomerCard customer={item} />
-                              </div>
-                          </Link>
+                          <div className="item" key={item._id}>
+                              <CustomerCard customer={item} />
+                          </div>
                       ))}
             </div>
         </div>
