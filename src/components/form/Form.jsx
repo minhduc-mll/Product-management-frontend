@@ -13,7 +13,7 @@ const Form = ({ target, inputs }) => {
 
     const navigate = useNavigate();
     const queryClient = useQueryClient();
-
+    
     const handleChange = (e) => {
         e.preventDefault();
         dispatch({

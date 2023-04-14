@@ -1,15 +1,55 @@
 .chart {
     flex: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     padding: 10px;
     color: gray;
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
     box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
 
-    .title {
-        margin-bottom: 20px;
+    .top {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .icon {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .rightMenu {
+            padding: 20px;
+            background-color: white;
+            border: 0.5px solid lightgrey;
+            border-radius: 5px;
+            position: absolute;
+            top: 30px;
+            right: 0;
+            z-index: 9;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            color: gray;
+
+            span {
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #ddd;
+                    color: black;
+                }
+            }
+        }
     }
 
-    .chartGrid {
-        stroke: rgb(224, 224, 224, 0.5);
+    .bottom {
+        padding: 10px 20px 0px 0px;
+        font-size: 12px;
+
+        .chartGrid {
+            stroke: rgb(224, 224, 224, 0.5);
+        }
     }
 }
