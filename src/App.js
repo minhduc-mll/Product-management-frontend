@@ -15,6 +15,7 @@ import UpdateUser from "pages/updateUser/UpdateUser";
 import ComingSoon from "pages/comingSoon/ComingSoon";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { productInputs, userInputs } from "./datasource";
+import Analytics from "pages/analytics/Analytics";
 
 function App() {
     console.log("App");
@@ -32,7 +33,6 @@ function App() {
                         <Route path="dashboard" element={<Home />} />
                         <Route path="transactions" element={<ComingSoon />} />
                         <Route path="feedback" element={<ComingSoon />} />
-                        <Route path="analytics" element={<ComingSoon />} />
                         <Route path="settings" element={<ComingSoon />} />
                         <Route path="comingsoon" element={<ComingSoon />} />
 
@@ -69,6 +69,8 @@ function App() {
                                 element={<UpdateUser text="User" />}
                             />
                         </Route>
+
+                        <Route path="analytics" element={<Analytics />} />
                     </Route>
                 </Routes>
             </BrowserRouter>

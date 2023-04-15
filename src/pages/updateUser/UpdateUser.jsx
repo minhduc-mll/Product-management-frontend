@@ -12,7 +12,7 @@ const UpdateUser = ({ text }) => {
     const { id } = useParams();
 
     const { isLoading, error, data, refetch } = useQuery({
-        queryKey: [id],
+        queryKey: [`${lcText}s`, id],
         queryFn: async () => {
             const res = await apiRequest.get(`/${lcText}s/${id}`);
             return res.data;
@@ -74,8 +74,10 @@ const UpdateUser = ({ text }) => {
             <div className="top">
                 <div className="title">Edit {text}</div>
             </div>
-            {isLoading || error ? (
-                ""
+            {isLoading ? (
+                "Loading..."
+            ) : error ? (
+                error.message
             ) : (
                 <div className="bottom">
                     <UserDetail user={data} />

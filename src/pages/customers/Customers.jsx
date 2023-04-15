@@ -1,8 +1,8 @@
 import "./customers.scss";
-import { KeyboardArrowDownOutlined } from "@mui/icons-material";
+import { KeyboardArrowDownOutlined, SearchOutlined } from "@mui/icons-material";
 import CustomerCard from "components/customerCard/CustomerCard";
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 
@@ -10,13 +10,20 @@ const Customers = () => {
     const navigate = useNavigate();
 
     const [open, setOpen] = useState(false);
-    const [sort, setSort] = useState("sales");
-    const minRef = useRef();
-    const maxRef = useRef();
+    const [sort, setSort] = useState(null);
 
-    const { isLoading, error, data, refetch } = useQuery({
+    const {
+        isLoading,
+        error,
+        data: customersData,
+        refetch,
+    } = useQuery({
         queryKey: ["customers"],
         queryFn: async () => {
+            if (sort) {
+                const res = await apiRequest.get(`/customers?sort=${sort}`);
+                return res.data;
+            }
             const res = await apiRequest.get(`/customers`);
             return res.data;
         },
@@ -46,17 +53,9 @@ const Customers = () => {
                     </button>
                 </div>
                 <div className="menu">
-                    <div className="left">
-                        <span>Price</span>
-                        <input ref={minRef} type="number" placeholder="min" />
-                        <input ref={maxRef} type="number" placeholder="max" />
-                        <button
-                            onClick={() => {
-                                refetch();
-                            }}
-                        >
-                            Apply
-                        </button>
+                    <div className="search">
+                        <input type="text" placeholder="Search..." />
+                        <SearchOutlined className="icon" />
                     </div>
                     <div className="right">
                         <span className="sortBy">Sort by</span>
@@ -64,23 +63,20 @@ const Customers = () => {
                             className="sortType"
                             onClick={() => setOpen(!open)}
                         >
-                            {sort === "sales" ? "Best Selling" : "Newest"}
+                            {sort === "name" ? "Name" : "Newest"}
                             <KeyboardArrowDownOutlined className="icon" />
                         </span>
                         {open && (
                             <div className="rightMenu">
-                                {sort === "sales" ? (
+                                {sort === "name" ? (
                                     <span onClick={() => reSort("createdAt")}>
                                         Newest
                                     </span>
                                 ) : (
-                                    <span onClick={() => reSort("sales")}>
-                                        Best Selling
+                                    <span onClick={() => reSort("name")}>
+                                        Name
                                     </span>
                                 )}
-                                <span onClick={() => reSort("sales")}>
-                                    Popular
-                                </span>
                             </div>
                         )}
                     </div>
@@ -90,8 +86,8 @@ const Customers = () => {
                 {isLoading
                     ? "Loading..."
                     : error
-                    ? "get customers error"
-                    : data.map((item) => (
+                    ? error.message
+                    : customersData.map((item) => (
                           <div className="item" key={item._id}>
                               <CustomerCard customer={item} />
                           </div>

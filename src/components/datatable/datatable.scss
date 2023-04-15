@@ -15,11 +15,10 @@
             border: none;
         }
         .MuiDataGrid-cell {
-            border-bottom: none;
+            border: none;
         }
         .MuiDataGrid-withBorderColor {
             border: none;
-            border-color: dimgrey;
         }
         .MuiDataGrid-sortIcon {
             color: black;
@@ -29,6 +28,9 @@
         }
         .MuiDataGrid-toolbarContainer .MuiButton-text {
             color: grey;
+        }
+        .MuiDataGrid-footerContainer .MuiToolbar-root {
+            color: black;
         }
 
         .cellRole {

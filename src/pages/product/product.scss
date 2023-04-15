@@ -40,9 +40,9 @@
     }
 
     .bottom {
-        display: flex;
+        //display: flex;
         border-radius: 10px;
-        padding: 20px;
+        padding: 20px 40px;
         margin: 20px;
         -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
         box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
@@ -50,13 +50,12 @@
         .productDetail {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: space-between;
             gap: 20px;
 
             .productImage {
                 flex: 1;
                 text-align: center;
-                margin: 0px 20px;
 
                 .image {
                     width: 100%;

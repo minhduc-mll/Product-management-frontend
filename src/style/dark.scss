@@ -48,11 +48,14 @@
         stroke: rgba(224, 224, 224, 0.5);
     }
 
-    .tableContainer {
-        background-color: #111;
+    .regulartable {
+        color: white;
+        .tableContainer {
+            background-color: #111;
 
-        .tableCell {
-            color: white;
+            .tableCell {
+                color: white;
+            }
         }
     }
 
@@ -65,6 +68,21 @@
             }
             .MuiDataGrid-menuIconButton {
                 color: white;
+            }
+            .MuiDataGrid-toolbarContainer .MuiButton-text {
+                color: grey;
+            }
+            .MuiDataGrid-footerContainer .MuiToolbar-root {
+                color: white;
+            }
+            .MuiDataGrid-footerContainer .MuiToolbar-root .Mui-disabled {
+                color: #333;
+            }
+            .MuiDataGrid-panelWrapper {
+                background-color: #111;
+            }
+            .MuiDataGrid-menu {
+                background-color: #111;
             }
 
             .cellAction {

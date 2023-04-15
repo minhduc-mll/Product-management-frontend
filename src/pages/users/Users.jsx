@@ -82,8 +82,10 @@ const Users = () => {
                 </button>
             </div>
             <div className="bottom">
-                {isLoading || error ? (
-                    ""
+                {isLoading ? (
+                    "Loading..."
+                ) : error ? (
+                    error.message
                 ) : (
                     <Datatable
                         target="user"

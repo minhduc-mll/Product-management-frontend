@@ -16,7 +16,7 @@ const Product = () => {
         error,
         data: product,
     } = useQuery({
-        queryKey: [id],
+        queryKey: ["products", id],
         queryFn: async () => {
             const res = await apiRequest.get(`/products/${id}`);
             return res.data;
@@ -31,7 +31,7 @@ const Product = () => {
         error: errorSeller,
         data: dataSeller,
     } = useQuery({
-        queryKey: [seller],
+        queryKey: ["products", seller],
         queryFn: async () => {
             const res = await apiRequest.get(`/users/${seller}`);
             return res.data;
@@ -46,7 +46,7 @@ const Product = () => {
         error: errorCustomer,
         data: dataCustomer,
     } = useQuery({
-        queryKey: [customer],
+        queryKey: ["products", customer],
         queryFn: async () => {
             const res = await apiRequest.get(`/customers/${customer}`);
             return res.data;
@@ -97,8 +97,10 @@ const Product = () => {
                 </div>
             </div>
             <div className="bottom">
-                {isLoading || error ? (
-                    ""
+                {isLoading ? (
+                    "Loading..."
+                ) : error ? (
+                    error.message
                 ) : (
                     <div className="productDetail">
                         <div className="productImage">
@@ -171,13 +173,17 @@ const Product = () => {
                             )}
                         </div>
                         <div className="productInfo">
-                            {isLoadingSeller || errorSeller ? (
+                            {isLoadingSeller ? (
                                 ""
+                            ) : errorSeller ? (
+                                errorSeller.message
                             ) : (
                                 <UserDetail user={dataSeller} />
                             )}
-                            {isLoadingCustomer || errorCustomer ? (
+                            {isLoadingCustomer ? (
                                 ""
+                            ) : errorCustomer ? (
+                                errorCustomer.message
                             ) : (
                                 <UserDetail user={dataCustomer} />
                             )}

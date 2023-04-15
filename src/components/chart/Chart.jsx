@@ -1,6 +1,5 @@
 import "./chart.scss";
 import { MoreVert } from "@mui/icons-material";
-import { useState } from "react";
 import {
     AreaChart,
     Area,
@@ -10,25 +9,43 @@ import {
     YAxis,
     CartesianGrid,
     Tooltip,
+    Legend,
     ResponsiveContainer,
 } from "recharts";
+import { PureComponent, useState } from "react";
+import { i18n } from "dateformat";
 
-const data = [
-    { name: "January", Total: 2000, Revenue: 1000 },
-    { name: "February", Total: 1500, Revenue: 3000 },
-    { name: "March", Total: 3000, Revenue: 2000 },
-    { name: "April", Total: 500, Revenue: 1500 },
-    { name: "May", Total: 1500, Revenue: 1500 },
-    { name: "June", Total: 2000, Revenue: 500 },
+const color = [
+    "#8884d8",
+    "#82ca9d",
+    "#57f851",
+    "rgba(255, 206, 86, 0.2)",
+    "rgba(75, 192, 192, 0.2)",
+    "rgba(153, 102, 255, 0.2)",
+    "rgba(255, 159, 64, 0.2)",
 ];
 
-const Chart = ({ title, aspect }) => {
+class CustomizedAxisTick extends PureComponent {
+    render() {
+        const { x, y, payload } = this.props;
+
+        return (
+            <g transform={`translate(${x},${y})`}>
+                <text dx={-10} dy={16} fill="gray" transform="rotate(0)">
+                    {i18n.monthNames[payload.value - 1]}
+                </text>
+            </g>
+        );
+    }
+}
+
+const Chart = ({ title, aspect, data }) => {
     const [open, setOpen] = useState(false);
     const [chart, setChart] = useState("LineChart");
 
     return (
         <div className="chart">
-            <div className="top">
+            <div className="chartTop">
                 <h1 className="title">{title}</h1>
                 <MoreVert className="icon" onClick={() => setOpen(!open)} />
                 {open && (
@@ -45,37 +62,49 @@ const Chart = ({ title, aspect }) => {
                     </div>
                 )}
             </div>
-            <div className="bottom">
+            <div className="chartBottom">
                 <ResponsiveContainer width="100%" aspect={aspect}>
                     {chart === "LineChart" ? (
-                        <LineChart data={data}>
-                            <XAxis dataKey="name" stroke="gray" />
-                            <YAxis />
+                        <LineChart
+                            data={data}
+                            margin={{
+                                top: 10,
+                                right: 20,
+                                left: 0,
+                                bottom: 0,
+                            }}
+                        >
                             <CartesianGrid
                                 strokeDasharray="6 3"
                                 className="chartGrid"
                             />
-                            <Tooltip />
-                            <Line
-                                type="monotone"
-                                dataKey="Total"
-                                stroke="#8884d8"
-                                fillOpacity={1}
-                                fill="url(#total)"
+                            <XAxis
+                                dataKey="_id.month"
+                                stroke="gray"
+                                tick={<CustomizedAxisTick />}
                             />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
                             <Line
                                 type="monotone"
-                                dataKey="Revenue"
-                                stroke="#57f851"
-                                fillOpacity={1}
-                                fill="url(#revenue)"
+                                dataKey="count"
+                                stroke={color[0]}
                             />
                         </LineChart>
                     ) : (
-                        <AreaChart data={data}>
+                        <AreaChart
+                            data={data}
+                            margin={{
+                                top: 10,
+                                right: 20,
+                                left: 0,
+                                bottom: 0,
+                            }}
+                        >
                             <defs>
                                 <linearGradient
-                                    id="total"
+                                    id="count"
                                     x1="0"
                                     y1="0"
                                     x2="0"
@@ -83,54 +112,30 @@ const Chart = ({ title, aspect }) => {
                                 >
                                     <stop
                                         offset="5%"
-                                        stopColor="#8884d8"
-                                        stopOpacity={0.8}
+                                        stopColor={color[1]}
+                                        stopOpacity={0.6}
                                     />
                                     <stop
                                         offset="95%"
-                                        stopColor="#8884d8"
-                                        stopOpacity={0}
-                                    />
-                                </linearGradient>
-                                <linearGradient
-                                    id="revenue"
-                                    x1="0"
-                                    y1="0"
-                                    x2="0"
-                                    y2="1"
-                                >
-                                    <stop
-                                        offset="5%"
-                                        stopColor="#57f851"
-                                        stopOpacity={0.8}
-                                    />
-                                    <stop
-                                        offset="95%"
-                                        stopColor="#57f851"
+                                        stopColor={color[1]}
                                         stopOpacity={0}
                                     />
                                 </linearGradient>
                             </defs>
-                            <XAxis dataKey="name" stroke="gray" />
-                            <YAxis />
                             <CartesianGrid
                                 strokeDasharray="6 3"
                                 className="chartGrid"
                             />
+                            <XAxis dataKey="_id.month" stroke="gray" />
+                            <YAxis />
                             <Tooltip />
+                            <Legend />
                             <Area
                                 type="monotone"
-                                dataKey="Total"
-                                stroke="#8884d8"
+                                dataKey="count"
+                                stroke={color[1]}
                                 fillOpacity={1}
-                                fill="url(#total)"
-                            />
-                            <Area
-                                type="monotone"
-                                dataKey="Revenue"
-                                stroke="#57f851"
-                                fillOpacity={1}
-                                fill="url(#revenue)"
+                                fill="url(#count)"
                             />
                         </AreaChart>
                     )}

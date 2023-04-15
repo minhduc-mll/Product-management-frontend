@@ -40,39 +40,36 @@
             align-items: center;
             justify-content: space-between;
 
-            .left {
+            .search {
+                width: fit-content;
                 display: flex;
                 align-items: center;
-                gap: 10px;
+                border: 0.5px solid gray;
+                border-radius: 100px;
+                padding: 5px;
 
                 input {
-                    width: 100px;
-                    padding: 5px;
-                    border: 1px solid gray;
-                    border-radius: 5px;
-                    background-color: transparent;
+                    font-size: 14px;
+                    border: none;
                     outline: none;
+                    background: transparent;
 
                     &::placeholder {
-                        color: gray;
-                    }
-
-                    &:hover {
-                        border-color: var(--primary-lime-green);
+                        font-size: 12px;
                     }
                 }
 
-                button {
-                    padding: 5px 10px;
-                    border-radius: 5px;
-                    color: white;
-                    border: none;
-                    background-color: var(--primary-lime-green);
+                .icon {
+                    font-size: 25px;
                     cursor: pointer;
 
                     &:hover {
-                        background-color: var(--primary-sea-green);
+                        color: var(--primary-lime-green);
                     }
+                }
+
+                &:hover {
+                    border-color: var(--primary-lime-green);
                 }
             }
 

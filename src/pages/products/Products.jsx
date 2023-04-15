@@ -14,7 +14,12 @@ const Products = () => {
 
     const navigate = useNavigate();
 
-    const { isLoading, error, data, refetch } = useQuery({
+    const {
+        isLoading,
+        error,
+        data: productsData,
+        refetch,
+    } = useQuery({
         queryKey: ["products"],
         queryFn: async () => {
             const res = await apiRequest.get(`/products`);
@@ -94,8 +99,8 @@ const Products = () => {
                 {isLoading
                     ? "Loading..."
                     : error
-                    ? "get products error"
-                    : data.map((item) => (
+                    ? error.message
+                    : productsData.map((item) => (
                           <div className="item" key={item.productId}>
                               <ProductDetail product={item} />
                           </div>

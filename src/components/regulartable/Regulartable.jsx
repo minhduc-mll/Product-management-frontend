@@ -1,4 +1,4 @@
-import "./table.scss";
+import "./regulartable.scss";
 import {
     Table,
     TableBody,
@@ -8,64 +8,72 @@ import {
     TableRow,
     Paper,
 } from "@mui/material";
-import { productRows } from "../../datasource";
 import { Link } from "react-router-dom";
+import dateFormat from "dateformat";
 
-const List = ({ title }) => {
+const tableColumns = [
+    "",
+    "ProductId",
+    "Category",
+    "Price",
+    "Deposit",
+    "Arrival Date",
+    "Port",
+    "Status",
+];
+
+const Regulartable = ({ title, products }) => {
     return (
-        <div className="table">
+        <div className="regulartable">
             <div className="title">{title}</div>
             <TableContainer component={Paper} className="tableContainer">
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell className="tableCell">
-                                Tracking ID
-                            </TableCell>
-                            <TableCell className="tableCell">Product</TableCell>
-                            <TableCell className="tableCell">
-                                Customer
-                            </TableCell>
-                            <TableCell className="tableCell">Date</TableCell>
-                            <TableCell className="tableCell">Amount</TableCell>
-                            <TableCell className="tableCell">
-                                Payment Method
-                            </TableCell>
-                            <TableCell className="tableCell">Status</TableCell>
+                            {tableColumns.map((column) => (
+                                <TableCell className="tableCell" key={column}>
+                                    {column}
+                                </TableCell>
+                            ))}
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {productRows.map((row) => (
-                            <TableRow key={row.id}>
+                        {products?.map((row, id) => (
+                            <TableRow key={id}>
                                 <TableCell className="tableCell">
-                                    {row.id}
+                                    {id + 1}
                                 </TableCell>
                                 <TableCell className="tableCell">
                                     <div className="cellWrapper">
                                         <img
-                                            src={row.img}
+                                            src={row.image}
                                             alt=""
                                             className="image"
                                         />
                                         <Link
-                                            to={`/products/${row.id}`}
+                                            to={`/products/${row.productId}`}
                                             className="link"
                                         >
-                                            {row.product}
+                                            {row.productId}
                                         </Link>
                                     </div>
                                 </TableCell>
                                 <TableCell className="tableCell">
-                                    {row.customer}
+                                    {row.desc}
                                 </TableCell>
                                 <TableCell className="tableCell">
-                                    {row.date}
+                                    {row.price ? row.price : ""}
                                 </TableCell>
                                 <TableCell className="tableCell">
-                                    {row.amount}
+                                    {row.deposit
+                                        ? row.deposit + ".000.000"
+                                        : ""}
                                 </TableCell>
                                 <TableCell className="tableCell">
-                                    {row.method}
+                                    {dateFormat(row.arrivalDate, "dd-mm-yyyy")}
+                                </TableCell>
+                                <TableCell className="tableCell">
+                                    {row.port}
                                 </TableCell>
                                 <TableCell className="tableCell">
                                     <span className={`status ${row.status}`}>
@@ -81,4 +89,4 @@ const List = ({ title }) => {
     );
 };
 
-export default List;
+export default Regulartable;

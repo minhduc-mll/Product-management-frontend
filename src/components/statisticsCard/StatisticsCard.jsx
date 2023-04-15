@@ -1,24 +1,46 @@
 import "./statisticsCard.scss";
 import { KeyboardArrowUp } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { apiRequest } from "utils/apiAxios";
 
-const StatisticsCard = ({ data }) => {
+const StatisticsCard = ({ stat }) => {
+    const { isLoading, error, data } = useQuery({
+        queryKey: ["analys", stat?.query],
+        queryFn: async () => {
+            const res = await apiRequest.get(`/analys/${stat?.query}`);
+            return res.data;
+        },
+        enabled: !!stat?.query,
+    });
+
     return (
         <div className="statisticsCard">
             <div className="left">
-                <span className="title">{data?.title}</span>
-                <span className="counter">
-                    {data?.isMoney && "$"} {data?.amount}
-                </span>
-                <Link to={data?.to} className="link">
-                    {data?.link}
+                <span className="title">{stat?.title}</span>
+                {isLoading ? (
+                    "Loading..."
+                ) : error ? (
+                    error.message
+                ) : (
+                    <span className="counter">
+                        {data}
+                        {stat?.isMoney && "M"}
+                    </span>
+                )}
+                <Link to={stat?.to} className="link">
+                    {stat?.link}
                 </Link>
             </div>
             <div className="right">
-                <div className="percentage positive">
-                    <KeyboardArrowUp className="icon" /> {data?.diff}%
-                </div>
-                {data?.icon}
+                {stat?.diff ? (
+                    <div className="percentage positive">
+                        <KeyboardArrowUp className="icon" /> {stat?.diff}%
+                    </div>
+                ) : (
+                    <KeyboardArrowUp className="icon" />
+                )}
+                {stat?.icon}
             </div>
         </div>
     );

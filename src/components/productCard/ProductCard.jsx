@@ -10,7 +10,7 @@ const ProductCard = ({ product }) => {
     const navigate = useNavigate();
 
     const { isLoading, error, data } = useQuery({
-        queryKey: [product?.sellerId],
+        queryKey: ["products", product?.sellerId],
         queryFn: async () => {
             const res = await apiRequest.get(`/users/${product?.sellerId}`);
             return res.data;
@@ -53,8 +53,10 @@ const ProductCard = ({ product }) => {
                 </div>
                 <div className="productItems">
                     <h1 className="title">{product?.productId}</h1>
-                    {isLoading || error ? (
-                        ""
+                    {isLoading ? (
+                        "Loading..."
+                    ) : error ? (
+                        error.message
                     ) : data.name ? (
                         <p className="itemDetail">{data.name}</p>
                     ) : (

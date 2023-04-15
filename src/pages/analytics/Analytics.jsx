@@ -1,25 +1,25 @@
-import "./home.scss";
+import "./analytics.scss";
 import {
     PersonOutlined,
-    ShoppingCartOutlined,
-    MonetizationOnOutlined,
+    StoreOutlined,
     AccountBalanceWalletOutlined,
 } from "@mui/icons-material";
 
 import StatisticsCard from "components/statisticsCard/StatisticsCard";
 import Featured from "components/featured/Featured";
 import Chart from "components/chart/Chart";
-import Regulartable from "components/regulartable/Regulartable";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 
 const stats = [
     {
         id: 1,
+        query: "users",
         title: "USERS",
         isMoney: false,
+        amount: 100,
         to: "/users",
-        link: "See all users",
+        link: "View all users",
         icon: (
             <PersonOutlined
                 className="icon"
@@ -31,29 +31,15 @@ const stats = [
         ),
     },
     {
-        id: 2,
-        title: "PRODUCTS",
-        isMoney: false,
-        to: "/products",
-        link: "View all products",
-        icon: (
-            <ShoppingCartOutlined
-                className="icon"
-                style={{
-                    color: "goldenrod",
-                    backgroundColor: "rgba(218, 165, 32, 0.2)",
-                }}
-            />
-        ),
-    },
-    {
         id: 3,
-        title: "EARNINGS",
-        isMoney: true,
-        to: "/comingsoon",
-        link: "View net earnings",
+        query: "customers",
+        title: "CUSTOMERS",
+        isMoney: false,
+        amount: 100,
+        to: "/customers",
+        link: "View all customers",
         icon: (
-            <MonetizationOnOutlined
+            <PersonOutlined
                 className="icon"
                 style={{
                     color: "green",
@@ -63,9 +49,30 @@ const stats = [
         ),
     },
     {
+        id: 2,
+        query: "products",
+        title: "PRODUCTS",
+        isMoney: false,
+        amount: 100,
+        to: "/products",
+        link: "View all products",
+        icon: (
+            <StoreOutlined
+                className="icon"
+                style={{
+                    color: "goldenrod",
+                    backgroundColor: "rgba(218, 165, 32, 0.2)",
+                }}
+            />
+        ),
+    },
+    {
         id: 4,
-        title: "BALANCE",
+        query: "totalDeposit",
+        title: "TOTAL DEPOSIT",
         isMoney: true,
+        amount: 100,
+        diff: 20,
         to: "/comingsoon",
         link: "See details",
         icon: (
@@ -80,25 +87,13 @@ const stats = [
     },
 ];
 
-const Home = () => {
-    const {
-        isLoading: isLoadingProducts,
-        error: errorProducts,
-        data: dataProducts,
-    } = useQuery({
-        queryKey: ["products", "home"],
-        queryFn: async () => {
-            const res = await apiRequest.get(`/products?status=pending`);
-            return res.data;
-        },
-    });
-
+const Analytics = () => {
     const {
         isLoading: isLoadingChart,
         error: errorChart,
         data: dataChart,
     } = useQuery({
-        queryKey: ["analys", "chart", "home"],
+        queryKey: ["analys", "chart"],
         queryFn: async () => {
             const res = await apiRequest.get(`/analys/productsByMonth`);
             return res.data;
@@ -106,8 +101,8 @@ const Home = () => {
     });
 
     return (
-        <div className="home">
-            <div className="statistics">
+        <div className="analytics">
+            <div className="widgets">
                 {stats.map((stat) => (
                     <StatisticsCard stat={stat} key={stat.id} />
                 ))}
@@ -124,24 +119,9 @@ const Home = () => {
                     />
                 ) : (
                     <Chart
-                        title="Products count by month"
+                        title="Products Per Month"
                         aspect={2 / 1}
                         data={dataChart}
-                    />
-                )}
-            </div>
-            <div className="lists">
-                {isLoadingProducts ? (
-                    "Loading..."
-                ) : errorProducts ? (
-                    <Regulartable
-                        title={errorProducts.message}
-                        products={null}
-                    />
-                ) : (
-                    <Regulartable
-                        title="Unsold Product"
-                        products={dataProducts}
                     />
                 )}
             </div>
@@ -149,4 +129,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Analytics;
