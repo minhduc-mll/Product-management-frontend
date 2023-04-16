@@ -1,7 +1,7 @@
 import "./customers.scss";
 import { KeyboardArrowDownOutlined, SearchOutlined } from "@mui/icons-material";
 import CustomerCard from "components/customerCard/CustomerCard";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";

@@ -1,0 +1,45 @@
+.eventCard {
+    position: relative;
+    border-radius: 100px;
+    padding: 5px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #eee;
+
+        .deleteCard {
+            display: flex;
+        }
+    }
+
+    .deleteCard {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(-50%, 25%);
+
+        .icon {
+            font-size: 25px;
+            cursor: pointer;
+
+            &:hover {
+                color: var(--primary-lime-green);
+            }
+        }
+    }
+
+    .listItem {
+        padding: 5px 15px;
+
+        .listItemTitle {
+            font-size: 16px;
+        }
+
+        .listItemEvent {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+    }
+}

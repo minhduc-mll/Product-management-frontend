@@ -1,23 +1,23 @@
 .dark {
-    background-color: #111;
-    color: white;
+    background-color: var(--primary-dark);
+    color: var(--primary-light);
 
     .title {
-        color: white;
+        color: var(--primary-light);
     }
 
     input {
-        color: white;
+        color: var(--primary-light);
     }
 
     .navbar {
-        background-color: #111;
+        background-color: var(--primary-dark);
 
         .wrapper {
             .right {
                 .user {
                     .options {
-                        background-color: #111;
+                        background-color: var(--primary-dark);
 
                         .optionItem {
                             &:hover {
@@ -31,7 +31,7 @@
     }
 
     .sidebar {
-        background-color: #111;
+        background-color: var(--primary-dark);
 
         .wrapper {
             .item {
@@ -49,49 +49,75 @@
     }
 
     .regulartable {
-        color: white;
+        color: var(--primary-light);
         .tableContainer {
-            background-color: #111;
+            background-color: var(--primary-dark);
 
             .tableCell {
-                color: white;
+                color: var(--primary-light);
             }
         }
     }
 
     .datatable {
         .datagrid {
-            color: white;
+            color: var(--primary-light);
 
             .MuiDataGrid-sortIcon {
-                color: white;
+                color: var(--primary-light);
             }
             .MuiDataGrid-menuIconButton {
-                color: white;
+                color: var(--primary-light);
             }
             .MuiDataGrid-toolbarContainer .MuiButton-text {
                 color: grey;
             }
             .MuiDataGrid-footerContainer .MuiToolbar-root {
-                color: white;
+                color: var(--primary-light);
             }
             .MuiDataGrid-footerContainer .MuiToolbar-root .Mui-disabled {
                 color: #333;
             }
             .MuiDataGrid-panelWrapper {
-                background-color: #111;
+                background-color: var(--primary-dark);
             }
             .MuiDataGrid-menu {
-                background-color: #111;
+                background-color: var(--primary-dark);
             }
 
             .cellAction {
                 .viewButton,
                 .deleteButton {
-                    color: white;
-                    border-color: white;
+                    color: var(--primary-light);
+                    border-color: var(--primary-light);
                 }
             }
+        }
+    }
+
+    .eventCard {
+        &:hover {
+            background-color: #333;
+        }
+    }
+
+    .calendar {
+        --fc-list-event-hover-bg-color: #333;
+
+        --fc-border-color: #333;
+        --fc-button-text-color: var(--primary-light);
+        --fc-button-bg-color: var(--primary-dark);
+        --fc-button-border-color: var(--primary-lime-green);
+        --fc-button-hover-bg-color: var(--primary-lime-green);
+        --fc-button-hover-border-color: var(--primary-lime-green);
+        --fc-button-active-bg-color: var(--primary-lime-green);
+        --fc-button-active-border-color: var(--primary-lime-green);
+        --fc-event-bg-color: var(--primary-lime-green);
+        --fc-event-border-color: var(--primary-lime-green);
+        --fc-event-text-color: var(--primary-light);
+
+        .fc .fc-cell-shaded {
+            background-color: #222;
         }
     }
 }

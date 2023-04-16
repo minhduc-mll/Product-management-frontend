@@ -3,6 +3,7 @@ import {
     HomeOutlined,
     StoreOutlined,
     AttachMoneyOutlined,
+    CalendarMonthOutlined,
     PersonOutline,
     ReportOutlined,
     BarChartOutlined,
@@ -26,6 +27,10 @@ const navItems = [
     {
         text: "Transactions",
         icon: <AttachMoneyOutlined className="icon" />,
+    },
+    {
+        text: "Calendar",
+        icon: <CalendarMonthOutlined className="icon" />,
     },
     {
         text: "Customers",
