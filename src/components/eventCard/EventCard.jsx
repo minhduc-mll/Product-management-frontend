@@ -17,44 +17,41 @@ const EventCard = ({ event }) => {
             <div className="listItem">
                 <div className="listItemTitle">{event?.title}</div>
                 {event?.allDay ? (
-                    dateEnd && diffTime > 86400000 ? (
+                    event?.end && diffTime > 86400000 ? (
                         <div className="listItemEvent">
                             <div className="itemEventStart">
-                                {dateFormat(event?.start, "mmm dd, yyyy")}
+                                {dateFormat(dateStart, "mmm dd, yyyy")}
                             </div>
                             -
                             <div className="itemEventEnd">
-                                {dateFormat(
-                                    event?.end - 86400000,
-                                    "mmm dd, yyyy"
-                                )}
+                                {dateFormat(dateEnd - 86400000, "mmm dd, yyyy")}
                             </div>
                         </div>
                     ) : (
                         <div className="listItemEvent">
                             <div className="itemEventStart">
-                                {dateFormat(event?.start, "mmm dd, yyyy")}
+                                {dateFormat(dateStart, "mmm dd, yyyy")}
                             </div>
                         </div>
                     )
-                ) : dateEnd ? (
+                ) : event?.end ? (
                     diffTime > 86400000 ? (
                         <div className="listItemEvent">
                             <div className="itemEventStart">
                                 <div className="startHour">
-                                    {dateFormat(event?.start, "HH:MM:ss")}
+                                    {dateFormat(dateStart, "HH:MM:ss")}
                                 </div>
                                 <div className="startDate">
-                                    {dateFormat(event?.start, "mmm dd, yyyy")}
+                                    {dateFormat(dateStart, "mmm dd, yyyy")}
                                 </div>
                             </div>
                             -
                             <div className="itemEventEnd">
                                 <div className="startHour">
-                                    {dateFormat(event?.end, "HH:MM:ss")}
+                                    {dateFormat(dateEnd, "HH:MM:ss")}
                                 </div>
                                 <div className="startDate">
-                                    {dateFormat(event?.end, "mmm dd, yyyy")}
+                                    {dateFormat(dateEnd, "mmm dd, yyyy")}
                                 </div>
                             </div>
                         </div>
@@ -62,15 +59,15 @@ const EventCard = ({ event }) => {
                         <>
                             <div className="listItemEvent">
                                 <div className="itemEventStart">
-                                    {dateFormat(event?.start, "HH:MM:ss")}
+                                    {dateFormat(dateStart, "HH:MM:ss")}
                                 </div>
                                 -
                                 <div className="itemEventEnd">
-                                    {dateFormat(event?.end, "HH:MM:ss")}
+                                    {dateFormat(dateEnd, "HH:MM:ss")}
                                 </div>
                             </div>
                             <div className="listItemEvent">
-                                {dateFormat(event?.start, "mmm dd, yyyy")}
+                                {dateFormat(dateStart, "mmm dd, yyyy")}
                             </div>
                         </>
                     )
@@ -78,11 +75,11 @@ const EventCard = ({ event }) => {
                     <>
                         <div className="listItemEvent">
                             <div className="itemEventStart">
-                                {dateFormat(event?.start, "HH:MM:ss")}
+                                {dateFormat(dateStart, "HH:MM:ss")}
                             </div>
                         </div>
                         <div className="listItemEvent">
-                            {dateFormat(event?.start, "mmm dd, yyyy")}
+                            {dateFormat(dateStart, "mmm dd, yyyy")}
                         </div>
                     </>
                 )}

@@ -1,16 +1,15 @@
 import "./calendar.scss";
-import { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 import EventCard from "components/eventCard/EventCard";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 
 const Calendar = () => {
-    const [currentEvents, setCurrentEvents] = useState([]);
+    const queryClient = useQueryClient();
 
     const { isLoading, error, data } = useQuery({
         queryKey: ["events"],
@@ -20,46 +19,60 @@ const Calendar = () => {
         },
     });
 
-    const handleDateSelect = (selected) => {
-        handleAddEvent(selected);
-    };
+    const mutatePost = useMutation({
+        mutationFn: async ({ event }) => {
+            const res = await apiRequest.post(`/events`, event);
+            return res.data;
+        },
+        onSuccess: (data, { calendarSelected }) => {
+            queryClient.invalidateQueries([`/events`]);
+            calendarSelected.addEvent({
+                _id: data?._id,
+                title: data?.title,
+                allDay: data?.allDay,
+                start: data?.start,
+                end: data?.end,
+            });
+        },
+    });
+
+    const mutateDelete = useMutation({
+        mutationFn: async ({ id }) => {
+            await apiRequest.delete(`/events/${id}`);
+        },
+        onSuccess: (data, { eventSelected }) => {
+            queryClient.invalidateQueries(["events"]);
+            eventSelected.remove();
+        },
+    });
 
     const handleAddEvent = (selected) => {
         const title = prompt("Please enter a new title for your event");
-        const calendarApi = selected.view.calendar;
-        calendarApi.unselect();
+        const calendarSelected = selected.view.calendar;
+        calendarSelected.unselect();
 
         if (title) {
-            calendarApi.addEvent({
-                id: `${selected.start.getTime()}-${selected.end.getTime()}`,
+            const event = {
                 title: title,
+                allDay: selected.allDay,
                 start: selected.startStr,
                 end: selected.endStr,
-                allDay: selected.allDay,
-            });
+            };
+            mutatePost.mutate({ event, calendarSelected });
         }
-    };
-
-    const handleEventClick = (selected) => {
-        console.log(JSON.stringify(selected.event));
-        handleDeleteEvent(selected);
     };
 
     const handleDeleteEvent = (selected) => {
-        if (
-            window.confirm(
-                `Do you want to delete the event '${selected.event.title}'`
-            )
-        ) {
-            selected.event.remove();
+        const deleteConfirm = window.confirm(
+            `Do you want to delete the event '${selected.event.title}'`
+        );
+
+        if (deleteConfirm) {
+            const eventSelected = selected.event;
+            const id = selected.event.extendedProps._id;
+            mutateDelete.mutate({ id, eventSelected });
         }
     };
-
-    useEffect(() => {
-        if (data) {
-            setCurrentEvents(data);
-        }
-    }, [data, currentEvents]);
 
     return (
         <div className="calendar">
@@ -70,7 +83,7 @@ const Calendar = () => {
                 <div className="left">
                     <h1 className="title">Events</h1>
                     <div className="event">
-                        {currentEvents?.map((event) => (
+                        {data?.map((event) => (
                             <EventCard event={event} key={event._id} />
                         ))}
                     </div>
@@ -97,9 +110,8 @@ const Calendar = () => {
                             selectable={true}
                             selectMirror={true}
                             dayMaxEvents={true}
-                            select={handleDateSelect}
-                            eventClick={handleEventClick}
-                            eventsSet={(events) => setCurrentEvents(events)}
+                            select={handleAddEvent}
+                            eventClick={handleDeleteEvent}
                             initialEvents={data}
                         />
                     )}
