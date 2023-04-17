@@ -44,21 +44,6 @@
 
         .right {
             flex: 3;
-            padding: 10px 20px;
-            -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
-            box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
         }
     }
-
-    --fc-border-color: #ddd;
-    --fc-button-text-color: var(--primary-dark);
-    --fc-button-bg-color: var(--primary-light);
-    --fc-button-border-color: var(--primary-lime-green);
-    --fc-button-hover-bg-color: var(--primary-lime-green);
-    --fc-button-hover-border-color: var(--primary-lime-green);
-    --fc-button-active-bg-color: var(--primary-lime-green);
-    --fc-button-active-border-color: var(--primary-lime-green);
-    --fc-event-bg-color: var(--primary-lime-green);
-    --fc-event-border-color: var(--primary-lime-green);
-    --fc-event-text-color: var(--primary-light);
 }

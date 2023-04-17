@@ -7,7 +7,7 @@ import {
 } from "@mui/icons-material";
 
 import StatisticsCard from "components/statisticsCard/StatisticsCard";
-import Featured from "components/featured/Featured";
+import CalendarCard from "components/calendarCard/CalendarCard";
 import Chart from "components/chart/Chart";
 import Regulartable from "components/regulartable/Regulartable";
 import { useQuery } from "@tanstack/react-query";
@@ -105,6 +105,18 @@ const Home = () => {
         },
     });
 
+    const {
+        isLoading: isLoadingEvent,
+        error: errorEvent,
+        data: dataEvent,
+    } = useQuery({
+        queryKey: ["events"],
+        queryFn: async () => {
+            const res = await apiRequest.get(`/events`);
+            return res.data;
+        },
+    });
+
     return (
         <div className="home">
             <div className="statistics">
@@ -113,19 +125,38 @@ const Home = () => {
                 ))}
             </div>
             <div className="charts">
-                <Featured />
+                {isLoadingEvent ? (
+                    "Loading..."
+                ) : errorEvent ? (
+                    <CalendarCard
+                        title={errorEvent.message}
+                        center="title"
+                        initialView="listMonth"
+                        editable={false}
+                        initialEvents={null}
+                    />
+                ) : (
+                    <CalendarCard
+                        title="Calendar"
+                        height="auto"
+                        center="title"
+                        initialView="dayGridMonth"
+                        editable={false}
+                        initialEvents={dataEvent}
+                    />
+                )}
                 {isLoadingChart ? (
                     "Loading..."
                 ) : errorChart ? (
                     <Chart
                         title={errorChart.message}
-                        aspect={2 / 1}
+                        aspect={5 / 3}
                         data={null}
                     />
                 ) : (
                     <Chart
                         title="Products count by month"
-                        aspect={2 / 1}
+                        aspect={5 / 3}
                         data={dataChart}
                     />
                 )}

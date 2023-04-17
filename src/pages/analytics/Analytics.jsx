@@ -4,9 +4,8 @@ import {
     StoreOutlined,
     AccountBalanceWalletOutlined,
 } from "@mui/icons-material";
-
 import StatisticsCard from "components/statisticsCard/StatisticsCard";
-import Featured from "components/featured/Featured";
+import CalendarCard from "components/calendarCard/CalendarCard";
 import Chart from "components/chart/Chart";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
@@ -100,6 +99,18 @@ const Analytics = () => {
         },
     });
 
+    const {
+        isLoading: isLoadingEvent,
+        error: errorEvent,
+        data: dataEvent,
+    } = useQuery({
+        queryKey: ["events"],
+        queryFn: async () => {
+            const res = await apiRequest.get(`/events`);
+            return res.data;
+        },
+    });
+
     return (
         <div className="analytics">
             <div className="widgets">
@@ -108,19 +119,38 @@ const Analytics = () => {
                 ))}
             </div>
             <div className="charts">
-                <Featured />
+                {isLoadingEvent ? (
+                    "Loading..."
+                ) : errorEvent ? (
+                    <CalendarCard
+                        title={errorEvent.message}
+                        center="title"
+                        initialView="listMonth"
+                        editable={false}
+                        initialEvents={null}
+                    />
+                ) : (
+                    <CalendarCard
+                        title="Calendar"
+                        height="auto"
+                        center="title"
+                        initialView="dayGridMonth"
+                        editable={false}
+                        initialEvents={dataEvent}
+                    />
+                )}
                 {isLoadingChart ? (
                     "Loading..."
                 ) : errorChart ? (
                     <Chart
                         title={errorChart.message}
-                        aspect={2 / 1}
+                        aspect={5 / 3}
                         data={null}
                     />
                 ) : (
                     <Chart
                         title="Products Per Month"
-                        aspect={2 / 1}
+                        aspect={5 / 3}
                         data={dataChart}
                     />
                 )}

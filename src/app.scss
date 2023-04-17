@@ -1,16 +1,16 @@
 :root {
-    --primary-light: #FFF;
+    --primary-light: #fff;
     --primary-dark: #111;
-    
-    --primary-blue: #1677FF;
-    --primary-dark-blue: #5A54F9;
-    --primary-purple: #9E339F;
-    --primary-pink: #ED4192;
-    --primary-dark-red: #E0282E;
-    --primary-dark-orange: #F4801A;
-    --primary-gold: #F2BD27;
-    --primary-sea-green: #00B96B;
-    --primary-lime-green: #52C41A;
+
+    --primary-blue: #1677ff;
+    --primary-dark-blue: #5a54f9;
+    --primary-purple: #9e339f;
+    --primary-pink: #ed4192;
+    --primary-dark-red: #e0282e;
+    --primary-dark-orange: #f4801a;
+    --primary-gold: #f2bd27;
+    --primary-sea-green: #00b96b;
+    --primary-lime-green: #52c41a;
 }
 
 html,
@@ -53,6 +53,32 @@ body,
         &.done {
             color: green;
             background-color: rgba(0, 128, 0, 0.1);
+        }
+    }
+
+    .openMenu {
+        position: absolute;
+        top: 30px;
+        right: 0;
+        z-index: 9;
+        padding: 5px 10px;
+        background-color: white;
+        border: 1px solid lightgrey;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        color: gray;
+        width: 150px;
+
+        span {
+            text-align: center;
+            padding: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+
+            &:hover {
+                color: var(--primary-lime-green);
+            }
         }
     }
 }

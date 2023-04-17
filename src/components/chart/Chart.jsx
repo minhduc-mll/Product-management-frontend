@@ -49,7 +49,7 @@ const Chart = ({ title, aspect, data }) => {
                 <h1 className="title">{title}</h1>
                 <MoreVert className="icon" onClick={() => setOpen(!open)} />
                 {open && (
-                    <div className="rightMenu">
+                    <div className="openMenu">
                         {chart === "LineChart" ? (
                             <span onClick={() => setChart("AreaChart")}>
                                 AreaChart
@@ -68,7 +68,7 @@ const Chart = ({ title, aspect, data }) => {
                         <LineChart
                             data={data}
                             margin={{
-                                top: 10,
+                                top: 20,
                                 right: 20,
                                 left: 0,
                                 bottom: 0,
@@ -96,7 +96,7 @@ const Chart = ({ title, aspect, data }) => {
                         <AreaChart
                             data={data}
                             margin={{
-                                top: 10,
+                                top: 20,
                                 right: 20,
                                 left: 0,
                                 bottom: 0,

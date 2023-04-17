@@ -1,11 +1,6 @@
 .chart {
     flex: 4;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 10px;
     padding: 10px;
-    color: gray;
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
     box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
 
@@ -20,37 +15,21 @@
             cursor: pointer;
         }
 
-        .rightMenu {
-            padding: 20px;
-            background-color: white;
-            border: 0.5px solid lightgrey;
-            border-radius: 5px;
-            position: absolute;
-            top: 30px;
-            right: 0;
-            z-index: 9;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            color: gray;
+        .openMenu {
+            width: 150px;
 
             span {
-                cursor: pointer;
-
-                &:hover {
-                    background-color: #ddd;
-                    color: black;
-                }
+                font-size: 16px;
             }
         }
     }
 
     .chartBottom {
-        padding: 10px 20px 0px 0px;
+        padding: 20px 20px 0px 0px;
         font-size: 12px;
 
         .chartGrid {
-            stroke: rgb(224, 224, 224, 0.5);
+            stroke: rgb(160, 160, 160, 0.36);
         }
     }
 }

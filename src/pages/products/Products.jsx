@@ -77,7 +77,7 @@ const Products = () => {
                             <KeyboardArrowDownOutlined className="icon" />
                         </span>
                         {open && (
-                            <div className="rightMenu">
+                            <div className="openMenu">
                                 {sort === "sales" ? (
                                     <span onClick={() => reSort("createdAt")}>
                                         Newest

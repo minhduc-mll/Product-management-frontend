@@ -10,6 +10,10 @@
         color: var(--primary-light);
     }
 
+    .openMenu {
+        background-color: var(--primary-dark);
+    }
+
     .navbar {
         background-color: var(--primary-dark);
 
@@ -45,7 +49,7 @@
     }
 
     .chartGrid {
-        stroke: rgba(224, 224, 224, 0.5);
+        stroke: rgb(160, 160, 160, 0.36);
     }
 
     .regulartable {
@@ -101,7 +105,7 @@
         }
     }
 
-    .calendar {
+    .calendarCard {
         --fc-list-event-hover-bg-color: #333;
 
         --fc-border-color: #333;
@@ -116,7 +120,8 @@
         --fc-event-border-color: var(--primary-lime-green);
         --fc-event-text-color: var(--primary-light);
 
-        .fc .fc-cell-shaded {
+        .fc .fc-cell-shaded,
+        .fc-col-header {
             background-color: #222;
         }
     }

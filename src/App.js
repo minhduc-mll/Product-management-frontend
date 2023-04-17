@@ -7,16 +7,16 @@ import Product from "pages/product/Product";
 import NewProduct from "pages/newProduct/NewProduct";
 import Customers from "pages/customers/Customers";
 import NewCustomer from "pages/newCustomer/NewCustomer";
+import Calendar from "pages/calendar/Calendar";
 import Users from "pages/users/Users";
 import Single from "pages/single/Single";
 import NewUser from "pages/newUser/NewUser";
 import Update from "pages/update/Update";
 import UpdateUser from "pages/updateUser/UpdateUser";
+import Analytics from "pages/analytics/Analytics";
 import ComingSoon from "pages/comingSoon/ComingSoon";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { productInputs, userInputs } from "./datasource";
-import Analytics from "pages/analytics/Analytics";
-import Calendar from "pages/calendar/Calendar";
 
 function App() {
     console.log("App");

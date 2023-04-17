@@ -1,10 +1,6 @@
 import "./calendar.scss";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
-import listPlugin from "@fullcalendar/list";
 import EventCard from "components/eventCard/EventCard";
+import CalendarCard from "components/calendarCard/CalendarCard";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 
@@ -83,35 +79,26 @@ const Calendar = () => {
                 <div className="left">
                     <h1 className="title">Events</h1>
                     <div className="event">
-                        {data?.map((event) => (
-                            <EventCard event={event} key={event._id} />
-                        ))}
+                        {isLoading || error
+                            ? ""
+                            : data?.map((event) => (
+                                  <EventCard event={event} key={event._id} />
+                              ))}
                     </div>
                 </div>
                 <div className="right">
                     {isLoading || error ? (
                         ""
                     ) : (
-                        <FullCalendar
+                        <CalendarCard
                             height="75vh"
-                            plugins={[
-                                dayGridPlugin,
-                                timeGridPlugin,
-                                interactionPlugin,
-                                listPlugin,
-                            ]}
-                            headerToolbar={{
-                                left: "prev,next today",
-                                center: "title",
-                                right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
-                            }}
+                            left="prev,next today"
+                            center="title"
+                            right="dayGridMonth,timeGridWeek,timeGridDay,listMonth"
                             initialView="dayGridMonth"
                             editable={true}
-                            selectable={true}
-                            selectMirror={true}
-                            dayMaxEvents={true}
-                            select={handleAddEvent}
-                            eventClick={handleDeleteEvent}
+                            handleSelect={handleAddEvent}
+                            handleEventClick={handleDeleteEvent}
                             initialEvents={data}
                         />
                     )}

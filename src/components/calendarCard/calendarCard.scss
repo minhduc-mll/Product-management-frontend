@@ -1,0 +1,46 @@
+.calendarCard {
+    flex: 2;
+    padding: 10px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
+
+    .calendarTop {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .icon {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .openMenu {
+            width: 150px;
+
+            span {
+                font-size: 16px;
+            }
+        }
+    }
+
+    .calendarBottom {
+        padding: 0px 10px;
+    }
+
+    .calendarCenter {
+        padding: 10px 20px;
+    }
+
+    --fc-border-color: #ddd;
+    --fc-button-text-color: var(--primary-dark);
+    --fc-button-bg-color: var(--primary-light);
+    --fc-button-border-color: var(--primary-lime-green);
+    --fc-button-hover-bg-color: var(--primary-lime-green);
+    --fc-button-hover-border-color: var(--primary-lime-green);
+    --fc-button-active-bg-color: var(--primary-lime-green);
+    --fc-button-active-border-color: var(--primary-lime-green);
+    --fc-event-bg-color: var(--primary-lime-green);
+    --fc-event-border-color: var(--primary-lime-green);
+    --fc-event-text-color: var(--primary-light);
+}
