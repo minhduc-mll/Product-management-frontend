@@ -40,8 +40,8 @@ const Customers = () => {
 
     return (
         <div className="customers">
-            <div className="top">
-                <div className="menuTitle">
+            <div className="customersTop">
+                <div className="customersTitle">
                     <h1 className="title">All customers</h1>
                     <button
                         className="addButton"
@@ -52,12 +52,12 @@ const Customers = () => {
                         Add new
                     </button>
                 </div>
-                <div className="menu">
-                    <div className="search">
+                <div className="customersMenu">
+                    <div className="menuSearch">
                         <input type="text" placeholder="Search..." />
                         <SearchOutlined className="icon" />
                     </div>
-                    <div className="right">
+                    <div className="menuSort">
                         <span className="sortBy">Sort by</span>
                         <span
                             className="sortType"
@@ -82,7 +82,7 @@ const Customers = () => {
                     </div>
                 </div>
             </div>
-            <div className="bottom">
+            <div className="customersBottom">
                 {isLoading
                     ? "Loading..."
                     : error

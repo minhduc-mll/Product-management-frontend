@@ -6,7 +6,7 @@ const Update = ({ inputs }) => {
     return (
         <div className="update">
             <div className="top">
-                <div className="title">Edit User</div>
+                <h1 className="title">Edit User</h1>
             </div>
             <div className="bottom">
                 <UserDetail />

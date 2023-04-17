@@ -72,7 +72,7 @@ const UpdateUser = ({ text }) => {
     return (
         <div className="updateUser">
             <div className="top">
-                <div className="title">Edit {text}</div>
+                <h1 className="title">Edit {text}</h1>
             </div>
             {isLoading ? (
                 "Loading..."

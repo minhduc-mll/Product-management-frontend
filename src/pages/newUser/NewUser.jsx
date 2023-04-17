@@ -57,7 +57,7 @@ const NewUser = () => {
     return (
         <div className="newUser">
             <div className="top">
-                <div className="title">Add New User</div>
+                <h1 className="title">Add New User</h1>
             </div>
             <div className="bottom">
                 <Form target="user" inputs={userInputs} />

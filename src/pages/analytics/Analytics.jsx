@@ -100,60 +100,66 @@ const Analytics = () => {
     });
 
     const {
-        isLoading: isLoadingEvent,
-        error: errorEvent,
-        data: dataEvent,
+        isLoading: isLoadingProductEvent,
+        error: errorProductEvent,
+        data: dataProductEvent,
     } = useQuery({
-        queryKey: ["events"],
+        queryKey: ["analys", "events"],
         queryFn: async () => {
-            const res = await apiRequest.get(`/events`);
+            const res = await apiRequest.get(`/analys/productArrivalEvent`);
             return res.data;
         },
     });
 
     return (
         <div className="analytics">
-            <div className="widgets">
-                {stats.map((stat) => (
-                    <StatisticsCard stat={stat} key={stat.id} />
-                ))}
+            <div className="analyticsTop">
+                <div className="analyticsStats">
+                    {stats.map((stat) => (
+                        <StatisticsCard stat={stat} key={stat.id} />
+                    ))}
+                </div>
+                <div className="analyticsCalendar">
+                    {isLoadingProductEvent ? (
+                        "Loading..."
+                    ) : errorProductEvent ? (
+                        <CalendarCard
+                            title={errorProductEvent.message}
+                            center="title"
+                            initialView="listMonth"
+                            editable={false}
+                            initialEvents={null}
+                        />
+                    ) : (
+                        <CalendarCard
+                            title="Calendar"
+                            height="auto"
+                            center="title"
+                            initialView="dayGridMonth"
+                            editable={false}
+                            initialEvents={dataProductEvent}
+                        />
+                    )}
+                </div>
             </div>
-            <div className="charts">
-                {isLoadingEvent ? (
-                    "Loading..."
-                ) : errorEvent ? (
-                    <CalendarCard
-                        title={errorEvent.message}
-                        center="title"
-                        initialView="listMonth"
-                        editable={false}
-                        initialEvents={null}
-                    />
-                ) : (
-                    <CalendarCard
-                        title="Calendar"
-                        height="auto"
-                        center="title"
-                        initialView="dayGridMonth"
-                        editable={false}
-                        initialEvents={dataEvent}
-                    />
-                )}
-                {isLoadingChart ? (
-                    "Loading..."
-                ) : errorChart ? (
-                    <Chart
-                        title={errorChart.message}
-                        aspect={5 / 3}
-                        data={null}
-                    />
-                ) : (
-                    <Chart
-                        title="Products Per Month"
-                        aspect={5 / 3}
-                        data={dataChart}
-                    />
-                )}
+            <div className="analyticsBottom">
+                <div className="analyticsChart">
+                    {isLoadingChart ? (
+                        "Loading..."
+                    ) : errorChart ? (
+                        <Chart
+                            title={errorChart.message}
+                            aspect={3 / 1}
+                            data={null}
+                        />
+                    ) : (
+                        <Chart
+                            title="Products Per Month"
+                            aspect={3 / 1}
+                            data={dataChart}
+                        />
+                    )}
+                </div>
             </div>
         </div>
     );

@@ -19,33 +19,33 @@ const UserDetail = ({ user }) => {
                     className="image"
                 />
             </div>
-            <div className="userItem">
-                <div className="itemTitle">
+            <div className="userInfo">
+                <div className="userInfoTitle">
                     {user?.name ? (
-                        <h1 className="title">{user.name}</h1>
+                        <h1 className="infoTitle">{user.name}</h1>
                     ) : user?.username ? (
-                        <h1 className="title">{user.username}</h1>
+                        <h1 className="infoTitle">{user.username}</h1>
                     ) : (
                         ""
                     )}
                     {user?.role ? (
-                        <span className="desc">{user.role}</span>
+                        <span className="infoDesc">{user.role}</span>
                     ) : (
                         ""
                     )}
                 </div>
                 {user?.username ? (
-                    <div className="itemDetail">
+                    <div className="userInfoItem">
                         <PersonOutline className="icon" />
-                        <span className="itemValue">{user.username}</span>
+                        <span className="infoValue">{user.username}</span>
                     </div>
                 ) : (
                     ""
                 )}
                 {user?.birthday ? (
-                    <div className="itemDetail">
+                    <div className="userInfoItem">
                         <CalendarTodayOutlined className="icon" />
-                        <span className="itemValue">
+                        <span className="infoValue">
                             {dateFormat(user.birthday, "dd-mm-yyyy")}
                         </span>
                     </div>
@@ -53,30 +53,30 @@ const UserDetail = ({ user }) => {
                     ""
                 )}
                 {user?.phone ? (
-                    <div className="itemDetail">
+                    <div className="userInfoItem">
                         <PhoneIphoneOutlined className="icon" />
-                        <span className="itemValue">{user.phone}</span>
+                        <span className="infoValue">{user.phone}</span>
                     </div>
                 ) : (
                     ""
                 )}
                 {user?.email ? (
-                    <div className="itemDetail">
+                    <div className="userInfoItem">
                         <EmailOutlined className="icon" />
-                        <span className="itemValue">{user.email}</span>
+                        <span className="infoValue">{user.email}</span>
                     </div>
                 ) : (
                     ""
                 )}
                 {user?.adress ? (
-                    <div className="itemDetail">
+                    <div className="userInfoItem">
                         <PlaceOutlined className="icon" />
-                        <span className="itemValue">{user.adress}</span>
+                        <span className="infoValue">{user.adress}</span>
                     </div>
                 ) : (
-                    <div className="itemDetail">
+                    <div className="userInfoItem">
                         <PlaceOutlined className="icon" />
-                        <span className="itemValue">Vietnam</span>
+                        <span className="infoValue">Vietnam</span>
                     </div>
                 )}
             </div>

@@ -38,9 +38,9 @@ const Products = () => {
 
     return (
         <div className="products">
-            <div className="top">
-                <div className="menuTitle">
-                    <div className="title">All products</div>
+            <div className="productsTop">
+                <div className="productsTitle">
+                    <h1 className="title">All products</h1>
                     <button
                         className="addButton"
                         onClick={() => {
@@ -50,24 +50,34 @@ const Products = () => {
                         Add new
                     </button>
                 </div>
-                <div className="menu">
-                    <div className="search">
-                        <input type="text" placeholder="Search..." />
-                        <SearchOutlined className="icon" />
+                <div className="productsMenu">
+                    <div className="menuSearch">
+                        <div className="searchPrimary">
+                            <input type="text" placeholder="Search..." />
+                            <SearchOutlined className="icon" />
+                        </div>
+                        <div className="searchSecondary">
+                            <span>Price</span>
+                            <input
+                                ref={minRef}
+                                type="number"
+                                placeholder="min"
+                            />
+                            <input
+                                ref={maxRef}
+                                type="number"
+                                placeholder="max"
+                            />
+                            <button
+                                onClick={() => {
+                                    refetch();
+                                }}
+                            >
+                                Apply
+                            </button>
+                        </div>
                     </div>
-                    <div className="left">
-                        <span>Price</span>
-                        <input ref={minRef} type="number" placeholder="min" />
-                        <input ref={maxRef} type="number" placeholder="max" />
-                        <button
-                            onClick={() => {
-                                refetch();
-                            }}
-                        >
-                            Apply
-                        </button>
-                    </div>
-                    <div className="right">
+                    <div className="menuSort">
                         <span className="sortBy">Sort by</span>
                         <span
                             className="sortType"
@@ -95,7 +105,7 @@ const Products = () => {
                     </div>
                 </div>
             </div>
-            <div className="bottom">
+            <div className="productsBottom">
                 {isLoading
                     ? "Loading..."
                     : error

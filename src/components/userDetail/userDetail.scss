@@ -1,9 +1,9 @@
 .userDetail {
     flex: 2;
     display: flex;
+    gap: 20px;
     border-radius: 10px;
     padding: 20px;
-    gap: 20px;
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
     box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
 
@@ -16,23 +16,23 @@
         }
     }
 
-    .userItem {
+    .userInfo {
         display: flex;
         flex-direction: column;
         gap: 10px;
 
-        .itemTitle {
-            .title {
+        .userInfoTitle {
+            .infoTitle {
                 font-size: 24px;
                 font-weight: bold;
             }
 
-            .desc {
+            .infoDesc {
                 font-size: 18px;
             }
         }
 
-        .itemDetail {
+        .userInfoItem {
             display: flex;
             align-items: center;
             gap: 10px;

@@ -70,8 +70,8 @@ const Users = () => {
 
     return (
         <div className="users">
-            <div className="top">
-                <div className="title">All User</div>
+            <div className="usersTop">
+                <h1 className="title">All User</h1>
                 <button
                     onClick={() => {
                         navigate(`/users/new`);
@@ -81,7 +81,7 @@ const Users = () => {
                     Add new
                 </button>
             </div>
-            <div className="bottom">
+            <div className="usersBottom">
                 {isLoading ? (
                     "Loading..."
                 ) : error ? (

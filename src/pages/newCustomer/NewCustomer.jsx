@@ -57,7 +57,7 @@ const NewCustomer = () => {
     return (
         <div className="newCustomer">
             <div className="top">
-                <div className="title">Add New Customer</div>
+                <h1 className="title">Add New Customer</h1>
             </div>
             <div className="bottom">
                 <Form target="customer" inputs={customerInputs} />

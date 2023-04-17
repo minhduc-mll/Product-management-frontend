@@ -2,13 +2,13 @@
     flex: 5;
     width: 100%;
 
-    .top {
+    .productsTop {
         padding: 20px;
         margin: 20px;
         -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
         box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
 
-        .menuTitle {
+        .productsTitle {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -35,81 +35,89 @@
             }
         }
 
-        .menu {
+        .productsMenu {
             display: flex;
             align-items: center;
             justify-content: space-between;
 
-            .search {
-                width: fit-content;
+            .menuSearch {
                 display: flex;
-                align-items: center;
-                border: 0.5px solid gray;
-                border-radius: 100px;
-                padding: 5px;
-
-                input {
-                    font-size: 14px;
-                    border: none;
-                    outline: none;
-                    background: transparent;
-
-                    &::placeholder {
-                        font-size: 12px;
-                    }
-                }
-
-                .icon {
-                    font-size: 25px;
-                    cursor: pointer;
-
-                    &:hover {
-                        color: var(--primary-lime-green);
-                    }
-                }
-
-                &:hover {
-                    border-color: var(--primary-lime-green);
-                }
-            }
-
-            .left {
-                display: flex;
-                align-items: center;
+                flex-direction: column;
                 gap: 10px;
 
-                input {
-                    width: 100px;
+                .searchPrimary {
+                    display: flex;
+                    align-items: center;
+                    width: fit-content;
                     padding: 5px;
-                    border: 1px solid gray;
-                    border-radius: 5px;
-                    outline: none;
-                    background-color: transparent;
-
-                    &::placeholder {
-                        color: gray;
-                    }
+                    border: 0.5px solid gray;
+                    border-radius: 100px;
 
                     &:hover {
                         border-color: var(--primary-lime-green);
                     }
+
+                    input {
+                        font-size: 14px;
+                        border: none;
+                        outline: none;
+                        background: transparent;
+
+                        &::placeholder {
+                            font-size: 12px;
+                            color: gray;
+                        }
+                    }
+
+                    .icon {
+                        font-size: 25px;
+                        cursor: pointer;
+
+                        &:hover {
+                            color: var(--primary-lime-green);
+                        }
+                    }
                 }
 
-                button {
-                    padding: 5px 10px;
-                    border-radius: 5px;
-                    color: white;
-                    border: none;
-                    background-color: var(--primary-lime-green);
-                    cursor: pointer;
+                .searchSecondary {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
 
-                    &:hover {
-                        background-color: var(--primary-sea-green);
+                    input {
+                        width: fit-content;
+                        padding: 5px;
+                        border: 1px solid gray;
+                        border-radius: 5px;
+                        outline: none;
+                        background-color: transparent;
+
+                        &::placeholder {
+                            font-size: 12px;
+                            color: gray;
+                        }
+
+                        &:hover {
+                            border-color: var(--primary-lime-green);
+                        }
+                    }
+
+                    button {
+                        padding: 5px 10px;
+                        border-radius: 5px;
+                        color: white;
+                        background-color: var(--primary-lime-green);
+                        border: none;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: var(--primary-sea-green);
+                        }
                     }
                 }
             }
 
-            .right {
+            .menuSort {
                 position: relative;
                 display: flex;
                 align-items: center;
@@ -117,7 +125,6 @@
 
                 .sortBy {
                     color: gray;
-                    font-weight: 300;
                 }
 
                 .sortType {
@@ -147,7 +154,7 @@
         }
     }
 
-    .bottom {
+    .productsBottom {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 20px;

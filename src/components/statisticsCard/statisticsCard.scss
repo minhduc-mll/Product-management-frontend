@@ -1,30 +1,21 @@
 .statisticsCard {
     flex: 1;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    height: 100px;
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: 20px;
+    padding: 20px;
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
     box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
 
-    .left,
-    .right {
+    .statTop,
+    .statMiddle,
+    .statBottom {
         display: flex;
-        flex-direction: column;
         justify-content: space-between;
+    }
 
-        .counter {
-            font-size: 30px;
-            font-weight: 300;
-        }
-
-        .link {
-            width: max-content;
-            font-size: 12px;
-            border-bottom: 1px solid gray;
-        }
-
+    .statTop {
         .percentage {
             display: flex;
             align-items: center;
@@ -35,6 +26,25 @@
             }
             &.negative {
                 color: red;
+            }
+        }
+    }
+
+    .statMiddle {
+        .counter {
+            font-size: 30px;
+            font-weight: 300;
+        }
+    }
+
+    .statBottom {
+        .link {
+            width: max-content;
+            font-size: 12px;
+            border-bottom: 1px solid gray;
+
+            &:hover {
+                border-color: var(--primary-lime-green);
             }
         }
 

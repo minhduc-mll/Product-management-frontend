@@ -1,5 +1,6 @@
 import "./product.scss";
 import UserDetail from "components/userDetail/UserDetail";
+import CalendarCard from "components/calendarCard/CalendarCard";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
@@ -54,6 +55,20 @@ const Product = () => {
         enabled: !!customer,
     });
 
+    const {
+        isLoading: isLoadingProductEvent,
+        error: errorProductEvent,
+        data: dataProductEvent,
+    } = useQuery({
+        queryKey: ["products", "events", id],
+        queryFn: async () => {
+            const res = await apiRequest.get(
+                `/analys/productArrivalEvent/${id}`
+            );
+            return res.data;
+        },
+    });
+
     const queryClient = useQueryClient();
 
     const { mutate } = useMutation({
@@ -72,8 +87,8 @@ const Product = () => {
 
     return (
         <div className="product">
-            <div className="top">
-                <div className="title">Infomation</div>
+            <div className="productTop">
+                <h1 className="title">Infomation</h1>
                 <div className="buttons">
                     <button
                         className="addButton"
@@ -96,24 +111,26 @@ const Product = () => {
                     </button>
                 </div>
             </div>
-            <div className="bottom">
-                {isLoading ? (
-                    "Loading..."
-                ) : error ? (
-                    error.message
-                ) : (
-                    <div className="productDetail">
-                        <div className="productImage">
-                            <img
-                                src={
-                                    product.cover ? product.cover : defaultImage
-                                }
-                                alt=""
-                                className="image"
-                            />
-                        </div>
+            <div className="productMiddle">
+                <div className="productDetail">
+                    {isLoading ? (
+                        "Loading..."
+                    ) : error ? (
+                        error.message
+                    ) : (
                         <div className="productItems">
-                            <h1 className="title">{product.productId}</h1>
+                            <div className="itemImage">
+                                <img
+                                    src={
+                                        product.cover
+                                            ? product.cover
+                                            : defaultImage
+                                    }
+                                    alt=""
+                                    className="image"
+                                />
+                            </div>
+                            <h1 className="itemTitle">{product.productId}</h1>
                             {product.desc ? (
                                 <p className="itemDetail">{product.desc}</p>
                             ) : (
@@ -172,23 +189,45 @@ const Product = () => {
                                 ""
                             )}
                         </div>
-                        <div className="productInfo">
-                            {isLoadingSeller ? (
-                                ""
-                            ) : errorSeller ? (
-                                errorSeller.message
-                            ) : (
-                                <UserDetail user={dataSeller} />
-                            )}
-                            {isLoadingCustomer ? (
-                                ""
-                            ) : errorCustomer ? (
-                                errorCustomer.message
-                            ) : (
-                                <UserDetail user={dataCustomer} />
-                            )}
-                        </div>
-                    </div>
+                    )}
+                </div>
+                <div className="productCalendar">
+                    {isLoadingProductEvent ? (
+                        "Loading..."
+                    ) : errorProductEvent ? (
+                        <CalendarCard
+                            title={errorProductEvent.message}
+                            center="title"
+                            initialView="listMonth"
+                            editable={false}
+                            initialEvents={null}
+                        />
+                    ) : (
+                        <CalendarCard
+                            title="Calendar"
+                            height="auto"
+                            center="title"
+                            initialView="dayGridMonth"
+                            editable={false}
+                            initialEvents={[dataProductEvent]}
+                        />
+                    )}
+                </div>
+            </div>
+            <div className="productBottom">
+                {isLoadingSeller ? (
+                    ""
+                ) : errorSeller ? (
+                    errorSeller.message
+                ) : (
+                    <UserDetail user={dataSeller} />
+                )}
+                {isLoadingCustomer ? (
+                    ""
+                ) : errorCustomer ? (
+                    errorCustomer.message
+                ) : (
+                    <UserDetail user={dataCustomer} />
                 )}
             </div>
         </div>

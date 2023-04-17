@@ -2,7 +2,7 @@
     flex: 5;
     width: 100%;
 
-    .top {
+    .productTop {
         padding: 10px 20px;
         margin: 20px;
         display: flex;
@@ -39,54 +39,48 @@
         }
     }
 
-    .bottom {
-        //display: flex;
-        border-radius: 10px;
-        padding: 20px 40px;
+    .productMiddle,
+    .productBottom {
+        display: flex;
+        gap: 20px;
         margin: 20px;
-        -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
-        box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
+    }
 
+    .productMiddle {
         .productDetail {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 20px;
-
-            .productImage {
-                flex: 1;
-                text-align: center;
-
-                .image {
-                    width: 100%;
-                    border-radius: 10px;
-                }
-            }
+            flex: 2;
+            padding: 20px;
+            border-radius: 10px;
+            -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
+            box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
 
             .productItems {
-                flex: 1;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: space-around;
+                gap: 20px;
 
-                .title {
-                    font-size: 24px;
+                .itemImage {
+                    .image {
+                        width: 100%;
+                        border-radius: 10px;
+                    }
+                }
+
+                .itemTitle {
+                    font-size: 32px;
                     font-weight: bold;
                 }
 
                 .itemDetail {
                     font-size: 16px;
-                    margin-bottom: 10px;
                 }
             }
+        }
 
-            .productInfo {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                gap: 20px;
-            }
+        .productCalendar {
+            flex: 8;
         }
     }
 }

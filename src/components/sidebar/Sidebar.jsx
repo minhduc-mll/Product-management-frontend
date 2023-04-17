@@ -69,9 +69,9 @@ const Sidebar = () => {
                 {navItems.map(({ text, icon }) => {
                     if (!icon) {
                         return (
-                            <p className="title" key={text}>
+                            <h1 className="title" key={text}>
                                 {text}
-                            </p>
+                            </h1>
                         );
                     }
                     const lcText = text.toLowerCase();

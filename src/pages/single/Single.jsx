@@ -69,8 +69,8 @@ const Single = ({ text }) => {
 
     return (
         <div className="single">
-            <div className="top">
-                <div className="title">Infomation</div>
+            <div className="singleTop">
+                <h1 className="title">Infomation</h1>
                 <div className="buttons">
                     <button
                         className="addButton"
@@ -93,53 +93,50 @@ const Single = ({ text }) => {
                     </button>
                 </div>
             </div>
-            <div className="mid">
+            <div className="singleMiddle">
                 {isLoading || error ? (
                     <UserDetail user={null} />
                 ) : (
                     <UserDetail user={data} />
                 )}
-                {isLoadingChart ? (
-                    "Loading..."
-                ) : errorChart ? (
-                    <Chart
-                        title={errorChart.message}
-                        aspect={3 / 1}
-                        data={null}
-                    />
-                ) : data.name ? (
-                    <Chart
-                        title={`Products sold per month by ${data.name}`}
-                        aspect={3 / 1}
-                        data={dataChart}
-                    />
-                ) : (
-                    <Chart
-                        title={`Products sold per month by ${data.username}`}
-                        aspect={3 / 1}
-                        data={dataChart}
-                    />
-                )}
+                <div className="singleChart">
+                    {isLoadingChart ? (
+                        "Loading..."
+                    ) : errorChart ? (
+                        <Chart
+                            title={errorChart.message}
+                            aspect={3 / 1}
+                            data={null}
+                        />
+                    ) : (
+                        <Chart
+                            title={`Products sold per month by ${
+                                (data.name && data.name) || data.username
+                            }`}
+                            aspect={3 / 1}
+                            data={dataChart}
+                        />
+                    )}
+                </div>
             </div>
-            <div className="bottom">
-                {isLoadingProducts ? (
-                    "Loading..."
-                ) : errorProducts ? (
-                    <Regulartable
-                        title={errorProducts.message}
-                        products={null}
-                    />
-                ) : data.name ? (
-                    <Regulartable
-                        title={`Products sold by ${data.name}`}
-                        products={dataProducts}
-                    />
-                ) : (
-                    <Regulartable
-                        title={`Products sold by ${data.username}`}
-                        products={dataProducts}
-                    />
-                )}
+            <div className="singleBottom">
+                <div className="singleList">
+                    {isLoadingProducts ? (
+                        "Loading..."
+                    ) : errorProducts ? (
+                        <Regulartable
+                            title={errorProducts.message}
+                            products={null}
+                        />
+                    ) : (
+                        <Regulartable
+                            title={`Products sold by ${
+                                (data.name && data.name) || data.username
+                            }`}
+                            products={dataProducts}
+                        />
+                    )}
+                </div>
             </div>
         </div>
     );

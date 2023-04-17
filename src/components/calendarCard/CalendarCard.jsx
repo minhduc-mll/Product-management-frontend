@@ -104,6 +104,7 @@ const CalendarCard = ({
                             }}
                             initialView={activeView}
                             selectable={true}
+                            dayMaxEvents={true}
                             initialEvents={initialEvents}
                         />
                     </div>

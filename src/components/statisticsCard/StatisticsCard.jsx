@@ -16,30 +16,37 @@ const StatisticsCard = ({ stat }) => {
 
     return (
         <div className="statisticsCard">
-            <div className="left">
-                <span className="title">{stat?.title}</span>
-                {isLoading ? (
-                    "Loading..."
-                ) : error ? (
-                    error.message
-                ) : (
-                    <span className="counter">
-                        {data}
-                        {stat?.isMoney && "M"}
-                    </span>
-                )}
+            <div className="statTop">
+                <h1 className="title">{stat?.title}</h1>
+                <div className="percentage positive">
+                    {stat?.diff ? (
+                        <>
+                            <KeyboardArrowUp className="icon" /> {stat?.diff}%
+                        </>
+                    ) : (
+                        <KeyboardArrowUp className="icon" />
+                    )}
+                </div>
+            </div>
+            <div className="statMiddle">
+                <div className="counter">
+                    {isLoading ? (
+                        "Loading..."
+                    ) : error ? (
+                        error.message
+                    ) : (
+                        <span>
+                            {data}
+                            {stat?.isMoney && "M"}
+                        </span>
+                    )}
+                </div>
+            </div>
+            <div className="statBottom">
                 <Link to={stat?.to} className="link">
                     {stat?.link}
                 </Link>
-            </div>
-            <div className="right">
-                {stat?.diff ? (
-                    <div className="percentage positive">
-                        <KeyboardArrowUp className="icon" /> {stat?.diff}%
-                    </div>
-                ) : (
-                    <KeyboardArrowUp className="icon" />
-                )}
+
                 {stat?.icon}
             </div>
         </div>

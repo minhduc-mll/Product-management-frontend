@@ -25,9 +25,9 @@ const tableColumns = [
 const Regulartable = ({ title, products }) => {
     return (
         <div className="regulartable">
-            <div className="title">{title}</div>
+            <h1 className="title">{title}</h1>
             <TableContainer component={Paper} className="tableContainer">
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             {tableColumns.map((column) => (

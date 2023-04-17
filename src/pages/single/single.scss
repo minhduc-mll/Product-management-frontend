@@ -2,7 +2,7 @@
     flex: 5;
     width: 100%;
 
-    .top {
+    .singleTop {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -39,9 +39,17 @@
         }
     }
 
-    .mid,
-    .bottom {
+    .singleMiddle {
         display: flex;
+        margin: 20px;
+        gap: 20px;
+
+        .singleChart {
+            flex: 8;
+        }
+    }
+
+    .singleBottom {
         margin: 20px;
         gap: 20px;
     }

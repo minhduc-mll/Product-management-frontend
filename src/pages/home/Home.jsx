@@ -98,7 +98,7 @@ const Home = () => {
         error: errorChart,
         data: dataChart,
     } = useQuery({
-        queryKey: ["analys", "chart", "home"],
+        queryKey: ["analys", "chart"],
         queryFn: async () => {
             const res = await apiRequest.get(`/analys/productsByMonth`);
             return res.data;
@@ -106,75 +106,83 @@ const Home = () => {
     });
 
     const {
-        isLoading: isLoadingEvent,
-        error: errorEvent,
-        data: dataEvent,
+        isLoading: isLoadingProductEvent,
+        error: errorProductEvent,
+        data: dataProductEvent,
     } = useQuery({
-        queryKey: ["events"],
+        queryKey: ["analys", "events"],
         queryFn: async () => {
-            const res = await apiRequest.get(`/events`);
+            const res = await apiRequest.get(`/analys/productArrivalEvent`);
             return res.data;
         },
     });
 
     return (
         <div className="home">
-            <div className="statistics">
-                {stats.map((stat) => (
-                    <StatisticsCard stat={stat} key={stat.id} />
-                ))}
+            <div className="homeTop">
+                <div className="homeStats">
+                    {stats.map((stat) => (
+                        <StatisticsCard stat={stat} key={stat.id} />
+                    ))}
+                </div>
+                <div className="homeCalendar">
+                    {isLoadingProductEvent ? (
+                        "Loading..."
+                    ) : errorProductEvent ? (
+                        <CalendarCard
+                            title={errorProductEvent.message}
+                            center="title"
+                            initialView="listMonth"
+                            editable={false}
+                            initialEvents={null}
+                        />
+                    ) : (
+                        <CalendarCard
+                            title="Calendar"
+                            height="auto"
+                            center="title"
+                            initialView="dayGridMonth"
+                            editable={false}
+                            initialEvents={dataProductEvent}
+                        />
+                    )}
+                </div>
             </div>
-            <div className="charts">
-                {isLoadingEvent ? (
-                    "Loading..."
-                ) : errorEvent ? (
-                    <CalendarCard
-                        title={errorEvent.message}
-                        center="title"
-                        initialView="listMonth"
-                        editable={false}
-                        initialEvents={null}
-                    />
-                ) : (
-                    <CalendarCard
-                        title="Calendar"
-                        height="auto"
-                        center="title"
-                        initialView="dayGridMonth"
-                        editable={false}
-                        initialEvents={dataEvent}
-                    />
-                )}
-                {isLoadingChart ? (
-                    "Loading..."
-                ) : errorChart ? (
-                    <Chart
-                        title={errorChart.message}
-                        aspect={5 / 3}
-                        data={null}
-                    />
-                ) : (
-                    <Chart
-                        title="Products count by month"
-                        aspect={5 / 3}
-                        data={dataChart}
-                    />
-                )}
+            <div className="homeMiddle">
+                <div className="homeList">
+                    {isLoadingProducts ? (
+                        "Loading..."
+                    ) : errorProducts ? (
+                        <Regulartable
+                            title={errorProducts.message}
+                            products={null}
+                        />
+                    ) : (
+                        <Regulartable
+                            title="Unsold Product"
+                            products={dataProducts}
+                        />
+                    )}
+                </div>
             </div>
-            <div className="lists">
-                {isLoadingProducts ? (
-                    "Loading..."
-                ) : errorProducts ? (
-                    <Regulartable
-                        title={errorProducts.message}
-                        products={null}
-                    />
-                ) : (
-                    <Regulartable
-                        title="Unsold Product"
-                        products={dataProducts}
-                    />
-                )}
+            <div className="homeBottom">
+                <div className="homeChart">
+                    {isLoadingChart ? (
+                        "Loading..."
+                    ) : errorChart ? (
+                        <Chart
+                            title={errorChart.message}
+                            aspect={3 / 1}
+                            data={null}
+                        />
+                    ) : (
+                        <Chart
+                            title="Products count by month"
+                            aspect={3 / 1}
+                            data={dataChart}
+                        />
+                    )}
+                </div>
             </div>
         </div>
     );

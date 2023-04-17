@@ -72,11 +72,11 @@ const Calendar = () => {
 
     return (
         <div className="calendar">
-            <div className="top">
-                <div className="title">Calendar</div>
+            <div className="calendarTop">
+                <h1 className="title">Calendar</h1>
             </div>
-            <div className="bottom">
-                <div className="left">
+            <div className="calendarBottom">
+                <div className="calendarEvents">
                     <h1 className="title">Events</h1>
                     <div className="event">
                         {isLoading || error
@@ -86,7 +86,7 @@ const Calendar = () => {
                               ))}
                     </div>
                 </div>
-                <div className="right">
+                <div className="calendarRight">
                     {isLoading || error ? (
                         ""
                     ) : (

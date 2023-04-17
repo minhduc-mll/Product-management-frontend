@@ -9,11 +9,11 @@ import defaultImage from "assets/no-image.jpg";
 
 const Form = ({ target, inputs }) => {
     const [formObject, dispatch] = useReducer(formReducer, initialProduct);
-    const [files, setFiles] = useState([]);
+    const [file, setFile] = useState();
 
     const navigate = useNavigate();
     const queryClient = useQueryClient();
-    
+
     const handleChange = (e) => {
         e.preventDefault();
         dispatch({
@@ -24,11 +24,11 @@ const Form = ({ target, inputs }) => {
 
     const handleUpload = async (e) => {
         e.preventDefault();
-        const files = e.target.files;
-        setFiles(files);
+        const file = e.target.files[0];
+        setFile(file);
 
-        if (files) {
-            const image = files[0];
+        if (file) {
+            const image = file;
             dispatch({
                 type: "ADD_AVATAR",
                 payload: { image },
@@ -36,14 +36,14 @@ const Form = ({ target, inputs }) => {
         }
     };
 
-    const { mutate } = useMutation({
+    const { isLoading, mutate } = useMutation({
         mutationFn: async (formObject) => {
             const res = await apiRequest.post(`/${target}s`, formObject);
-            console.log(res.data);
+            return res.data;
         },
-        onSuccess: () => {
+        onSuccess: (data) => {
             queryClient.invalidateQueries([`/${target}s`]);
-            navigate(`/${target}s`);
+            navigate(`/${target}s/${data._id}`);
         },
     });
 
@@ -67,9 +67,7 @@ const Form = ({ target, inputs }) => {
                         </div>
                         <img
                             src={
-                                files[0]
-                                    ? URL.createObjectURL(files[0])
-                                    : defaultImage
+                                file ? URL.createObjectURL(file) : defaultImage
                             }
                             alt="avata"
                             htmlFor="file"
@@ -78,7 +76,6 @@ const Form = ({ target, inputs }) => {
                     <input
                         type="file"
                         id="file"
-                        multiple
                         onChange={(e) => handleUpload(e)}
                     />
                 </div>
@@ -97,7 +94,13 @@ const Form = ({ target, inputs }) => {
                         ))}
                     </div>
                     <div className="sendButton">
-                        <button type="submit">Send</button>
+                        {isLoading ? (
+                            <div className="button">Uploading...</div>
+                        ) : (
+                            <button type="submit" className="button">
+                                Send
+                            </button>
+                        )}
                     </div>
                 </div>
             </form>

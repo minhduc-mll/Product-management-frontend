@@ -78,7 +78,7 @@ const NewProduct = () => {
     return (
         <div className="newProduct">
             <div className="top">
-                <div className="title">Add New Product</div>
+                <h1 className="title">Add New Product</h1>
             </div>
             <div className="bottom">
                 <FormProduct target="product" inputs={productInputs} />
