@@ -4,17 +4,27 @@
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
     box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
 
-    .top {
+    .featuredTop {
         display: flex;
         align-items: center;
         justify-content: space-between;
 
-        .icon {
-            font-size: 20px;
+        .iconClick {
+            .icon {
+                font-size: 20;
+            }
+        }
+
+        .openMenu {
+            width: 150px;
+
+            span {
+                font-size: 16px;
+            }
         }
     }
 
-    .bottom {
+    .featuredBottom {
         padding: 20px;
         display: flex;
         flex-direction: column;

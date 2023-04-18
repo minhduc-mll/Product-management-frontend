@@ -10,11 +10,14 @@ import "react-circular-progressbar/dist/styles.css";
 const Featured = () => {
     return (
         <div className="featured">
-            <div className="top">
+            <div className="featuredTop">
                 <h1 className="title">Total Revenue</h1>
-                <MoreVert className="icon" />
+                <div className="iconClick" onClick={() => setOpen(!open)}>
+                    <MoreVert className="icon" />
+                </div>
+                {open && <div className="openMenu"></div>}
             </div>
-            <div className="bottom">
+            <div className="featuredBottom">
                 <div className="featuredChart">
                     <CircularProgressbar
                         value={70}

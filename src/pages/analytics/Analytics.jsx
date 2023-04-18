@@ -3,6 +3,7 @@ import {
     PersonOutlined,
     StoreOutlined,
     AccountBalanceWalletOutlined,
+    MonetizationOnOutlined,
 } from "@mui/icons-material";
 import StatisticsCard from "components/statisticsCard/StatisticsCard";
 import CalendarCard from "components/calendarCard/CalendarCard";
@@ -13,10 +14,10 @@ import { apiRequest } from "utils/apiAxios";
 const stats = [
     {
         id: 1,
-        query: "users",
         title: "USERS",
+        menu: [],
+        query: "users",
         isMoney: false,
-        amount: 100,
         to: "/users",
         link: "View all users",
         icon: (
@@ -30,33 +31,34 @@ const stats = [
         ),
     },
     {
-        id: 3,
-        query: "customers",
+        id: 2,
         title: "CUSTOMERS",
+        menu: [],
+        query: "customers",
         isMoney: false,
-        amount: 100,
         to: "/customers",
         link: "View all customers",
         icon: (
             <PersonOutlined
                 className="icon"
                 style={{
-                    color: "green",
-                    backgroundColor: "rgba(0, 128, 0, 0.2)",
+                    color: "crimson",
+                    backgroundColor: "rgba(255, 0, 0, 0.2)",
                 }}
             />
         ),
     },
     {
-        id: 2,
-        query: "products",
-        title: "PRODUCTS",
-        isMoney: false,
-        amount: 100,
-        to: "/products",
-        link: "View all products",
+        id: 3,
+        title: "TOTAL DEPOSIT",
+        menu: [],
+        query: "totalDeposit",
+        isMoney: true,
+        diff: 68,
+        to: "",
+        link: "See details",
         icon: (
-            <StoreOutlined
+            <AccountBalanceWalletOutlined
                 className="icon"
                 style={{
                     color: "goldenrod",
@@ -67,19 +69,38 @@ const stats = [
     },
     {
         id: 4,
+        title: "TOTAL REVENUE",
+        menu: [],
         query: "totalDeposit",
-        title: "TOTAL DEPOSIT",
         isMoney: true,
-        amount: 100,
-        diff: 20,
-        to: "/comingsoon",
+        diff: 168,
+        to: "",
         link: "See details",
         icon: (
-            <AccountBalanceWalletOutlined
+            <MonetizationOnOutlined
                 className="icon"
                 style={{
                     color: "purple",
                     backgroundColor: "rgba(128, 0, 128, 0.2)",
+                }}
+            />
+        ),
+    },
+    {
+        id: 5,
+        title: "PROFITS",
+        menu: [],
+        query: "totalDeposit",
+        isMoney: true,
+        diff: 86,
+        to: "",
+        link: "See details",
+        icon: (
+            <MonetizationOnOutlined
+                className="icon"
+                style={{
+                    color: "green",
+                    backgroundColor: "rgba(0, 128, 0, 0.2)",
                 }}
             />
         ),
@@ -104,9 +125,11 @@ const Analytics = () => {
         error: errorProductEvent,
         data: dataProductEvent,
     } = useQuery({
-        queryKey: ["analys", "events"],
+        queryKey: ["products", "events"],
         queryFn: async () => {
-            const res = await apiRequest.get(`/analys/productArrivalEvent`);
+            const res = await apiRequest.get(
+                `/productevent/productArrivalEvent`
+            );
             return res.data;
         },
     });
@@ -125,8 +148,9 @@ const Analytics = () => {
                     ) : errorProductEvent ? (
                         <CalendarCard
                             title={errorProductEvent.message}
+                            height="auto"
                             center="title"
-                            initialView="listMonth"
+                            initialView="dayGridMonth"
                             editable={false}
                             initialEvents={null}
                         />
@@ -135,6 +159,7 @@ const Analytics = () => {
                             title="Calendar"
                             height="auto"
                             center="title"
+                            right="today prev,next"
                             initialView="dayGridMonth"
                             editable={false}
                             initialEvents={dataProductEvent}

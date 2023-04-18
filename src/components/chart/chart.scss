@@ -1,5 +1,5 @@
 .chart {
-    padding: 10px;
+    padding: 20px;
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
     box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
 
@@ -9,9 +9,10 @@
         align-items: center;
         justify-content: space-between;
 
-        .icon {
-            font-size: 20px;
-            cursor: pointer;
+        .iconClick {
+            .icon {
+                font-size: 20;
+            }
         }
 
         .openMenu {

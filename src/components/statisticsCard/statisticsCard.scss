@@ -13,9 +13,33 @@
     .statBottom {
         display: flex;
         justify-content: space-between;
+        align-items: center;
     }
 
     .statTop {
+        position: relative;
+
+        .iconClick {
+            .icon {
+                font-size: 20;
+            }
+        }
+
+        .openMenu {
+            width: 150px;
+
+            span {
+                font-size: 14px;
+            }
+        }
+    }
+
+    .statMiddle {
+        .counter {
+            font-size: 30px;
+            font-weight: 300;
+        }
+
         .percentage {
             display: flex;
             align-items: center;
@@ -27,13 +51,6 @@
             &.negative {
                 color: red;
             }
-        }
-    }
-
-    .statMiddle {
-        .counter {
-            font-size: 30px;
-            font-weight: 300;
         }
     }
 

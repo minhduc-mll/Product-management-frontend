@@ -47,7 +47,9 @@ const Chart = ({ title, aspect, data }) => {
         <div className="chart">
             <div className="chartTop">
                 <h1 className="title">{title}</h1>
-                <MoreVert className="icon" onClick={() => setOpen(!open)} />
+                <div className="iconClick" onClick={() => setOpen(!open)}>
+                    <MoreVert className="icon" />
+                </div>
                 {open && (
                     <div className="openMenu">
                         {chart === "LineChart" ? (

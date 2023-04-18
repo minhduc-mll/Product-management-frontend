@@ -61,10 +61,12 @@ const CalendarCard = ({
                 <>
                     <div className="calendarTop">
                         <h1 className="title">{title}</h1>
-                        <MoreVert
-                            className="icon"
+                        <div
+                            className="iconClick"
                             onClick={() => setOpen(!open)}
-                        />
+                        >
+                            <MoreVert className="icon" />
+                        </div>
                         {open && (
                             <div className="openMenu">
                                 {activeView === "dayGridMonth" ? (

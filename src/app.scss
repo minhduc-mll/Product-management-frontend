@@ -56,6 +56,23 @@ body,
         }
     }
 
+    .iconClick {
+        padding: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        cursor: pointer;
+
+        .icon {
+            font-size: 20px;
+        }
+
+        &:hover {
+            background-color: #eee;
+        }
+    }
+
     .openMenu {
         position: absolute;
         top: 30px;

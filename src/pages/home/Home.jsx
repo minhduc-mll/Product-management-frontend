@@ -1,38 +1,41 @@
 import "./home.scss";
-import {
-    PersonOutlined,
-    ShoppingCartOutlined,
-    MonetizationOnOutlined,
-    AccountBalanceWalletOutlined,
-} from "@mui/icons-material";
-
+import { StoreOutlined, ShoppingCartOutlined } from "@mui/icons-material";
 import StatisticsCard from "components/statisticsCard/StatisticsCard";
 import CalendarCard from "components/calendarCard/CalendarCard";
 import Chart from "components/chart/Chart";
 import Regulartable from "components/regulartable/Regulartable";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
+import dateFormat from "dateformat";
+
+const today = new Date();
+const thisMonth = dateFormat(today, "mmmm yyyy").toUpperCase();
+const thisMonthNum = today.getMonth() + 1;
 
 const stats = [
     {
         id: 1,
-        title: "USERS",
+        title: "TOTAL PRODUCTS",
+        menu: [],
+        query: "products",
         isMoney: false,
-        to: "/users",
-        link: "See all users",
+        to: "/products",
+        link: "View all products",
         icon: (
-            <PersonOutlined
+            <StoreOutlined
                 className="icon"
                 style={{
-                    color: "crimson",
-                    backgroundColor: "rgba(255, 0, 0, 0.2)",
+                    color: "green",
+                    backgroundColor: "rgba(0, 128, 0, 0.2)",
                 }}
             />
         ),
     },
     {
         id: 2,
-        title: "PRODUCTS",
+        title: `PRODUCTS ( ${thisMonth} )`,
+        menu: [],
+        query: `productsMonth/${thisMonthNum}`,
         isMoney: false,
         to: "/products",
         link: "View all products",
@@ -48,32 +51,18 @@ const stats = [
     },
     {
         id: 3,
-        title: "EARNINGS",
-        isMoney: true,
-        to: "/comingsoon",
-        link: "View net earnings",
+        title: "PRODUCTS IN STOCK",
+        menu: [],
+        query: "productsInStock",
+        isMoney: false,
+        to: "/products",
+        link: "View all products",
         icon: (
-            <MonetizationOnOutlined
+            <ShoppingCartOutlined
                 className="icon"
                 style={{
-                    color: "green",
-                    backgroundColor: "rgba(0, 128, 0, 0.2)",
-                }}
-            />
-        ),
-    },
-    {
-        id: 4,
-        title: "BALANCE",
-        isMoney: true,
-        to: "/comingsoon",
-        link: "See details",
-        icon: (
-            <AccountBalanceWalletOutlined
-                className="icon"
-                style={{
-                    color: "purple",
-                    backgroundColor: "rgba(128, 0, 128, 0.2)",
+                    color: "crimson",
+                    backgroundColor: "rgba(255, 0, 0, 0.2)",
                 }}
             />
         ),
@@ -98,7 +87,7 @@ const Home = () => {
         error: errorChart,
         data: dataChart,
     } = useQuery({
-        queryKey: ["analys", "chart"],
+        queryKey: ["analys", "chart", "home"],
         queryFn: async () => {
             const res = await apiRequest.get(`/analys/productsByMonth`);
             return res.data;
@@ -110,9 +99,9 @@ const Home = () => {
         error: errorProductEvent,
         data: dataProductEvent,
     } = useQuery({
-        queryKey: ["analys", "events"],
+        queryKey: ["products", "events", "home"],
         queryFn: async () => {
-            const res = await apiRequest.get(`/analys/productArrivalEvent`);
+            const res = await apiRequest.get(`/productevent/productEvent`);
             return res.data;
         },
     });
@@ -131,8 +120,9 @@ const Home = () => {
                     ) : errorProductEvent ? (
                         <CalendarCard
                             title={errorProductEvent.message}
+                            height="auto"
                             center="title"
-                            initialView="listMonth"
+                            initialView="dayGridMonth"
                             editable={false}
                             initialEvents={null}
                         />
@@ -140,7 +130,9 @@ const Home = () => {
                         <CalendarCard
                             title="Calendar"
                             height="auto"
+                            left="prev,next today"
                             center="title"
+                            right="dayGridMonth dayGridWeek"
                             initialView="dayGridMonth"
                             editable={false}
                             initialEvents={dataProductEvent}

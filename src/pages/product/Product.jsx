@@ -63,7 +63,7 @@ const Product = () => {
         queryKey: ["products", "events", id],
         queryFn: async () => {
             const res = await apiRequest.get(
-                `/analys/productArrivalEvent/${id}`
+                `/productevent/productEvent/${id}`
             );
             return res.data;
         },
@@ -209,7 +209,7 @@ const Product = () => {
                             center="title"
                             initialView="dayGridMonth"
                             editable={false}
-                            initialEvents={[dataProductEvent]}
+                            initialEvents={dataProductEvent}
                         />
                     )}
                 </div>
