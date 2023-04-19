@@ -86,7 +86,7 @@ const Customers = () => {
                 {isLoading
                     ? "Loading..."
                     : error
-                    ? error.message
+                    ? error.response.data.message
                     : customersData.map((item) => (
                           <div className="item" key={item._id}>
                               <CustomerCard customer={item} />

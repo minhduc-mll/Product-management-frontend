@@ -109,7 +109,7 @@ const Products = () => {
                 {isLoading
                     ? "Loading..."
                     : error
-                    ? error.message
+                    ? error.response.data.message
                     : productsData.map((item) => (
                           <div className="item" key={item.productId}>
                               <ProductDetail product={item} />

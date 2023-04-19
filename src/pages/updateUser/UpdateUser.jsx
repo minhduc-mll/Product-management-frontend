@@ -12,9 +12,9 @@ const UpdateUser = ({ text }) => {
     const { id } = useParams();
 
     const { isLoading, error, data, refetch } = useQuery({
-        queryKey: [`${lcText}s`, id],
+        queryKey: [`${lcText}`, id],
         queryFn: async () => {
-            const res = await apiRequest.get(`/${lcText}s/${id}`);
+            const res = await apiRequest.get(`/${lcText}/${id}`);
             return res.data;
         },
         enabled: !!id,
@@ -77,7 +77,7 @@ const UpdateUser = ({ text }) => {
             {isLoading ? (
                 "Loading..."
             ) : error ? (
-                error.message
+                error.response.data.message
             ) : (
                 <div className="bottom">
                     <UserDetail user={data} />

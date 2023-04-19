@@ -116,7 +116,7 @@ const Product = () => {
                     {isLoading ? (
                         "Loading..."
                     ) : error ? (
-                        error.message
+                        error.response.data.message
                     ) : (
                         <div className="productItems">
                             <div className="itemImage">
@@ -196,7 +196,7 @@ const Product = () => {
                         "Loading..."
                     ) : errorProductEvent ? (
                         <CalendarCard
-                            title={errorProductEvent.message}
+                            title={errorProductEvent.response.data.message}
                             center="title"
                             initialView="listMonth"
                             editable={false}
@@ -218,14 +218,14 @@ const Product = () => {
                 {isLoadingSeller ? (
                     ""
                 ) : errorSeller ? (
-                    errorSeller.message
+                    errorSeller.response.data.message
                 ) : (
                     <UserDetail user={dataSeller} />
                 )}
                 {isLoadingCustomer ? (
                     ""
                 ) : errorCustomer ? (
-                    errorCustomer.message
+                    errorCustomer.response.data.message
                 ) : (
                     <UserDetail user={dataCustomer} />
                 )}

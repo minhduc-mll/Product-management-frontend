@@ -1,7 +1,6 @@
 import "./analytics.scss";
 import {
     PersonOutlined,
-    StoreOutlined,
     AccountBalanceWalletOutlined,
     MonetizationOnOutlined,
 } from "@mui/icons-material";

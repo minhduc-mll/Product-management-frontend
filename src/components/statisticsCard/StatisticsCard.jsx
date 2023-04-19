@@ -38,7 +38,7 @@ const StatisticsCard = ({ stat }) => {
                     {isLoading ? (
                         "Loading..."
                     ) : error ? (
-                        error.message
+                        error.response.data.message
                     ) : (
                         <span>
                             {data}

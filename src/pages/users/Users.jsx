@@ -85,7 +85,7 @@ const Users = () => {
                 {isLoading ? (
                     "Loading..."
                 ) : error ? (
-                    error.message
+                    error.response.data.message
                 ) : (
                     <Datatable
                         target="user"

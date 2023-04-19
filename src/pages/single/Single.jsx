@@ -2,102 +2,128 @@ import "./single.scss";
 import UserDetail from "components/userDetail/UserDetail";
 import Chart from "components/chart/Chart";
 import Regulartable from "components/regulartable/Regulartable";
-import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
+import { getCurrentUser } from "utils/auth";
 
-const Single = ({ text }) => {
+const Single = ({ firstRoute, secondRoute }) => {
     const navigate = useNavigate();
-    const lcText = text.toLowerCase();
-
+    const currentUser = getCurrentUser();
     const { id } = useParams();
 
-    const { isLoading, error, data, refetch } = useQuery({
-        queryKey: [`${lcText}s`, id],
+    const {
+        isLoading,
+        error,
+        data: user,
+    } = useQuery({
+        queryKey: [`${firstRoute}`, id],
         queryFn: async () => {
-            const res = await apiRequest.get(`/${lcText}s/${id}`);
+            const res = await apiRequest.get(`/${firstRoute}/${id}`);
             return res.data;
         },
         enabled: !!id,
     });
 
+    const userId = user?._id;
+
     const {
         isLoading: isLoadingProducts,
         error: errorProducts,
         data: dataProducts,
-        refetch: refetchProducts,
     } = useQuery({
-        queryKey: [`products`, `${lcText}`, id],
+        queryKey: [`products`, `${secondRoute}`, userId],
         queryFn: async () => {
-            const res = await apiRequest.get(`/products/${lcText}/${id}`);
+            const res = await apiRequest.get(
+                `/products/${secondRoute}/${userId}`
+            );
             return res.data;
         },
-        enabled: !!id,
+        enabled: !!userId,
     });
 
     const {
         isLoading: isLoadingChart,
         error: errorChart,
         data: dataChart,
-        refetch: refetchChart,
     } = useQuery({
-        queryKey: ["analys", "chart", `${lcText}`, id],
+        queryKey: ["analys", "chart", `${secondRoute}`, userId],
         queryFn: async () => {
             const res = await apiRequest.get(
-                `/analys/${lcText}ProductsByMonth/${id}`
+                `/analys/${secondRoute}ProductsByMonth/${userId}`
             );
             return res.data;
         },
-        enabled: !!id,
+        enabled: !!userId,
+    });
+
+    const queryClient = useQueryClient();
+
+    const { mutate } = useMutation({
+        mutationFn: async () => {
+            await apiRequest.delete(`/${firstRoute}/${id}`);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries(["products"]);
+            navigate(`/${firstRoute}`);
+        },
     });
 
     const handleDelete = async () => {
-        try {
-            await apiRequest.delete(`/${lcText}s/${id}`);
-            navigate(`/${lcText}s`);
-        } catch (err) {
-            console.log(err.message);
-        }
+        mutate();
     };
-
-    useEffect(() => {
-        refetch();
-        refetchProducts();
-        refetchChart();
-    }, [id, refetch, refetchProducts, refetchChart]);
 
     return (
         <div className="single">
             <div className="singleTop">
                 <h1 className="title">Infomation</h1>
                 <div className="buttons">
-                    <button
-                        className="addButton"
-                        onClick={() => {
-                            navigate(`/${lcText}s/new`);
-                        }}
-                    >
-                        Add New
-                    </button>
-                    <button
-                        className="updateButton"
-                        onClick={() => {
-                            navigate(`/${lcText}s/update/${id}`);
-                        }}
-                    >
-                        Update
-                    </button>
-                    <button className="deleteButton" onClick={handleDelete}>
-                        Delete
-                    </button>
+                    {firstRoute.includes("profile") ? (
+                        userId !== currentUser._id ? (
+                            ""
+                        ) : (
+                            <button
+                                className="updateButton"
+                                onClick={() => {
+                                    navigate(`/${id}/update/`);
+                                }}
+                            >
+                                Edit
+                            </button>
+                        )
+                    ) : (
+                        <>
+                            <button
+                                className="addButton"
+                                onClick={() => {
+                                    navigate(`/${firstRoute}/new`);
+                                }}
+                            >
+                                Add New
+                            </button>
+                            <button
+                                className="updateButton"
+                                onClick={() => {
+                                    navigate(`/${firstRoute}/update/${id}`);
+                                }}
+                            >
+                                Update
+                            </button>
+                            <button
+                                className="deleteButton"
+                                onClick={handleDelete}
+                            >
+                                Delete
+                            </button>
+                        </>
+                    )}
                 </div>
             </div>
             <div className="singleMiddle">
                 {isLoading || error ? (
                     <UserDetail user={null} />
                 ) : (
-                    <UserDetail user={data} />
+                    <UserDetail user={user} />
                 )}
                 <div className="singleChart">
                     {isLoadingChart ? (
@@ -111,7 +137,7 @@ const Single = ({ text }) => {
                     ) : (
                         <Chart
                             title={`Products sold per month by ${
-                                (data.name && data.name) || data.username
+                                user.name || user.username
                             }`}
                             aspect={3 / 1}
                             data={dataChart}
@@ -131,7 +157,7 @@ const Single = ({ text }) => {
                     ) : (
                         <Regulartable
                             title={`Products sold by ${
-                                (data.name && data.name) || data.username
+                                user.name || user.username
                             }`}
                             products={dataProducts}
                         />

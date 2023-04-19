@@ -56,7 +56,7 @@ const ProductCard = ({ product }) => {
                     {isLoading ? (
                         "Loading..."
                     ) : error ? (
-                        error.message
+                        error.response.data.message
                     ) : data.name ? (
                         <p className="itemDetail">{data.name}</p>
                     ) : (
