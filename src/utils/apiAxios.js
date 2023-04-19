@@ -22,7 +22,3 @@ export const cloudinaryUpload = async (file) => {
         console.log(err.message);
     }
 };
-
-export const getCurrentUser = () => {
-    return JSON.parse(localStorage.getItem("currentUser"));
-};

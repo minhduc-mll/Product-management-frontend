@@ -10,8 +10,9 @@ import {
 } from "@mui/icons-material";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { checkRoleAdmin } from "utils/auth";
 
-const navItems = [
+const userItems = [
     {
         text: "Dashboard",
         icon: <HomeOutlined className="icon" />,
@@ -40,6 +41,9 @@ const navItems = [
         text: "Feedback",
         icon: <ReportOutlined className="icon" />,
     },
+];
+
+const adminItems = [
     {
         text: "Manage",
         icon: null,
@@ -58,6 +62,35 @@ const Sidebar = () => {
     const [active, setActive] = useState(false);
     const navigate = useNavigate();
     const { pathname } = useLocation();
+    const isAdmin = checkRoleAdmin();
+
+    const renderSidebar = ({ text, icon }) => {
+        if (!icon) {
+            return (
+                <h1 className="title" key={text}>
+                    {text}
+                </h1>
+            );
+        }
+        const lcText = text.toLowerCase();
+
+        return (
+            <div className="item" key={text}>
+                <div
+                    className={
+                        active === lcText ? "itemButton active" : "itemButton"
+                    }
+                    onClick={() => {
+                        navigate(`/${lcText}`);
+                        setActive(lcText);
+                    }}
+                >
+                    {icon}
+                    <span>{text}</span>
+                </div>
+            </div>
+        );
+    };
 
     useEffect(() => {
         setActive(pathname.substring(1));
@@ -66,35 +99,13 @@ const Sidebar = () => {
     return (
         <div className="sidebar">
             <div className="wrapper">
-                {navItems.map(({ text, icon }) => {
-                    if (!icon) {
-                        return (
-                            <h1 className="title" key={text}>
-                                {text}
-                            </h1>
-                        );
-                    }
-                    const lcText = text.toLowerCase();
-
-                    return (
-                        <div className="item" key={text}>
-                            <div
-                                className={
-                                    active === lcText
-                                        ? "itemButton active"
-                                        : "itemButton"
-                                }
-                                onClick={() => {
-                                    navigate(`/${lcText}`);
-                                    setActive(lcText);
-                                }}
-                            >
-                                {icon}
-                                <span>{text}</span>
-                            </div>
-                        </div>
-                    );
+                {userItems.map(({ text, icon }) => {
+                    return renderSidebar({ text, icon });
                 })}
+                {isAdmin &&
+                    adminItems.map(({ text, icon }) => {
+                        return renderSidebar({ text, icon });
+                    })}
             </div>
         </div>
     );

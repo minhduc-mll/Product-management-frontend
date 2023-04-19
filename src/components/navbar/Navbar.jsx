@@ -10,8 +10,9 @@ import {
 } from "@mui/icons-material";
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { apiRequest, getCurrentUser } from "utils/apiAxios";
 import { useMode, useModeDispatch } from "utils/darkModeContext";
+import { apiRequest } from "utils/apiAxios";
+import { getCurrentUser } from "utils/auth";
 import defaultAvatar from "assets/no-avatar.jpg";
 
 const Navbar = () => {
@@ -94,7 +95,7 @@ const Navbar = () => {
                                         {currentUser?.username}
                                     </li>
                                     <Link
-                                        to={`/users/${currentUser?._id}`}
+                                        to={`/${currentUser?.username}`}
                                         className="link"
                                     >
                                         <li
@@ -102,7 +103,7 @@ const Navbar = () => {
                                             onClick={() => {
                                                 handleOpenMenu();
                                                 navigate(
-                                                    `/users/${currentUser?._id}`
+                                                    `/${currentUser?.username}`
                                                 );
                                             }}
                                         >

@@ -1,4 +1,4 @@
-import { getCurrentUser } from "./apiAxios";
+import { getCurrentUser } from "./auth";
 
 export const initialProduct = {
     updatedBy: getCurrentUser()?._id,
