@@ -11,24 +11,24 @@ const productInputs = [
     },
     {
         id: 2,
+        name: "categoryId",
+        label: "Category",
+        type: "text",
+        placeholder: "Category",
+    },
+    {
+        id: 3,
         name: "desc",
         label: "Description",
         type: "text",
         placeholder: "Description",
     },
     {
-        id: 3,
+        id: 4,
         name: "port",
         label: "Port",
         type: "text",
         placeholder: "Port",
-    },
-    {
-        id: 4,
-        name: "status",
-        label: "Status",
-        type: "text",
-        placeholder: "Status",
     },
     {
         id: 5,
@@ -71,6 +71,13 @@ const productInputs = [
         label: "Seller",
         type: "text",
         placeholder: "Seller",
+    },
+    {
+        id: 11,
+        name: "status",
+        label: "Status",
+        type: "text",
+        placeholder: "Status",
     },
 ];
 

@@ -5,6 +5,7 @@ import Products from "pages/products/Products";
 import Product from "pages/product/Product";
 import NewProduct from "pages/newProduct/NewProduct";
 import Update from "pages/update/Update";
+import Categories from "pages/categories/Categories";
 import Calendar from "pages/calendar/Calendar";
 import Customers from "pages/customers/Customers";
 import NewCustomer from "pages/newCustomer/NewCustomer";
@@ -58,6 +59,22 @@ function App() {
                 },
                 {
                     path: "/products/update/:id",
+                    element: <Update inputs={productInputs} />,
+                },
+                {
+                    path: "/categories",
+                    element: <Categories />,
+                },
+                {
+                    path: "/categories/:id",
+                    element: <Product />,
+                },
+                {
+                    path: "/categories/new",
+                    element: <NewProduct />,
+                },
+                {
+                    path: "/categories/update/:id",
                     element: <Update inputs={productInputs} />,
                 },
                 {

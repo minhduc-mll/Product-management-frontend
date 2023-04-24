@@ -9,6 +9,13 @@ import CalendarCard from "components/calendarCard/CalendarCard";
 import Chart from "components/chart/Chart";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
+import dateFormat from "dateformat";
+
+const today = new Date();
+const thisMonth = dateFormat(today, "mmmm yyyy").toUpperCase();
+const thisMonthNum = today.getMonth() + 1;
+const thisYearNum = today.getFullYear();
+console.log(thisMonthNum);
 
 const stats = [
     {
@@ -68,7 +75,7 @@ const stats = [
     },
     {
         id: 4,
-        title: "TOTAL REVENUE",
+        title: `TOTAL REVENUE ( ${thisMonth} )`,
         menu: [],
         query: "totalDeposit",
         isMoney: true,
@@ -87,7 +94,7 @@ const stats = [
     },
     {
         id: 5,
-        title: "PROFITS",
+        title: `PROFITS ( ${thisMonth} )`,
         menu: [],
         query: "totalDeposit",
         isMoney: true,
@@ -114,7 +121,9 @@ const Analytics = () => {
     } = useQuery({
         queryKey: ["analys", "chart"],
         queryFn: async () => {
-            const res = await apiRequest.get(`/analys/productsByMonth`);
+            const res = await apiRequest.get(
+                `/analys/productsPerCategoryByMonth?year=${thisYearNum}`
+            );
             return res.data;
         },
     });
@@ -155,7 +164,7 @@ const Analytics = () => {
                         />
                     ) : (
                         <CalendarCard
-                            title="Calendar"
+                            title={`Calendar Arrival date`}
                             height="auto"
                             center="title"
                             right="today prev,next"
@@ -173,13 +182,13 @@ const Analytics = () => {
                     ) : errorChart ? (
                         <Chart
                             title={errorChart.message}
-                            aspect={3 / 1}
+                            aspect={2 / 1}
                             data={null}
                         />
                     ) : (
                         <Chart
-                            title="Products Per Month"
-                            aspect={3 / 1}
+                            title={`Category analysis by month ${thisYearNum}`}
+                            aspect={2 / 1}
                             data={dataChart}
                         />
                     )}

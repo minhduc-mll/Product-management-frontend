@@ -71,7 +71,7 @@ const Users = () => {
     return (
         <div className="users">
             <div className="usersTop">
-                <h1 className="title">All User</h1>
+                <h1 className="title">All Users</h1>
                 <button
                     onClick={() => {
                         navigate(`/users/new`);
@@ -88,7 +88,7 @@ const Users = () => {
                     error.response.data.message
                 ) : (
                     <Datatable
-                        target="user"
+                        target="users"
                         rows={data}
                         columns={userColumns}
                     />

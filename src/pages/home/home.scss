@@ -24,13 +24,12 @@
         }
     }
 
-    .homeMiddle {
+    .homeMiddle,
+    .homeBottom {
         .homeList {
             flex: 10;
         }
-    }
 
-    .homeBottom {
         .homeChart {
             flex: 10;
         }

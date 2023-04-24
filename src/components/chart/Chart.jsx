@@ -13,7 +13,6 @@ import {
     ResponsiveContainer,
 } from "recharts";
 import { PureComponent, useState } from "react";
-import { i18n } from "dateformat";
 
 const color = [
     "#8884d8",
@@ -25,14 +24,18 @@ const color = [
     "rgba(255, 159, 64, 0.2)",
 ];
 
+const getRandomColor = () => {
+    return "#" + ((Math.random() * 0xffffff) << 0).toString(16);
+};
+
 class CustomizedAxisTick extends PureComponent {
     render() {
         const { x, y, payload } = this.props;
 
         return (
             <g transform={`translate(${x},${y})`}>
-                <text dx={-10} dy={16} fill="gray" transform="rotate(0)">
-                    {i18n.monthNames[payload.value - 1]}
+                <text dx={-10} dy={16} fill="gray" transform="rotate(-30)">
+                    {payload.value}
                 </text>
             </g>
         );
@@ -42,6 +45,73 @@ class CustomizedAxisTick extends PureComponent {
 const Chart = ({ title, aspect, data }) => {
     const [open, setOpen] = useState(false);
     const [chart, setChart] = useState("LineChart");
+
+    const multipleLine = () => {
+        const entries = data.map((option) => {
+            const keys = Object.keys(option);
+            return keys;
+        });
+        const flattened = entries.reduce((prev, current) => {
+            prev = prev.concat(current);
+            return prev;
+        }, []);
+        const filtered = flattened.filter((key) => key !== "month");
+        const uniqueKeys = [...new Set(filtered)];
+        return uniqueKeys.map((key, index) => {
+            return (
+                <Line
+                    type="monotone"
+                    dataKey={key}
+                    stroke={getRandomColor()}
+                    strokeWidth={2}
+                    key={index}
+                />
+            );
+        });
+    };
+
+    const multipleArea = (area) => {
+        const entries = data.map((option) => {
+            const keys = Object.keys(option);
+            return keys;
+        });
+        const flattened = entries.reduce((prev, current) => {
+            prev = prev.concat(current);
+            return prev;
+        }, []);
+        const filtered = flattened.filter((key) => key !== "month");
+        const uniqueKeys = [...new Set(filtered)];
+        return uniqueKeys.map((key, index) => {
+            if (area === "linearGradient") {
+                return (
+                    <linearGradient id={"linear"} x1="0" y1="0" x2="0" y2="1">
+                        <stop
+                            offset="5%"
+                            stopColor={color[1]}
+                            stopOpacity={0.6}
+                        />
+                        <stop
+                            offset="95%"
+                            stopColor={color[0]}
+                            stopOpacity={0}
+                        />
+                    </linearGradient>
+                );
+            } else {
+                return (
+                    <Area
+                        type="monotone"
+                        dataKey={key}
+                        stroke={getRandomColor()}
+                        strokeWidth={2}
+                        fillOpacity={1}
+                        fill={`url(#linear)`}
+                        key={index}
+                    />
+                );
+            }
+        });
+    };
 
     return (
         <div className="chart">
@@ -81,18 +151,14 @@ const Chart = ({ title, aspect, data }) => {
                                 className="chartGrid"
                             />
                             <XAxis
-                                dataKey="_id.month"
+                                dataKey="month"
                                 stroke="gray"
                                 tick={<CustomizedAxisTick />}
                             />
                             <YAxis />
                             <Tooltip />
                             <Legend />
-                            <Line
-                                type="monotone"
-                                dataKey="count"
-                                stroke={color[0]}
-                            />
+                            {multipleLine()}
                         </LineChart>
                     ) : (
                         <AreaChart
@@ -104,41 +170,20 @@ const Chart = ({ title, aspect, data }) => {
                                 bottom: 0,
                             }}
                         >
-                            <defs>
-                                <linearGradient
-                                    id="count"
-                                    x1="0"
-                                    y1="0"
-                                    x2="0"
-                                    y2="1"
-                                >
-                                    <stop
-                                        offset="5%"
-                                        stopColor={color[1]}
-                                        stopOpacity={0.6}
-                                    />
-                                    <stop
-                                        offset="95%"
-                                        stopColor={color[1]}
-                                        stopOpacity={0}
-                                    />
-                                </linearGradient>
-                            </defs>
+                            <defs>{multipleArea("linearGradient")}</defs>
                             <CartesianGrid
                                 strokeDasharray="6 3"
                                 className="chartGrid"
                             />
-                            <XAxis dataKey="_id.month" stroke="gray" />
+                            <XAxis
+                                dataKey="month"
+                                stroke="gray"
+                                tick={<CustomizedAxisTick />}
+                            />
                             <YAxis />
                             <Tooltip />
                             <Legend />
-                            <Area
-                                type="monotone"
-                                dataKey="count"
-                                stroke={color[1]}
-                                fillOpacity={1}
-                                fill="url(#count)"
-                            />
+                            {multipleArea("area")}
                         </AreaChart>
                     )}
                 </ResponsiveContainer>

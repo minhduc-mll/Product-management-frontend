@@ -2,10 +2,12 @@ import "./sidebar.scss";
 import {
     HomeOutlined,
     StoreOutlined,
+    CategoryOutlined,
     AttachMoneyOutlined,
     CalendarMonthOutlined,
-    PersonOutline,
+    GroupOutlined,
     ReportOutlined,
+    PersonOutline,
     BarChartOutlined,
 } from "@mui/icons-material";
 import { useState, useEffect } from "react";
@@ -26,6 +28,10 @@ const userItems = [
         icon: <StoreOutlined className="icon" />,
     },
     {
+        text: "Categories",
+        icon: <CategoryOutlined className="icon" />,
+    },
+    {
         text: "Transactions",
         icon: <AttachMoneyOutlined className="icon" />,
     },
@@ -35,7 +41,7 @@ const userItems = [
     },
     {
         text: "Customers",
-        icon: <PersonOutline className="icon" />,
+        icon: <GroupOutlined className="icon" />,
     },
     {
         text: "Feedback",

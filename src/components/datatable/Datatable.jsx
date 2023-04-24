@@ -10,11 +10,11 @@ const Datatable = ({ target, rows, columns }) => {
 
     const { mutate } = useMutation({
         mutationFn: async (id) => {
-            await apiRequest.delete(`/${target}s/${id}`);
+            await apiRequest.delete(`/${target}/${id}`);
         },
         onSuccess: () => {
-            queryClient.invalidateQueries([`${target}s`]);
-            navigate(`/${target}s`);
+            queryClient.invalidateQueries([`${target}`]);
+            navigate(`/${target}`);
         },
     });
 
@@ -23,27 +23,39 @@ const Datatable = ({ target, rows, columns }) => {
     };
 
     const handleView = async (id) => {
-        navigate(`/${target}s/${id}`);
+        navigate(`/${target}/${id}`);
     };
 
     const actionColumn = [
         {
-            field: "action",
-            headername: "Action",
+            field: "Actions",
+            headername: "Actions",
             width: 155,
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
                         <button
                             className="viewButton"
-                            onClick={() => handleView(params.row._id)}
+                            onClick={() => {
+                                if (target === "products") {
+                                    handleView(params.row.productId);
+                                } else {
+                                    handleView(params.row._id);
+                                }
+                            }}
                         >
                             View
                         </button>
 
                         <button
                             className="deleteButton"
-                            onClick={() => handleDelete(params.row._id)}
+                            onClick={() => {
+                                if (target === "products") {
+                                    handleDelete(params.row.productId);
+                                } else {
+                                    handleDelete(params.row._id);
+                                }
+                            }}
                         >
                             Delete
                         </button>
@@ -57,7 +69,7 @@ const Datatable = ({ target, rows, columns }) => {
         <div className="datatable">
             <DataGrid
                 className="datagrid"
-                rows={rows}
+                rows={rows || []}
                 columns={columns.concat(actionColumn)}
                 slots={{ toolbar: GridToolbar }}
                 autoPageSize

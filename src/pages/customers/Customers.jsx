@@ -42,7 +42,7 @@ const Customers = () => {
         <div className="customers">
             <div className="customersTop">
                 <div className="customersTitle">
-                    <h1 className="title">All customers</h1>
+                    <h1 className="title">All Customers</h1>
                     <button
                         className="addButton"
                         onClick={() => {

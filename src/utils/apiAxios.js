@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const apiRequest = axios.create({
-    baseURL: "http://localhost:3001/api/",
+    baseURL: process.env.REACT_APP_BASE_URL,
     withCredentials: true,
 });
 
@@ -12,7 +12,7 @@ export const cloudinaryUpload = async (file) => {
 
     try {
         const res = await axios.post(
-            "https://api.cloudinary.com/v1_1/dupx03lpv/image/upload",
+            process.env.REACT_APP_CLOUDINARY_URL,
             data
         );
 

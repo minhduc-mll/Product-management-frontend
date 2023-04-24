@@ -41,6 +41,10 @@
                 background-color: rgba(220, 20, 60, 0.1);
                 color: crimson;
             }
+            &.dev {
+                background-color: rgba(255, 105, 80, 0.1);
+                color: hotpink;
+            }
             &.manager {
                 background-color: rgba(218, 165, 32, 0.1);
                 color: goldenrod;

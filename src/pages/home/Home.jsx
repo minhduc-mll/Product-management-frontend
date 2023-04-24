@@ -11,6 +11,7 @@ import dateFormat from "dateformat";
 const today = new Date();
 const thisMonth = dateFormat(today, "mmmm yyyy").toUpperCase();
 const thisMonthNum = today.getMonth() + 1;
+const thisYearNum = today.getFullYear();
 
 const stats = [
     {
@@ -35,7 +36,7 @@ const stats = [
         id: 2,
         title: `PRODUCTS ( ${thisMonth} )`,
         menu: [],
-        query: `productsMonth/${thisMonthNum}`,
+        query: `productsMonth/?month=${thisMonthNum}&year=${thisYearNum}`,
         isMoney: false,
         to: "/products",
         link: "View all products",
@@ -67,6 +68,24 @@ const stats = [
             />
         ),
     },
+    {
+        id: 4,
+        title: "CATEGORIES",
+        menu: [],
+        query: "categories",
+        isMoney: false,
+        to: "/categories",
+        link: "View all categories",
+        icon: (
+            <StoreOutlined
+                className="icon"
+                style={{
+                    color: "purple",
+                    backgroundColor: "rgba(128, 0, 128, 0.2)",
+                }}
+            />
+        ),
+    },
 ];
 
 const Home = () => {
@@ -77,7 +96,9 @@ const Home = () => {
     } = useQuery({
         queryKey: ["products", "home"],
         queryFn: async () => {
-            const res = await apiRequest.get(`/products?status=pending`);
+            const res = await apiRequest.get(
+                `/products?status=pending&sortName=arrivalDate`
+            );
             return res.data;
         },
     });
@@ -89,7 +110,9 @@ const Home = () => {
     } = useQuery({
         queryKey: ["analys", "chart", "home"],
         queryFn: async () => {
-            const res = await apiRequest.get(`/analys/productsByMonth`);
+            const res = await apiRequest.get(
+                `/analys/productsPerUserByMonth?year=${thisYearNum}`
+            );
             return res.data;
         },
     });
@@ -128,7 +151,7 @@ const Home = () => {
                         />
                     ) : (
                         <CalendarCard
-                            title="Calendar"
+                            title={`Calendar Arrival date and Delivery date`}
                             height="auto"
                             left="prev,next today"
                             center="title"
@@ -141,6 +164,25 @@ const Home = () => {
                 </div>
             </div>
             <div className="homeMiddle">
+                <div className="homeChart">
+                    {isLoadingChart ? (
+                        "Loading..."
+                    ) : errorChart ? (
+                        <Chart
+                            title={errorChart.message}
+                            aspect={2 / 1}
+                            data={null}
+                        />
+                    ) : (
+                        <Chart
+                            title={`Seller analysis by month ${thisYearNum}`}
+                            aspect={2 / 1}
+                            data={dataChart}
+                        />
+                    )}
+                </div>
+            </div>
+            <div className="homeBottom">
                 <div className="homeList">
                     {isLoadingProducts ? (
                         "Loading..."
@@ -153,25 +195,6 @@ const Home = () => {
                         <Regulartable
                             title="Unsold Product"
                             products={dataProducts}
-                        />
-                    )}
-                </div>
-            </div>
-            <div className="homeBottom">
-                <div className="homeChart">
-                    {isLoadingChart ? (
-                        "Loading..."
-                    ) : errorChart ? (
-                        <Chart
-                            title={errorChart.message}
-                            aspect={3 / 1}
-                            data={null}
-                        />
-                    ) : (
-                        <Chart
-                            title="Products count by month"
-                            aspect={3 / 1}
-                            data={dataChart}
                         />
                     )}
                 </div>
