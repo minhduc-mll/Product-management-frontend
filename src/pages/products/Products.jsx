@@ -1,14 +1,82 @@
 import "./products.scss";
-import { KeyboardArrowDownOutlined, SearchOutlined } from "@mui/icons-material";
+import {
+    KeyboardArrowDownOutlined,
+    KeyboardArrowUpOutlined,
+    GridViewOutlined,
+    ViewListOutlined,
+    SearchOutlined,
+} from "@mui/icons-material";
 import ProductDetail from "components/productCard/ProductCard";
+import Datatable from "components/datatable/Datatable";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
+import dateFormat from "dateformat";
+
+const productColumns = [
+    {
+        field: "id",
+        headerName: "Id",
+        width: 88,
+    },
+    {
+        field: "productId",
+        headerName: "ProductId",
+        flex: 1,
+    },
+    {
+        field: "arrivalDate",
+        headerName: "Arrival Date",
+        flex: 1,
+        renderCell: (params) => {
+            return params.row.arrivalDate ? (
+                <div className="cellUser">
+                    {dateFormat(params.row.arrivalDate, "dd-mm-yyyy")}
+                </div>
+            ) : (
+                ""
+            );
+        },
+    },
+    {
+        field: "deliveryDate",
+        headerName: "Delivery Date",
+        flex: 1,
+        renderCell: (params) => {
+            return params.row.deliveryDate ? (
+                <div className="cellUser">
+                    {dateFormat(params.row.deliveryDate, "dd-mm-yyyy")}
+                </div>
+            ) : (
+                ""
+            );
+        },
+    },
+    {
+        field: "port",
+        headerName: "Port",
+        flex: 1,
+    },
+    {
+        field: "status",
+        headerName: "Status",
+        flex: 1,
+        renderCell: (params) => {
+            return (
+                <div className={`status ${params.row.status}`}>
+                    {params.row.status}
+                </div>
+            );
+        },
+    },
+];
 
 const Products = () => {
     const [open, setOpen] = useState(false);
-    const [sort, setSort] = useState("sales");
+    const [view, setView] = useState("grid");
+    const [sortName, setSortName] = useState("createdAt");
+    const [sortOrder, setSortOrder] = useState("dsc");
     const minRef = useRef();
     const maxRef = useRef();
 
@@ -22,25 +90,33 @@ const Products = () => {
     } = useQuery({
         queryKey: ["products"],
         queryFn: async () => {
-            const res = await apiRequest.get(`/products`);
-            return res.data;
+            const res = await apiRequest.get(
+                `/products?sortName=${sortName}&sortOrder=${sortOrder}`
+            );
+            const products = res.data.map((data, index) => {
+                return {
+                    id: index + 1,
+                    ...data,
+                };
+            });
+            return products;
         },
     });
 
     const reSort = (type) => {
-        setSort(type);
+        setSortName(type);
         setOpen(false);
     };
 
     useEffect(() => {
         refetch();
-    }, [sort, refetch]);
+    }, [sortName, sortOrder, refetch]);
 
     return (
         <div className="products">
             <div className="productsTop">
                 <div className="productsTitle">
-                    <h1 className="title">All products</h1>
+                    <h1 className="title">All Products</h1>
                     <button
                         className="addButton"
                         onClick={() => {
@@ -51,12 +127,12 @@ const Products = () => {
                     </button>
                 </div>
                 <div className="productsMenu">
-                    <div className="menuSearch">
-                        <div className="searchPrimary">
+                    <div className="menuFilters">
+                        <div className="searchInput">
                             <input type="text" placeholder="Search..." />
                             <SearchOutlined className="icon" />
                         </div>
-                        <div className="searchSecondary">
+                        <div className="sortInput">
                             <span>Price</span>
                             <input
                                 ref={minRef}
@@ -76,45 +152,84 @@ const Products = () => {
                                 Apply
                             </button>
                         </div>
-                    </div>
-                    <div className="menuSort">
-                        <span className="sortBy">Sort by</span>
-                        <span
-                            className="sortType"
-                            onClick={() => setOpen(!open)}
-                        >
-                            {sort === "sales" ? "Best Selling" : "Newest"}
-                            <KeyboardArrowDownOutlined className="icon" />
-                        </span>
-                        {open && (
-                            <div className="openMenu">
-                                {sort === "sales" ? (
-                                    <span onClick={() => reSort("createdAt")}>
-                                        Newest
-                                    </span>
+                        <div className="sortSelect">
+                            <span className="sortBy">Sort by</span>
+                            <span
+                                className="sortType"
+                                onClick={() => setOpen(!open)}
+                            >
+                                {sortName === "createdAt" ? "Newest" : "Status"}
+                            </span>
+                            <span className="sortOrder">
+                                {sortOrder === "dsc" ? (
+                                    <KeyboardArrowDownOutlined
+                                        className="icon"
+                                        onClick={() => setSortOrder("asc")}
+                                    />
                                 ) : (
-                                    <span onClick={() => reSort("sales")}>
-                                        Best Selling
-                                    </span>
+                                    <KeyboardArrowUpOutlined
+                                        className="icon"
+                                        onClick={() => setSortOrder("dsc")}
+                                    />
                                 )}
-                                <span onClick={() => reSort("sales")}>
-                                    Popular
-                                </span>
-                            </div>
-                        )}
+                            </span>
+                            {open && (
+                                <div className="openMenu">
+                                    {sortName === "createdAt" ? (
+                                        <span onClick={() => reSort("status")}>
+                                            Status
+                                        </span>
+                                    ) : (
+                                        <span
+                                            onClick={() => reSort("createdAt")}
+                                        >
+                                            Newest
+                                        </span>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    <div className="menuView">
+                        <GridViewOutlined
+                            className={view === "grid" ? "icon active" : "icon"}
+                            onClick={() => setView("grid")}
+                        />
+                        <ViewListOutlined
+                            className={view === "list" ? "icon active" : "icon"}
+                            onClick={() => setView("list")}
+                        />
                     </div>
                 </div>
             </div>
             <div className="productsBottom">
-                {isLoading
-                    ? "Loading..."
-                    : error
-                    ? error.response.data.message
-                    : productsData.map((item) => (
-                          <div className="item" key={item.productId}>
-                              <ProductDetail product={item} />
-                          </div>
-                      ))}
+                {view === "grid" ? (
+                    <div className="gridView">
+                        {isLoading
+                            ? "Loading..."
+                            : error
+                            ? error.response.data.message
+                            : productsData.map((item) => (
+                                  <div className="item" key={item.productId}>
+                                      <ProductDetail product={item} />
+                                  </div>
+                              ))}
+                    </div>
+                ) : (
+                    <div className="listView">
+                        {isLoading ? (
+                            "Loading..."
+                        ) : error ? (
+                            error.response.data.message
+                        ) : (
+                            <Datatable
+                                target="products"
+                                rows={productsData}
+                                columns={productColumns}
+                            />
+                        )}
+                    </div>
+                )}
             </div>
         </div>
     );
