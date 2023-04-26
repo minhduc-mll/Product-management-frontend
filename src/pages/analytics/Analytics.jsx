@@ -146,7 +146,7 @@ const Analytics = () => {
         <div className="analytics">
             <div className="analyticsTop">
                 <div className="analyticsStats">
-                    {stats.map((stat) => (
+                    {stats?.map((stat) => (
                         <StatisticsCard stat={stat} key={stat.id} />
                     ))}
                 </div>

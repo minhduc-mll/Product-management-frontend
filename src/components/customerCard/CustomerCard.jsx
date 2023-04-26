@@ -7,13 +7,22 @@ import {
     DeleteOutlined,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 import dateFormat from "dateformat";
 import defaultAvatar from "assets/no-avatar.jpg";
 
 const CustomerCard = ({ customer }) => {
     const navigate = useNavigate();
+
+    const { isLoading, error, data } = useQuery({
+        queryKey: ["customers", customer?.userId],
+        queryFn: async () => {
+            const res = await apiRequest.get(`/users/${customer?.userId}`);
+            return res.data;
+        },
+        enabled: !!customer?.userId,
+    });
 
     const queryClient = useQueryClient();
 
@@ -56,7 +65,7 @@ const CustomerCard = ({ customer }) => {
                             ""
                         )}
                         {customer?.phone ? (
-                            <div className="desc">
+                            <div className="phone">
                                 <PhoneIphoneOutlined className="icon" />
                                 <span className="itemValue">
                                     {customer.phone}
@@ -119,7 +128,16 @@ const CustomerCard = ({ customer }) => {
                             ""
                         )}
                     </div>
-                </div>{" "}
+                    <div className="itemSeller">
+                        {isLoading ? (
+                            "Loading..."
+                        ) : error ? (
+                            error.response.data.message
+                        ) : (
+                            <p className="itemDetail">{data.name}</p>
+                        )}
+                    </div>
+                </div>
             </div>
         </div>
     );

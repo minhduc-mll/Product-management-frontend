@@ -32,7 +32,7 @@ const FormProduct = ({ inputs }) => {
             const cover = await cloudinaryUpload(files[0]);
 
             const images = await Promise.all(
-                [...files].map(async (file) => {
+                [...files]?.map(async (file) => {
                     const url = await cloudinaryUpload(file);
                     return url;
                 })
@@ -94,7 +94,7 @@ const FormProduct = ({ inputs }) => {
                 </div>
                 <div className="right">
                     <div className="formInput">
-                        {inputs.map((input) => (
+                        {inputs?.map((input) => (
                             <div className="input" key={input.id}>
                                 <label>{input.label}</label>
                                 <input

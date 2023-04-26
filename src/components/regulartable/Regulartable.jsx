@@ -30,7 +30,7 @@ const Regulartable = ({ title, products }) => {
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            {tableColumns.map((column) => (
+                            {tableColumns?.map((column) => (
                                 <TableCell className="tableCell" key={column}>
                                     {column}
                                 </TableCell>

@@ -107,7 +107,7 @@ const ImageSlider = ({ slides, parentWidth }) => {
             </div>
             <div style={slidesContainerOverflowStyles}>
                 <div style={getSlidesContainerStylesWithWidth()}>
-                    {slides.map((_, slideIndex) => (
+                    {slides?.map((_, slideIndex) => (
                         <div
                             key={slideIndex}
                             style={getSlideStylesWithBackground(slideIndex)}
@@ -116,7 +116,7 @@ const ImageSlider = ({ slides, parentWidth }) => {
                 </div>
             </div>
             <div style={dotsContainerStyles}>
-                {slides.map((slide, slideIndex) => (
+                {slides?.map((slide, slideIndex) => (
                     <div
                         style={dotStyle}
                         key={slideIndex}

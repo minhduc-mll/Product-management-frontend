@@ -105,11 +105,11 @@ const Sidebar = () => {
     return (
         <div className="sidebar">
             <div className="wrapper">
-                {userItems.map(({ text, icon }) => {
+                {userItems?.map(({ text, icon }) => {
                     return renderSidebar({ text, icon });
                 })}
                 {isAdmin &&
-                    adminItems.map(({ text, icon }) => {
+                    adminItems?.map(({ text, icon }) => {
                         return renderSidebar({ text, icon });
                     })}
             </div>

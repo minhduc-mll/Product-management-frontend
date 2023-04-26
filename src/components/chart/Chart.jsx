@@ -47,17 +47,17 @@ const Chart = ({ title, aspect, data }) => {
     const [chart, setChart] = useState("LineChart");
 
     const multipleLine = () => {
-        const entries = data.map((option) => {
+        const entries = data?.map((option) => {
             const keys = Object.keys(option);
             return keys;
         });
-        const flattened = entries.reduce((prev, current) => {
+        const flattened = entries?.reduce((prev, current) => {
             prev = prev.concat(current);
             return prev;
         }, []);
-        const filtered = flattened.filter((key) => key !== "month");
+        const filtered = flattened?.filter((key) => key !== "month");
         const uniqueKeys = [...new Set(filtered)];
-        return uniqueKeys.map((key, index) => {
+        return uniqueKeys?.map((key, index) => {
             return (
                 <Line
                     type="monotone"
@@ -71,17 +71,17 @@ const Chart = ({ title, aspect, data }) => {
     };
 
     const multipleArea = (area) => {
-        const entries = data.map((option) => {
+        const entries = data?.map((option) => {
             const keys = Object.keys(option);
             return keys;
         });
-        const flattened = entries.reduce((prev, current) => {
+        const flattened = entries?.reduce((prev, current) => {
             prev = prev.concat(current);
             return prev;
         }, []);
-        const filtered = flattened.filter((key) => key !== "month");
+        const filtered = flattened?.filter((key) => key !== "month");
         const uniqueKeys = [...new Set(filtered)];
-        return uniqueKeys.map((key, index) => {
+        return uniqueKeys?.map((key, index) => {
             if (area === "linearGradient") {
                 return (
                     <linearGradient id={"linear"} x1="0" y1="0" x2="0" y2="1">

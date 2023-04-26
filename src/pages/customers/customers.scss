@@ -37,73 +37,105 @@
 
         .customersMenu {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 10px;
 
-            .menuSearch {
+            .menuFilters {
                 display: flex;
                 align-items: center;
-                width: fit-content;
-                padding: 5px;
-                border: 0.5px solid gray;
-                border-radius: 100px;
+                justify-content: space-between;
+                gap: 10px;
 
-                &:hover {
-                    border-color: var(--primary-lime-green);
-                }
+                .searchInput {
+                    display: flex;
+                    align-items: center;
+                    width: fit-content;
+                    padding: 5px;
+                    border: 0.5px solid gray;
+                    border-radius: 100px;
 
-                input {
-                    font-size: 14px;
-                    border: none;
-                    outline: none;
-                    background: transparent;
+                    &:hover {
+                        border-color: var(--primary-lime-green);
+                    }
 
-                    &::placeholder {
-                        font-size: 12px;
+                    input {
+                        font-size: 14px;
+                        border: none;
+                        outline: none;
+                        background: transparent;
+
+                        &::placeholder {
+                            font-size: 12px;
+                            color: gray;
+                        }
+                    }
+
+                    .icon {
+                        font-size: 25px;
+                        cursor: pointer;
+
+                        &:hover {
+                            color: var(--primary-lime-green);
+                        }
                     }
                 }
 
-                .icon {
-                    font-size: 25px;
-                    cursor: pointer;
+                .sortSelect {
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    gap: 5px;
 
-                    &:hover {
-                        color: var(--primary-lime-green);
+                    .sortBy {
+                        color: gray;
+                    }
+
+                    .sortType {
+                        font-weight: bold;
+                        cursor: pointer;
+
+                        &:hover {
+                            color: var(--primary-lime-green);
+                        }
+                    }
+
+                    .sortOrder {
+                        .icon {
+                            font-size: 24px;
+                            cursor: pointer;
+
+                            &:hover {
+                                color: var(--primary-lime-green);
+                            }
+                        }
+                    }
+
+                    .openMenu {
+                        width: 150px;
+
+                        span {
+                            font-size: 16px;
+                        }
                     }
                 }
             }
 
-            .menuSort {
-                position: relative;
+            .menuView {
                 display: flex;
+                gap: 5px;
                 align-items: center;
-                gap: 10px;
+                justify-content: flex-end;
 
-                .sortBy {
-                    color: gray;
-                }
-
-                .sortType {
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    font-weight: bold;
+                .icon {
+                    font-size: 24px;
                     cursor: pointer;
-
-                    .icon {
-                        font-size: 20px;
-                    }
 
                     &:hover {
                         color: var(--primary-lime-green);
                     }
-                }
 
-                .openMenu {
-                    width: 150px;
-
-                    span {
-                        font-size: 16px;
+                    &.active {
+                        color: var(--primary-lime-green);
                     }
                 }
             }
@@ -111,8 +143,15 @@
     }
 
     .customersBottom {
-        display: grid;
-        gap: 10px;
         margin: 20px;
+
+        .gridView {
+            display: grid;
+            gap: 10px;
+        }
+
+        .listView {
+            padding: 0;
+        }
     }
 }

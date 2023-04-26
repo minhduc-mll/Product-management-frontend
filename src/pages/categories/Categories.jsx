@@ -29,7 +29,7 @@ const Categories = () => {
         queryKey: ["categories"],
         queryFn: async () => {
             const res = await apiRequest.get(`/categories`);
-            const categories = res.data.map((data, index) => {
+            const categories = res.data?.map((data, index) => {
                 return {
                     id: index + 1,
                     ...data,

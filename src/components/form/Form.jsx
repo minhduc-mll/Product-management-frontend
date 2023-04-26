@@ -81,7 +81,7 @@ const Form = ({ target, inputs }) => {
                 </div>
                 <div className="right">
                     <div className="formInput">
-                        {inputs.map((input) => (
+                        {inputs?.map((input) => (
                             <div className="input" key={input.id}>
                                 <label>{input.label}</label>
                                 <input

@@ -133,7 +133,7 @@ const Home = () => {
         <div className="home">
             <div className="homeTop">
                 <div className="homeStats">
-                    {stats.map((stat) => (
+                    {stats?.map((stat) => (
                         <StatisticsCard stat={stat} key={stat.id} />
                     ))}
                 </div>

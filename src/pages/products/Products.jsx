@@ -2,9 +2,9 @@ import "./products.scss";
 import {
     KeyboardArrowDownOutlined,
     KeyboardArrowUpOutlined,
+    SearchOutlined,
     GridViewOutlined,
     ViewListOutlined,
-    SearchOutlined,
 } from "@mui/icons-material";
 import ProductDetail from "components/productCard/ProductCard";
 import Datatable from "components/datatable/Datatable";
@@ -73,14 +73,15 @@ const productColumns = [
 ];
 
 const Products = () => {
+    const navigate = useNavigate();
+
     const [open, setOpen] = useState(false);
     const [view, setView] = useState("grid");
+    const [search, setSearch] = useState("");
     const [sortName, setSortName] = useState("createdAt");
     const [sortOrder, setSortOrder] = useState("dsc");
     const minRef = useRef();
     const maxRef = useRef();
-
-    const navigate = useNavigate();
 
     const {
         isLoading,
@@ -91,9 +92,9 @@ const Products = () => {
         queryKey: ["products"],
         queryFn: async () => {
             const res = await apiRequest.get(
-                `/products?sortName=${sortName}&sortOrder=${sortOrder}`
+                `/products?search=${search}&sortName=${sortName}&sortOrder=${sortOrder}`
             );
-            const products = res.data.map((data, index) => {
+            const products = res.data?.map((data, index) => {
                 return {
                     id: index + 1,
                     ...data,
@@ -110,7 +111,7 @@ const Products = () => {
 
     useEffect(() => {
         refetch();
-    }, [sortName, sortOrder, refetch]);
+    }, [search, sortName, sortOrder, refetch]);
 
     return (
         <div className="products">
@@ -129,8 +130,15 @@ const Products = () => {
                 <div className="productsMenu">
                     <div className="menuFilters">
                         <div className="searchInput">
-                            <input type="text" placeholder="Search..." />
-                            <SearchOutlined className="icon" />
+                            <input
+                                type="text"
+                                placeholder="Search..."
+                                onChange={(e) => setSearch(e.target.value)}
+                            />
+                            <SearchOutlined
+                                className="icon"
+                                onClick={refetch}
+                            />
                         </div>
                         <div className="sortInput">
                             <span>Price</span>
@@ -144,13 +152,7 @@ const Products = () => {
                                 type="number"
                                 placeholder="max"
                             />
-                            <button
-                                onClick={() => {
-                                    refetch();
-                                }}
-                            >
-                                Apply
-                            </button>
+                            <button onClick={refetch}>Apply</button>
                         </div>
                         <div className="sortSelect">
                             <span className="sortBy">Sort by</span>
@@ -209,7 +211,7 @@ const Products = () => {
                             ? "Loading..."
                             : error
                             ? error.response.data.message
-                            : productsData.map((item) => (
+                            : productsData?.map((item) => (
                                   <div className="item" key={item.productId}>
                                       <ProductDetail product={item} />
                                   </div>

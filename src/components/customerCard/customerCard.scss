@@ -35,10 +35,10 @@
         display: flex;
         padding: 10px 20px;
         gap: 10px;
-
+        
         .customerImage {
             display: flex;
-
+            
             .image {
                 width: 55px;
                 height: 55px;
@@ -46,11 +46,13 @@
                 object-fit: cover;
             }
         }
-
+        
         .customerItems {
+            width: 100%;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
+            gap: 20px;
 
             .itemTitle {
                 .title {
@@ -58,7 +60,7 @@
                     font-weight: bold;
                 }
 
-                .desc {
+                .phone {
                     display: flex;
                     align-items: center;
                     margin-top: 5px;
@@ -85,6 +87,12 @@
                         text-align: center;
                     }
                 }
+            }
+
+            .itemSeller {
+                font-size: 18px;
+                font-weight: bold;
+                margin-right: 20px;
             }
         }
     }
