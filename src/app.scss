@@ -25,6 +25,7 @@ body,
     .link {
         text-decoration: none;
         color: inherit;
+        cursor: pointer;
 
         &:hover {
             color: var(--primary-lime-green);
@@ -97,6 +98,11 @@ body,
                 color: var(--primary-lime-green);
             }
         }
+    }
+
+    .error {
+        color: red;
+        font-size: 14px;
     }
 }
 

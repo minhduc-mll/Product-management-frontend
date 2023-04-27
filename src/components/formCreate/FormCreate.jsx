@@ -1,16 +1,15 @@
-import "./formProduct.scss";
+import "./formCreate.scss";
 import { DriveFolderUploadOutlined } from "@mui/icons-material";
 import { useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { apiRequest, cloudinaryUpload } from "utils/apiAxios";
+import { apiRequest } from "utils/apiAxios";
 import { formReducer, initialState } from "utils/formReducer";
 import defaultImage from "assets/no-image.jpg";
 
-const FormProduct = ({ inputs }) => {
+const FormCreate = ({ route, inputs }) => {
     const [formObject, dispatch] = useReducer(formReducer, initialState);
-    const [files, setFiles] = useState([]);
-    const [uploading, setUploading] = useState(false);
+    const [file, setFile] = useState(defaultImage);
     const [isSuccess, setIsSuccess] = useState(false);
 
     const navigate = useNavigate();
@@ -26,54 +25,55 @@ const FormProduct = ({ inputs }) => {
 
     const handleUpload = async (e) => {
         e.preventDefault();
-        const files = e.target.files;
-        setFiles(files);
-        try {
-            setUploading(true);
-            const cover = await cloudinaryUpload(files[0]);
+        const file = e.target.files[0];
+        if (file) {
+            setFile(URL.createObjectURL(file));
+        } else {
+            setFile(file);
+        }
 
-            const images = await Promise.all(
-                [...files]?.map(async (file) => {
-                    const url = await cloudinaryUpload(file);
-                    return url;
-                })
-            );
-
+        if (file) {
+            const image = file;
             dispatch({
-                type: "ADD_IMAGES",
-                payload: { cover, images },
+                type: "ADD_AVATAR",
+                payload: { image },
             });
-            setUploading(false);
-        } catch (err) {
-            console.log(err.message);
         }
     };
 
-    const { isLoading, error, mutate } = useMutation({
+    const {
+        isLoading: isLoadingPost,
+        error: errorPost,
+        mutate: mutatePost,
+    } = useMutation({
         mutationFn: async (formObject) => {
-            const res = await apiRequest.post("/products", formObject);
-            console.log(res.data);
+            const res = await apiRequest.post(`/${route}`, formObject);
+            return res.data;
         },
-        onSuccess: () => {
-            queryClient.invalidateQueries(["products"]);
+        onSuccess: (data) => {
+            queryClient.invalidateQueries([`/${route}`]);
             setIsSuccess(true);
-            navigate(`/products/${formObject.productId}`);
+            navigate(`/${route}/${data._id}`);
         },
     });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        mutate(formObject);
+        const formData = new FormData();
+        for (const key in formObject) {
+            formObject[key] && formData.append(key, formObject[key]);
+        }
+        mutatePost(formData);
     };
 
     return (
-        <div className="formProduct">
+        <div className="formCreate">
             <form action="" onSubmit={handleSubmit}>
                 <div
                     className="top"
                     style={{ display: isSuccess ? "flex" : "none" }}
                 >
-                    <div className="success">Update Successful</div>
+                    <div className="success">Create Successful</div>
                 </div>
                 <div className="bottom">
                     <div className="left">
@@ -83,11 +83,7 @@ const FormProduct = ({ inputs }) => {
                                 <DriveFolderUploadOutlined className="icon" />
                             </div>
                             <img
-                                src={
-                                    files[0]
-                                        ? URL.createObjectURL(files[0])
-                                        : defaultImage
-                                }
+                                src={file || defaultImage}
                                 alt="avata"
                                 htmlFor="file"
                             />
@@ -95,10 +91,7 @@ const FormProduct = ({ inputs }) => {
                         <input
                             type="file"
                             id="file"
-                            multiple
-                            onChange={(e) => {
-                                handleUpload(e);
-                            }}
+                            onChange={(e) => handleUpload(e)}
                         />
                     </div>
                     <div className="right">
@@ -116,10 +109,10 @@ const FormProduct = ({ inputs }) => {
                             ))}
                         </div>
                         <span className="error">
-                            {error && error.response.data.message}
+                            {errorPost && errorPost.response.data.message}
                         </span>
                         <div className="sendButton">
-                            {uploading || isLoading ? (
+                            {isLoadingPost ? (
                                 <div className="button">Uploading...</div>
                             ) : (
                                 <button type="submit" className="button">
@@ -134,4 +127,4 @@ const FormProduct = ({ inputs }) => {
     );
 };
 
-export default FormProduct;
+export default FormCreate;

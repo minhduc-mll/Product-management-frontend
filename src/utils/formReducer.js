@@ -1,6 +1,6 @@
 import { getCurrentUser } from "./auth";
 
-export const initialProduct = {
+export const initialState = {
     updatedBy: getCurrentUser()?._id,
 };
 

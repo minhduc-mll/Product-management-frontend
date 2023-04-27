@@ -35,10 +35,10 @@
         display: flex;
         padding: 10px 20px;
         gap: 10px;
-        
+
         .customerImage {
             display: flex;
-            
+
             .image {
                 width: 55px;
                 height: 55px;
@@ -46,7 +46,7 @@
                 object-fit: cover;
             }
         }
-        
+
         .customerItems {
             width: 100%;
             display: flex;
@@ -78,12 +78,12 @@
                 .itemDetail {
                     display: flex;
                     align-items: center;
-                    gap: 10px;
+                    gap: 5px;
                     font-size: 14px;
                     color: gray;
 
                     .icon {
-                        font-size: 25px;
+                        font-size: 22px;
                         text-align: center;
                     }
                 }

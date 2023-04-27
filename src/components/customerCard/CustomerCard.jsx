@@ -1,10 +1,12 @@
 import "./customerCard.scss";
 import {
-    CalendarTodayOutlined,
+    DeleteOutlined,
     PhoneIphoneOutlined,
     EmailOutlined,
+    CalendarTodayOutlined,
+    EmojiTransportationOutlined,
+    AccountBalanceOutlined,
     PlaceOutlined,
-    DeleteOutlined,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -59,34 +61,28 @@ const CustomerCard = ({ customer }) => {
                 </div>
                 <div className="customerItems">
                     <div className="itemTitle">
-                        {customer?.name ? (
+                        {customer?.name && (
                             <h1 className="title">{customer.name}</h1>
-                        ) : (
-                            ""
                         )}
-                        {customer?.phone ? (
+                        {customer?.phone && (
                             <div className="phone">
                                 <PhoneIphoneOutlined className="icon" />
                                 <span className="itemValue">
                                     {customer.phone}
                                 </span>
                             </div>
-                        ) : (
-                            ""
                         )}
                     </div>
                     <div className="items">
-                        {customer?.email ? (
+                        {customer?.email && (
                             <div className="itemDetail">
                                 <EmailOutlined className="icon" />
                                 <span className="itemValue">
                                     {customer.email}
                                 </span>
                             </div>
-                        ) : (
-                            ""
                         )}
-                        {customer?.birthday ? (
+                        {customer?.birthday && (
                             <div className="itemDetail">
                                 <CalendarTodayOutlined className="icon" />
                                 <span className="itemValue">
@@ -96,36 +92,30 @@ const CustomerCard = ({ customer }) => {
                                     )}
                                 </span>
                             </div>
-                        ) : (
-                            ""
                         )}
-                        {customer?.company ? (
+                        {customer?.company && (
                             <div className="itemDetail">
+                                <EmojiTransportationOutlined className="icon" />
                                 <span className="itemValue">
                                     {customer.company}
                                 </span>
                             </div>
-                        ) : (
-                            ""
                         )}
-                        {customer?.bankAccount ? (
+                        {customer?.bankAccount && (
                             <div className="itemDetail">
+                                <AccountBalanceOutlined className="icon" />
                                 <span className="itemValue">
                                     {customer.bankAccount}
                                 </span>
                             </div>
-                        ) : (
-                            ""
                         )}
-                        {customer?.adress ? (
+                        {customer?.adress && (
                             <div className="itemDetail">
                                 <PlaceOutlined className="icon" />
                                 <span className="itemValue">
                                     {customer.adress}
                                 </span>
                             </div>
-                        ) : (
-                            ""
                         )}
                     </div>
                     <div className="itemSeller">

@@ -4,8 +4,7 @@ import CalendarCard from "components/calendarCard/CalendarCard";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
-import dateFormat from "dateformat";
-import defaultImage from "assets/no-image.jpg";
+import ProductDetail from "components/productDetail/ProductDetail";
 
 const Product = () => {
     const navigate = useNavigate();
@@ -17,7 +16,7 @@ const Product = () => {
         error,
         data: product,
     } = useQuery({
-        queryKey: ["products", id],
+        queryKey: ["product", id],
         queryFn: async () => {
             const res = await apiRequest.get(`/products/${id}`);
             return res.data;
@@ -32,7 +31,7 @@ const Product = () => {
         error: errorSeller,
         data: dataSeller,
     } = useQuery({
-        queryKey: ["products", seller],
+        queryKey: ["product", seller],
         queryFn: async () => {
             const res = await apiRequest.get(`/users/${seller}`);
             return res.data;
@@ -47,7 +46,7 @@ const Product = () => {
         error: errorCustomer,
         data: dataCustomer,
     } = useQuery({
-        queryKey: ["products", customer],
+        queryKey: ["product", customer],
         queryFn: async () => {
             const res = await apiRequest.get(`/customers/${customer}`);
             return res.data;
@@ -60,7 +59,7 @@ const Product = () => {
         error: errorProductEvent,
         data: dataProductEvent,
     } = useQuery({
-        queryKey: ["products", "events", id],
+        queryKey: ["product", "events", id],
         queryFn: async () => {
             const res = await apiRequest.get(
                 `/productevent/productEvent/${id}`
@@ -112,85 +111,13 @@ const Product = () => {
                 </div>
             </div>
             <div className="productMiddle">
-                <div className="productDetail">
-                    {isLoading ? (
-                        "Loading..."
-                    ) : error ? (
-                        error.response.data.message
-                    ) : (
-                        <div className="productItems">
-                            <div className="itemImage">
-                                <img
-                                    src={
-                                        product.cover
-                                            ? product.cover
-                                            : defaultImage
-                                    }
-                                    alt=""
-                                    className="image"
-                                />
-                            </div>
-                            <h1 className="itemTitle">{product.productId}</h1>
-                            {product.desc ? (
-                                <p className="itemDetail">{product.desc}</p>
-                            ) : (
-                                ""
-                            )}
-                            {product.price ? (
-                                <p className="itemDetail">
-                                    Price: {product.price}
-                                </p>
-                            ) : (
-                                ""
-                            )}
-                            {product.deposit ? (
-                                <p className="itemDetail">
-                                    Deposit: {product.deposit}.000.000
-                                </p>
-                            ) : (
-                                ""
-                            )}
-                            {product.arrivalDate ? (
-                                <p className="itemDetail">
-                                    {"Arrival date: "}
-                                    {dateFormat(
-                                        product.arrivalDate,
-                                        "dd-mm-yyyy"
-                                    )}
-                                </p>
-                            ) : (
-                                ""
-                            )}
-                            {product.deliveryDate ? (
-                                <p className="itemDetail">
-                                    {"Delivery date: "}
-                                    {dateFormat(
-                                        product.deliveryDate,
-                                        "dd-mm-yyyy"
-                                    )}
-                                </p>
-                            ) : (
-                                ""
-                            )}
-                            {product.port ? (
-                                <p className="itemDetail">{product.port}</p>
-                            ) : (
-                                ""
-                            )}
-                            {product.status ? (
-                                <p className="itemDetail">
-                                    <span
-                                        className={`status ${product.status}`}
-                                    >
-                                        {product.status}
-                                    </span>
-                                </p>
-                            ) : (
-                                ""
-                            )}
-                        </div>
-                    )}
-                </div>
+                {isLoading ? (
+                    "Loading..."
+                ) : error ? (
+                    error.response.data.message
+                ) : (
+                    <ProductDetail product={product} />
+                )}
                 <div className="productCalendar">
                     {isLoadingProductEvent ? (
                         "Loading..."

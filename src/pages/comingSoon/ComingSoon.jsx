@@ -1,10 +1,10 @@
 import "./comingSoon.scss";
 
-const ComingSoon = () => {
+const ComingSoon = ({ title }) => {
     return (
         <div className="comingSoon">
             <div className="container">
-                <h1>Coming Soon</h1>
+                <h1>{title}</h1>
             </div>
         </div>
     );

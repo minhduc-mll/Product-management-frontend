@@ -1,5 +1,5 @@
 import "./newCustomer.scss";
-import Form from "components/form/Form";
+import FormCreate from "components/formCreate/FormCreate";
 
 const customerInputs = [
     {
@@ -20,7 +20,7 @@ const customerInputs = [
         id: 3,
         name: "email",
         label: "Email",
-        type: "mail",
+        type: "email",
         placeholder: "Email",
     },
     {
@@ -60,7 +60,7 @@ const NewCustomer = () => {
                 <h1 className="title">Add New Customer</h1>
             </div>
             <div className="bottom">
-                <Form target="customer" inputs={customerInputs} />
+                <FormCreate route="customers" inputs={customerInputs} />
             </div>
         </div>
     );

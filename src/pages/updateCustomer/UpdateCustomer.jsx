@@ -1,4 +1,4 @@
-import "./updateUser.scss";
+import "./updateCustomer.scss";
 import UserDetail from "components/userDetail/UserDetail";
 import FormUpdate from "components/formUpdate/FormUpdate";
 import { useEffect } from "react";
@@ -6,51 +6,59 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 
-const userInputs = [
+const customerInputs = [
     {
         id: 1,
-        name: "username",
+        name: "name",
+        label: "Name",
         type: "text",
-        label: "Username",
-        placeholder: "Username",
+        placeholder: "Name",
     },
     {
         id: 2,
-        name: "name",
+        name: "phone",
+        label: "Phone",
         type: "text",
-        label: "Name",
-        placeholder: "Name",
+        placeholder: "Phone",
     },
     {
         id: 3,
         name: "email",
-        type: "email",
         label: "Email",
+        type: "email",
         placeholder: "Email",
     },
     {
         id: 4,
-        name: "phone",
-        type: "text",
-        label: "Phone",
-        placeholder: "Phone",
+        name: "birthday",
+        label: "Birthday",
+        type: "date",
+        placeholder: "Birthday",
     },
     {
         id: 5,
-        name: "birthday",
-        type: "date",
-        label: "Birthday",
+        name: "company",
+        label: "Company",
+        type: "text",
+        placeholder: "Company",
     },
     {
         id: 6,
-        name: "role",
+        name: "bankAccount",
+        label: "Bank Account",
         type: "text",
-        label: "Role",
-        placeholder: "Role",
+        placeholder: "Bank Account",
+    },
+    {
+        id: 7,
+        name: "address",
+        label: "Address",
+        type: "text",
+        placeholder: "Address",
     },
 ];
 
-const UpdateUser = ({ route }) => {
+const UpdateCustomer = ({ route }) => {
     const { id } = useParams();
 
     const { isLoading, error, data, refetch } = useQuery({
@@ -67,9 +75,9 @@ const UpdateUser = ({ route }) => {
     }, [id, refetch]);
 
     return (
-        <div className="updateUser">
+        <div className="updateCustomer">
             <div className="top">
-                <h1 className="title">Edit User</h1>
+                <h1 className="title">Edit Customer</h1>
             </div>
             {isLoading ? (
                 "Loading..."
@@ -79,8 +87,8 @@ const UpdateUser = ({ route }) => {
                 <div className="bottom">
                     <UserDetail user={data} />
                     <FormUpdate
-                        route="users"
-                        inputs={userInputs}
+                        route="customers"
+                        inputs={customerInputs}
                         obj={data}
                         id={data._id}
                     />
@@ -90,4 +98,4 @@ const UpdateUser = ({ route }) => {
     );
 };
 
-export default UpdateUser;
+export default UpdateCustomer;

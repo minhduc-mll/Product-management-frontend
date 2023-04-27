@@ -1,9 +1,11 @@
 import "./userDetail.scss";
 import {
     PersonOutline,
-    CalendarTodayOutlined,
     PhoneIphoneOutlined,
     EmailOutlined,
+    EmojiTransportationOutlined,
+    AccountBalanceOutlined,
+    CalendarTodayOutlined,
     PlaceOutlined,
 } from "@mui/icons-material";
 import dateFormat from "dateformat";
@@ -14,7 +16,7 @@ const UserDetail = ({ user }) => {
         <div className="userDetail">
             <div className="userImage">
                 <img
-                    src={user?.image ? user.image : defaultAvatar}
+                    src={user?.image || defaultAvatar}
                     alt="avata"
                     className="image"
                 />
@@ -23,50 +25,52 @@ const UserDetail = ({ user }) => {
                 <div className="userInfoTitle">
                     {user?.name ? (
                         <h1 className="infoTitle">{user.name}</h1>
-                    ) : user?.username ? (
-                        <h1 className="infoTitle">{user.username}</h1>
                     ) : (
-                        ""
+                        user?.username && (
+                            <h1 className="infoTitle">{user.username}</h1>
+                        )
                     )}
-                    {user?.role ? (
+                    {user?.role && (
                         <span className="infoDesc">{user.role}</span>
-                    ) : (
-                        ""
                     )}
                 </div>
-                {user?.username ? (
+                {user?.username && (
                     <div className="userInfoItem">
                         <PersonOutline className="icon" />
                         <span className="infoValue">{user.username}</span>
                     </div>
-                ) : (
-                    ""
                 )}
-                {user?.birthday ? (
+                {user?.phone && (
+                    <div className="userInfoItem">
+                        <PhoneIphoneOutlined className="icon" />
+                        <span className="infoValue">{user.phone}</span>
+                    </div>
+                )}
+                {user?.email && (
+                    <div className="userInfoItem">
+                        <EmailOutlined className="icon" />
+                        <span className="infoValue">{user.email}</span>
+                    </div>
+                )}
+                {user?.company && (
+                    <div className="userInfoItem">
+                        <EmojiTransportationOutlined className="icon" />
+                        <span className="infoValue">{user.company}</span>
+                    </div>
+                )}
+                {user?.bankAccount && (
+                    <div className="userInfoItem">
+                        <AccountBalanceOutlined className="icon" />
+                        <span className="infoValue">{user.bankAccount}</span>
+                    </div>
+                )}
+                {user?.birthday && (
                     <div className="userInfoItem">
                         <CalendarTodayOutlined className="icon" />
                         <span className="infoValue">
                             {dateFormat(user.birthday, "dd-mm-yyyy")}
                         </span>
                     </div>
-                ) : (
-                    ""
-                )}
-                {user?.phone ? (
-                    <div className="userInfoItem">
-                        <PhoneIphoneOutlined className="icon" />
-                        <span className="infoValue">{user.phone}</span>
-                    </div>
-                ) : (
-                    ""
-                )}
-                {user?.email ? (
-                    <div className="userInfoItem">
-                        <EmailOutlined className="icon" />
-                        <span className="infoValue">{user.email}</span>
-                    </div>
-                ) : (
-                    ""
                 )}
                 {user?.adress ? (
                     <div className="userInfoItem">

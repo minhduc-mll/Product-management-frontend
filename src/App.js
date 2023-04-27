@@ -4,19 +4,22 @@ import Home from "pages/home/Home";
 import Products from "pages/products/Products";
 import Product from "pages/product/Product";
 import NewProduct from "pages/newProduct/NewProduct";
-import Update from "pages/update/Update";
+import UpdateProduct from "pages/updateProduct/UpdateProduct";
 import Categories from "pages/categories/Categories";
+import NewCategory from "pages/newCategory/NewCategory";
 import Calendar from "pages/calendar/Calendar";
 import Customers from "pages/customers/Customers";
 import NewCustomer from "pages/newCustomer/NewCustomer";
+import UpdateCustomer from "pages/updateCustomer/UpdateCustomer";
 import Single from "pages/single/Single";
 import Users from "pages/users/Users";
 import NewUser from "pages/newUser/NewUser";
 import UpdateUser from "pages/updateUser/UpdateUser";
 import Analytics from "pages/analytics/Analytics";
+import UserProfile from "pages/userProfile/UserProfile";
+import UpdateProfile from "pages/updateProfile/UpdateProfile";
 import ComingSoon from "pages/comingSoon/ComingSoon";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { productInputs, userInputs } from "./datasource";
 import { RequireAuth } from "utils/auth";
 
 function App() {
@@ -30,11 +33,11 @@ function App() {
             children: [
                 {
                     path: "/unauthorized",
-                    element: <ComingSoon />,
+                    element: <ComingSoon title="Unauthorized" />,
                 },
                 {
                     path: "/comingsoon",
-                    element: <ComingSoon />,
+                    element: <ComingSoon title="Comming Soon" />,
                 },
             ],
         },
@@ -59,7 +62,7 @@ function App() {
                 },
                 {
                     path: "/products/update/:id",
-                    element: <Update inputs={productInputs} />,
+                    element: <UpdateProduct route="products" />,
                 },
                 {
                     path: "/categories",
@@ -71,15 +74,15 @@ function App() {
                 },
                 {
                     path: "/categories/new",
-                    element: <NewProduct />,
+                    element: <NewCategory />,
                 },
                 {
                     path: "/categories/update/:id",
-                    element: <Update inputs={productInputs} />,
+                    element: <UpdateProduct route="categories" />,
                 },
                 {
                     path: "/transactions",
-                    element: <ComingSoon />,
+                    element: <ComingSoon title={`Transactions`} />,
                 },
                 {
                     path: "/calendar",
@@ -91,9 +94,7 @@ function App() {
                 },
                 {
                     path: "/customers/:id",
-                    element: (
-                        <Single firstRoute="customers" secondRoute="customer" />
-                    ),
+                    element: <Single route="customer" />,
                 },
                 {
                     path: "/customers/new",
@@ -101,25 +102,23 @@ function App() {
                 },
                 {
                     path: "/customers/update/:id",
-                    element: <Update inputs={userInputs} />,
+                    element: <UpdateCustomer route="customers" />,
                 },
                 {
                     path: "/feedback",
-                    element: <ComingSoon />,
+                    element: <ComingSoon title={`Feedback`} />,
                 },
                 {
                     path: "/:id",
-                    element: (
-                        <Single firstRoute="users/profile" secondRoute="user" />
-                    ),
+                    element: <UserProfile />,
                 },
                 {
-                    path: "/:id/update",
-                    element: <UpdateUser text="users/profile" />,
+                    path: "/profile/update",
+                    element: <UpdateProfile />,
                 },
                 {
                     path: "/settings",
-                    element: <ComingSoon />,
+                    element: <ComingSoon title={`Settings`} />,
                 },
             ],
         },
@@ -132,7 +131,7 @@ function App() {
                 },
                 {
                     path: "/users/:id",
-                    element: <Single firstRoute="users" secondRoute="user" />,
+                    element: <Single route="user" />,
                 },
                 {
                     path: "/users/new",
@@ -140,7 +139,7 @@ function App() {
                 },
                 {
                     path: "/users/update/:id",
-                    element: <UpdateUser text="Users" />,
+                    element: <UpdateUser route="users" />,
                 },
                 {
                     path: "/analytics",

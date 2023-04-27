@@ -14,7 +14,7 @@ import dateFormat from "dateformat";
 const today = new Date();
 const thisMonth = dateFormat(today, "mmmm yyyy").toUpperCase();
 const thisMonthNum = today.getMonth() + 1;
-const thisYearNum = today.getFullYear();
+const thisYearNum = 2022 || today.getFullYear();
 console.log(thisMonthNum);
 
 const stats = [
@@ -115,11 +115,25 @@ const stats = [
 
 const Analytics = () => {
     const {
-        isLoading: isLoadingChart,
-        error: errorChart,
-        data: dataChart,
+        isLoading: isLoadingProductChart,
+        error: errorProductChart,
+        data: dataProductChart,
     } = useQuery({
-        queryKey: ["analys", "chart"],
+        queryKey: ["analys", "chart", "productByMonth"],
+        queryFn: async () => {
+            const res = await apiRequest.get(
+                `/analys/productsByMonth?year=${thisYearNum}`
+            );
+            return res.data;
+        },
+    });
+
+    const {
+        isLoading: isLoadingCategoryChart,
+        error: errorCategoryChart,
+        data: dataCategoryChart,
+    } = useQuery({
+        queryKey: ["analys", "chart", "categoryByMonth"],
         queryFn: async () => {
             const res = await apiRequest.get(
                 `/analys/productsPerCategoryByMonth?year=${thisYearNum}`
@@ -158,7 +172,7 @@ const Analytics = () => {
                             title={errorProductEvent.message}
                             height="auto"
                             center="title"
-                            initialView="dayGridMonth"
+                            initialView="listMonth"
                             editable={false}
                             initialEvents={null}
                         />
@@ -168,7 +182,7 @@ const Analytics = () => {
                             height="auto"
                             center="title"
                             right="today prev,next"
-                            initialView="dayGridMonth"
+                            initialView="listMonth"
                             editable={false}
                             initialEvents={dataProductEvent}
                         />
@@ -177,11 +191,28 @@ const Analytics = () => {
             </div>
             <div className="analyticsBottom">
                 <div className="analyticsChart">
-                    {isLoadingChart ? (
+                    {isLoadingProductChart ? (
                         "Loading..."
-                    ) : errorChart ? (
+                    ) : errorProductChart ? (
                         <Chart
-                            title={errorChart.message}
+                            title={errorProductChart.message}
+                            aspect={2 / 1}
+                            data={null}
+                        />
+                    ) : (
+                        <Chart
+                            title={`Product analysis by month ${thisYearNum}`}
+                            aspect={2 / 1}
+                            data={dataProductChart}
+                        />
+                    )}
+                </div>
+                <div className="analyticsChart">
+                    {isLoadingCategoryChart ? (
+                        "Loading..."
+                    ) : errorCategoryChart ? (
+                        <Chart
+                            title={errorCategoryChart.message}
                             aspect={2 / 1}
                             data={null}
                         />
@@ -189,7 +220,7 @@ const Analytics = () => {
                         <Chart
                             title={`Category analysis by month ${thisYearNum}`}
                             aspect={2 / 1}
-                            data={dataChart}
+                            data={dataCategoryChart}
                         />
                     )}
                 </div>
