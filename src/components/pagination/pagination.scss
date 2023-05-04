@@ -1,0 +1,81 @@
+.pagination {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .pagination-container {
+        display: flex;
+        list-style-type: none;
+
+        .pagination-item {
+            height: 36px;
+            width: 36px;
+            padding: 10px;
+            margin: 0 4px;
+            text-align: center;
+            display: flex;
+            box-sizing: border-box;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 14px;
+
+            .icon {
+                font-size: 20px;
+            }
+
+            &.dots:hover {
+                background-color: transparent;
+                cursor: default;
+            }
+            &:hover {
+                background-color: #eee;
+                cursor: pointer;
+            }
+
+            &.selected {
+                background-color: #ddd;
+            }
+
+            .arrow {
+                &::before {
+                    position: relative;
+                    /* top: 3pt; Uncomment this to lower the icons as requested in comments*/
+                    content: "";
+                    /* By using an em scale, the arrows will size with the font */
+                    display: inline-block;
+                    width: 0.4em;
+                    height: 0.4em;
+                    border-right: 0.12em solid rgba(0, 0, 0, 0.87);
+                    border-top: 0.12em solid rgba(0, 0, 0, 0.87);
+                }
+
+                &.left {
+                    transform: rotate(-135deg) translate(-50%);
+                }
+
+                &.right {
+                    transform: rotate(45deg);
+                }
+            }
+
+            &.disabled {
+                pointer-events: none;
+
+                .icon {
+                    color: gray;
+                }
+
+                .arrow::before {
+                    border-right: 0.12em solid rgba(0, 0, 0, 0.43);
+                    border-top: 0.12em solid rgba(0, 0, 0, 0.43);
+                }
+
+                &:hover {
+                    background-color: transparent;
+                    cursor: default;
+                }
+            }
+        }
+    }
+}

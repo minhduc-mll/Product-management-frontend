@@ -8,21 +8,25 @@ import {
     TableRow,
     Paper,
 } from "@mui/material";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import dateFormat from "dateformat";
+import Pagination from "components/pagination/Pagination";
 
 const tableColumns = [
     "",
     "ProductId",
     "Category",
     "Price",
-    "Deposit",
     "Arrival Date",
     "Port",
+    "Documents",
     "Status",
 ];
 
-const Regulartable = ({ title, products }) => {
+const Regulartable = ({ title, products, pageSize = 15 }) => {
+    const [currentPage, setCurrentPage] = useState(1);
+
     return (
         <div className="regulartable">
             <h1 className="title">{title}</h1>
@@ -38,52 +42,74 @@ const Regulartable = ({ title, products }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {products?.map((row, id) => (
-                            <TableRow key={id}>
-                                <TableCell className="tableCell">
-                                    {id + 1}
-                                </TableCell>
-                                <TableCell className="tableCell">
-                                    <div className="cellWrapper">
-                                        <img
-                                            src={row.image}
-                                            alt=""
-                                            className="image"
-                                        />
-                                        <Link
-                                            to={`/products/${row.productId}`}
-                                            className="link"
-                                        >
-                                            {row.productId}
-                                        </Link>
-                                    </div>
-                                </TableCell>
-                                <TableCell className="tableCell">
-                                    {row.desc}
-                                </TableCell>
-                                <TableCell className="tableCell">
-                                    {row.price ? row.price : ""}
-                                </TableCell>
-                                <TableCell className="tableCell">
-                                    {row.deposit
-                                        ? row.deposit + ".000.000"
-                                        : ""}
-                                </TableCell>
-                                <TableCell className="tableCell">
-                                    {dateFormat(row.arrivalDate, "dd-mm-yyyy")}
-                                </TableCell>
-                                <TableCell className="tableCell">
-                                    {row.port}
-                                </TableCell>
-                                <TableCell className="tableCell">
-                                    <span className={`status ${row.status}`}>
-                                        {row.status}
-                                    </span>
-                                </TableCell>
-                            </TableRow>
-                        ))}
+                        {products?.map((row, id) => {
+                            if (
+                                id >= (currentPage - 1) * pageSize &&
+                                id < currentPage * pageSize
+                            ) {
+                                return (
+                                    <TableRow key={id}>
+                                        <TableCell className="tableCell">
+                                            {id + 1}
+                                        </TableCell>
+                                        <TableCell className="tableCell">
+                                            <div className="cellWrapper">
+                                                <img
+                                                    src={row.image}
+                                                    alt=""
+                                                    className="image"
+                                                />
+                                                <Link
+                                                    to={`/products/${row.productId}`}
+                                                    className="link"
+                                                >
+                                                    {row.productId}
+                                                </Link>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell className="tableCell">
+                                            {row.desc}
+                                        </TableCell>
+                                        <TableCell className="tableCell">
+                                            {row.price}
+                                        </TableCell>
+                                        <TableCell className="tableCell">
+                                            {row.arrivalDate &&
+                                                dateFormat(
+                                                    row.arrivalDate,
+                                                    "dd-mm-yyyy"
+                                                )}
+                                        </TableCell>
+                                        <TableCell className="tableCell">
+                                            {row.port}
+                                        </TableCell>
+                                        <TableCell className="tableCell">
+                                            {row.documents}
+                                        </TableCell>
+                                        <TableCell className="tableCell">
+                                            <span
+                                                className={`status ${row.status}`}
+                                            >
+                                                {row.status}
+                                            </span>
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            }
+                            return null;
+                        })}
                     </TableBody>
                 </Table>
+                <div className="tableCell">
+                    <Pagination
+                        currentPage={currentPage}
+                        totalCount={products?.length}
+                        pageSize={pageSize}
+                        onPageChange={(page) => {
+                            setCurrentPage(page);
+                        }}
+                    />
+                </div>
             </TableContainer>
         </div>
     );

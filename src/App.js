@@ -29,6 +29,10 @@ function App() {
         { path: "/", element: <RequireAuth /> },
         { path: "/login", element: <RequireAuth /> },
         {
+            path: "/test",
+            element: <ComingSoon title="Test" />,
+        },
+        {
             element: <Layout />,
             children: [
                 {

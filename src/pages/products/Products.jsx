@@ -8,6 +8,7 @@ import {
 } from "@mui/icons-material";
 import ProductDetail from "components/productCard/ProductCard";
 import Datatable from "components/datatable/Datatable";
+import Pagination from "components/pagination/Pagination";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -77,11 +78,14 @@ const Products = () => {
 
     const [open, setOpen] = useState(false);
     const [view, setView] = useState("grid");
+    const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState("");
     const [sortName, setSortName] = useState("createdAt");
     const [sortOrder, setSortOrder] = useState("dsc");
     const minRef = useRef();
     const maxRef = useRef();
+
+    const pageSize = 20;
 
     const {
         isLoading,
@@ -193,14 +197,34 @@ const Products = () => {
                         </div>
                     </div>
                     <div className="menuView">
-                        <GridViewOutlined
-                            className={view === "grid" ? "icon active" : "icon"}
-                            onClick={() => setView("grid")}
-                        />
-                        <ViewListOutlined
-                            className={view === "list" ? "icon active" : "icon"}
-                            onClick={() => setView("list")}
-                        />
+                        {isLoading
+                            ? "Loading..."
+                            : error
+                            ? error.response.data.message
+                            : view === "grid" && (
+                                  <Pagination
+                                      currentPage={currentPage}
+                                      totalCount={productsData?.length}
+                                      pageSize={pageSize}
+                                      onPageChange={(page) => {
+                                          setCurrentPage(page);
+                                      }}
+                                  />
+                              )}
+                        <div className="changeView">
+                            <GridViewOutlined
+                                className={
+                                    view === "grid" ? "icon active" : "icon"
+                                }
+                                onClick={() => setView("grid")}
+                            />
+                            <ViewListOutlined
+                                className={
+                                    view === "list" ? "icon active" : "icon"
+                                }
+                                onClick={() => setView("list")}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -211,11 +235,22 @@ const Products = () => {
                             ? "Loading..."
                             : error
                             ? error.response.data.message
-                            : productsData?.map((item) => (
-                                  <div className="item" key={item.productId}>
-                                      <ProductDetail product={item} />
-                                  </div>
-                              ))}
+                            : productsData?.map((value, index) => {
+                                  if (
+                                      index >= (currentPage - 1) * pageSize &&
+                                      index < currentPage * pageSize
+                                  ) {
+                                      return (
+                                          <div
+                                              className="item"
+                                              key={value.productId}
+                                          >
+                                              <ProductDetail product={value} />
+                                          </div>
+                                      );
+                                  }
+                                  return null;
+                              })}
                     </div>
                 ) : (
                     <div className="listView">

@@ -60,6 +60,7 @@
 
     .regulartable {
         color: var(--primary-light);
+
         .tableContainer {
             background-color: var(--primary-dark);
 
@@ -129,6 +130,26 @@
         .fc .fc-cell-shaded,
         .fc-col-header {
             background-color: #222;
+        }
+    }
+
+    .pagination {
+        .pagination-container {
+            .pagination-item {
+                &:hover {
+                    background-color: #222;
+                }
+
+                &.selected {
+                    background-color: #333;
+                }
+
+                &.disabled {
+                    .icon {
+                        color: gray;
+                    }
+                }
+            }
         }
     }
 }
