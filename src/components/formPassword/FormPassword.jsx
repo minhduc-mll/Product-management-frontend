@@ -1,4 +1,5 @@
 import "./formPassword.scss";
+import { EastOutlined } from "@mui/icons-material";
 import { useReducer, useState } from "react";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
@@ -48,15 +49,17 @@ const FormPassword = ({ route, inputs, user }) => {
                     style={{ display: isSuccess ? "flex" : "none" }}
                 >
                     <div className="success">Change Password Successfully</div>
+                    <EastOutlined className="icon" />
                 </div>
                 <div className="wrapper">
                     <div className="formInput">
-                        {inputs?.map((input) => (
-                            <div className="input" key={input.id}>
-                                <label>{input.label}</label>
+                        {inputs?.map((value, index) => (
+                            <div className="input" key={index}>
+                                <label>{value.label}</label>
                                 <input
-                                    name={input.name}
-                                    type={input.type}
+                                    name={value.name}
+                                    type={value.type}
+                                    placeholder={value.placeholder}
                                     onChange={(e) => handleChange(e)}
                                 />
                             </div>

@@ -19,10 +19,12 @@
         gap: 20px;
 
         .left {
+            flex: 2;
             display: flex;
         }
 
         .right {
+            flex: 6;
             display: flex;
             flex-direction: column;
             gap: 20px;

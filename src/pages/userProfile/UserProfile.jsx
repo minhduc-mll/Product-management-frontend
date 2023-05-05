@@ -88,6 +88,8 @@ const UserProfile = () => {
                             title={errorChart.message}
                             aspect={3 / 1}
                             data={null}
+                            initChart="LineChart"
+                            dataKey="month"
                         />
                     ) : (
                         <Chart
@@ -96,6 +98,8 @@ const UserProfile = () => {
                             }`}
                             aspect={3 / 1}
                             data={dataChart}
+                            initChart="LineChart"
+                            dataKey="month"
                         />
                     )}
                 </div>

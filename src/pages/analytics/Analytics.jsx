@@ -198,12 +198,16 @@ const Analytics = () => {
                             title={errorProductChart.message}
                             aspect={2 / 1}
                             data={null}
+                            initChart="LineChart"
+                            dataKey="month"
                         />
                     ) : (
                         <Chart
                             title={`Product analysis by month ${thisYearNum}`}
                             aspect={2 / 1}
                             data={dataProductChart}
+                            initChart="LineChart"
+                            dataKey="month"
                         />
                     )}
                 </div>
@@ -215,12 +219,16 @@ const Analytics = () => {
                             title={errorCategoryChart.message}
                             aspect={2 / 1}
                             data={null}
+                            initChart="LineChart"
+                            dataKey="month"
                         />
                     ) : (
                         <Chart
                             title={`Category analysis by month ${thisYearNum}`}
                             aspect={2 / 1}
                             data={dataCategoryChart}
+                            initChart="LineChart"
+                            dataKey="month"
                         />
                     )}
                 </div>

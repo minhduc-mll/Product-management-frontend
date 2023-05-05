@@ -69,23 +69,29 @@ const CalendarCard = ({
                         </div>
                         {open && (
                             <div className="openMenu">
-                                {activeView === "dayGridMonth" ? (
-                                    <span
-                                        onClick={() => {
-                                            setActiveView("listMonth");
-                                        }}
-                                    >
-                                        List
-                                    </span>
-                                ) : (
-                                    <span
-                                        onClick={() =>
-                                            setActiveView("dayGridMonth")
-                                        }
-                                    >
-                                        Month
-                                    </span>
-                                )}
+                                <div
+                                    className={
+                                        "menuItem " +
+                                        (activeView === "listMonth" && "active")
+                                    }
+                                    onClick={() => {
+                                        setActiveView("listMonth");
+                                    }}
+                                >
+                                    <span className="item">List</span>
+                                </div>
+                                <div
+                                    className={
+                                        "menuItem " +
+                                        (activeView === "dayGridMonth" &&
+                                            "active")
+                                    }
+                                    onClick={() =>
+                                        setActiveView("dayGridMonth")
+                                    }
+                                >
+                                    <span className="item">Month</span>
+                                </div>
                             </div>
                         )}
                     </div>

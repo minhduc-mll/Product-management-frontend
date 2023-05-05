@@ -53,7 +53,10 @@ const FormCreate = ({ route, inputs }) => {
         onSuccess: (data) => {
             queryClient.invalidateQueries([`/${route}`]);
             setIsSuccess(true);
-            navigate(`/${route}/${data._id}`);
+            dispatch({
+                type: "CHANGE_INPUT",
+                payload: { name: "id", value: data._id },
+            });
         },
     });
 
@@ -72,8 +75,12 @@ const FormCreate = ({ route, inputs }) => {
                 <div
                     className="top"
                     style={{ display: isSuccess ? "flex" : "none" }}
+                    onClick={() => {
+                        navigate(`/${route}/${formObject.id}`);
+                    }}
                 >
                     <div className="success">Create Successful</div>
+                    <DriveFolderUploadOutlined className="icon" />
                 </div>
                 <div className="bottom">
                     <div className="left">
@@ -96,13 +103,13 @@ const FormCreate = ({ route, inputs }) => {
                     </div>
                     <div className="right">
                         <div className="formInput">
-                            {inputs?.map((input) => (
-                                <div className="input" key={input.id}>
-                                    <label>{input.label}</label>
+                            {inputs?.map((value, index) => (
+                                <div className="input" key={index}>
+                                    <label>{value.label}</label>
                                     <input
-                                        name={input.name}
-                                        type={input.type}
-                                        placeholder={input.placeholder}
+                                        name={value.name}
+                                        type={value.type}
+                                        placeholder={value.placeholder}
                                         onChange={(e) => handleChange(e)}
                                     />
                                 </div>

@@ -6,57 +6,7 @@ import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 import { getCurrentUser } from "utils/auth";
-
-const profileInputs = [
-    {
-        id: 1,
-        name: "name",
-        type: "text",
-        label: "Name",
-        placeholder: "Name",
-    },
-    {
-        id: 2,
-        name: "email",
-        type: "email",
-        label: "Email",
-        placeholder: "Email",
-    },
-    {
-        id: 3,
-        name: "phone",
-        type: "text",
-        label: "Phone",
-        placeholder: "Phone",
-    },
-    {
-        id: 4,
-        name: "birthday",
-        type: "date",
-        label: "Birthday",
-    },
-];
-
-const passwordInputs = [
-    {
-        id: 1,
-        name: "oldPassword",
-        type: "password",
-        label: "Current Password",
-    },
-    {
-        id: 2,
-        name: "newPassword",
-        type: "password",
-        label: "New Password",
-    },
-    {
-        id: 3,
-        name: "rePassword",
-        type: "password",
-        label: "Enter New Password",
-    },
-];
+import { profileInputs, passwordInputs } from "utils/inputForm";
 
 const UpdateProfile = () => {
     const username = getCurrentUser()?.username;
@@ -92,7 +42,7 @@ const UpdateProfile = () => {
                         <FormUpdate
                             route="users"
                             inputs={profileInputs}
-                            user={data}
+                            obj={data}
                         />
                         <FormPassword
                             route="users"

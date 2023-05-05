@@ -5,6 +5,8 @@ import {
     Area,
     LineChart,
     Line,
+    BarChart,
+    Bar,
     XAxis,
     YAxis,
     CartesianGrid,
@@ -14,15 +16,17 @@ import {
 } from "recharts";
 import { PureComponent, useState } from "react";
 
-const color = [
-    "#8884d8",
-    "#82ca9d",
-    "#57f851",
-    "rgba(255, 206, 86, 0.2)",
-    "rgba(75, 192, 192, 0.2)",
-    "rgba(153, 102, 255, 0.2)",
-    "rgba(255, 159, 64, 0.2)",
-];
+const color = {
+    blue: "#1677ff",
+    darkBlue: "#5a54f9",
+    purple: "#9e339f",
+    pink: "#ed4192",
+    darkRed: "#e0282e",
+    darkOrange: "#f4801a",
+    gold: "#f2bd27",
+    seaGreen: "#00b96b",
+    limeGreen: "#52c41a",
+};
 
 const getRandomColor = () => {
     return "#" + ((Math.random() * 0xffffff) << 0).toString(16);
@@ -34,7 +38,7 @@ class CustomizedAxisTick extends PureComponent {
 
         return (
             <g transform={`translate(${x},${y})`}>
-                <text dx={-10} dy={16} fill="gray" transform="rotate(-30)">
+                <text dx={-15} dy={16} fill="gray" transform="rotate(-30)">
                     {payload.value}
                 </text>
             </g>
@@ -42,11 +46,11 @@ class CustomizedAxisTick extends PureComponent {
     }
 }
 
-const Chart = ({ title, aspect, data }) => {
+const Chart = ({ title, aspect, data, initChart = "LineChart", dataKey }) => {
     const [open, setOpen] = useState(false);
-    const [chart, setChart] = useState("LineChart");
+    const [chart, setChart] = useState(initChart);
 
-    const multipleLine = () => {
+    const multipleChart = (chartType) => {
         const entries = data?.map((option) => {
             const keys = Object.keys(option);
             return keys;
@@ -55,62 +59,146 @@ const Chart = ({ title, aspect, data }) => {
             prev = prev.concat(current);
             return prev;
         }, []);
-        const filtered = flattened?.filter((key) => key !== "month");
+        const filtered = flattened?.filter((value) => value !== dataKey);
         const uniqueKeys = [...new Set(filtered)];
-        return uniqueKeys?.map((key, index) => {
-            return (
-                <Line
-                    type="monotone"
-                    dataKey={key}
-                    stroke={getRandomColor()}
-                    strokeWidth={2}
-                    key={index}
-                />
-            );
+        return uniqueKeys?.map((value, index) => {
+            switch (chartType) {
+                case "LineChart":
+                    return (
+                        <Line
+                            type="monotone"
+                            dataKey={value}
+                            stroke={getRandomColor()}
+                            strokeWidth={2}
+                            key={index}
+                        />
+                    );
+                case "AreaChart":
+                    return (
+                        <Area
+                            type="monotone"
+                            dataKey={value}
+                            stroke={getRandomColor()}
+                            strokeWidth={2}
+                            fillOpacity={1}
+                            fill={`url(#linear)`}
+                            key={index}
+                        />
+                    );
+                case "BarChart":
+                    return (
+                        <Bar
+                            dataKey={value}
+                            fill={color.limeGreen}
+                            key={index}
+                        />
+                    );
+                default:
+                    return (
+                        <linearGradient
+                            id={"linear"}
+                            x1="0"
+                            y1="0"
+                            x2="0"
+                            y2="1"
+                            key={index}
+                        >
+                            <stop
+                                offset="5%"
+                                stopColor={color.limeGreen}
+                                stopOpacity={0.6}
+                            />
+                            <stop
+                                offset="95%"
+                                stopColor={color.limeGreen}
+                                stopOpacity={0}
+                            />
+                        </linearGradient>
+                    );
+            }
         });
     };
 
-    const multipleArea = (area) => {
-        const entries = data?.map((option) => {
-            const keys = Object.keys(option);
-            return keys;
-        });
-        const flattened = entries?.reduce((prev, current) => {
-            prev = prev.concat(current);
-            return prev;
-        }, []);
-        const filtered = flattened?.filter((key) => key !== "month");
-        const uniqueKeys = [...new Set(filtered)];
-        return uniqueKeys?.map((key, index) => {
-            if (area === "linearGradient") {
-                return (
-                    <linearGradient id={"linear"} x1="0" y1="0" x2="0" y2="1">
-                        <stop
-                            offset="5%"
-                            stopColor={color[1]}
-                            stopOpacity={0.6}
-                        />
-                        <stop
-                            offset="95%"
-                            stopColor={color[0]}
-                            stopOpacity={0}
-                        />
-                    </linearGradient>
-                );
-            } else {
-                return (
-                    <Area
-                        type="monotone"
-                        dataKey={key}
-                        stroke={getRandomColor()}
-                        strokeWidth={2}
-                        fillOpacity={1}
-                        fill={`url(#linear)`}
-                        key={index}
+    const RenderChart = () => {
+        if (chart === "LineChart") {
+            return (
+                <LineChart
+                    data={data}
+                    margin={{
+                        top: 20,
+                        right: 20,
+                        left: 0,
+                        bottom: 0,
+                    }}
+                >
+                    <CartesianGrid
+                        strokeDasharray="6 3"
+                        className="chartGrid"
                     />
-                );
-            }
-        });
+                    <XAxis
+                        dataKey={dataKey}
+                        stroke="gray"
+                        tick={<CustomizedAxisTick />}
+                    />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    {multipleChart("LineChart")}
+                </LineChart>
+            );
+        }
+        if (chart === "AreaChart") {
+            return (
+                <AreaChart
+                    data={data}
+                    margin={{
+                        top: 20,
+                        right: 20,
+                        left: 0,
+                        bottom: 0,
+                    }}
+                >
+                    <defs>{multipleChart()}</defs>
+                    <CartesianGrid
+                        strokeDasharray="6 3"
+                        className="chartGrid"
+                    />
+                    <XAxis
+                        dataKey={dataKey}
+                        stroke="gray"
+                        tick={<CustomizedAxisTick />}
+                    />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    {multipleChart("AreaChart")}
+                </AreaChart>
+            );
+        }
+        if (chart === "BarChart") {
+            return (
+                <BarChart
+                    data={data}
+                    margin={{
+                        top: 20,
+                        right: 20,
+                        left: 0,
+                        bottom: 0,
+                    }}
+                >
+                    <CartesianGrid
+                        strokeDasharray="6 3"
+                        className="chartGrid"
+                    />
+                    <XAxis dataKey={dataKey} stroke="gray" dy={6} />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    {multipleChart("BarChart")}
+                </BarChart>
+            );
+        }
+        return <></>;
     };
 
     return (
@@ -122,70 +210,38 @@ const Chart = ({ title, aspect, data }) => {
                 </div>
                 {open && (
                     <div className="openMenu">
-                        {chart === "LineChart" ? (
-                            <span onClick={() => setChart("AreaChart")}>
-                                AreaChart
-                            </span>
-                        ) : (
-                            <span onClick={() => setChart("LineChart")}>
-                                LineChart
-                            </span>
-                        )}
+                        <div
+                            className={
+                                "menuItem " +
+                                (chart === "LineChart" && "active")
+                            }
+                            onClick={() => setChart("LineChart")}
+                        >
+                            <span className="item">LineChart</span>
+                        </div>
+                        <div
+                            className={
+                                "menuItem " +
+                                (chart === "AreaChart" && "active")
+                            }
+                            onClick={() => setChart("AreaChart")}
+                        >
+                            <span className="item">AreaChart</span>
+                        </div>
+                        <div
+                            className={
+                                "menuItem " + (chart === "BarChart" && "active")
+                            }
+                            onClick={() => setChart("BarChart")}
+                        >
+                            <span className="item">BarChart</span>
+                        </div>
                     </div>
                 )}
             </div>
             <div className="chartBottom">
                 <ResponsiveContainer width="100%" aspect={aspect}>
-                    {chart === "LineChart" ? (
-                        <LineChart
-                            data={data}
-                            margin={{
-                                top: 20,
-                                right: 20,
-                                left: 0,
-                                bottom: 0,
-                            }}
-                        >
-                            <CartesianGrid
-                                strokeDasharray="6 3"
-                                className="chartGrid"
-                            />
-                            <XAxis
-                                dataKey="month"
-                                stroke="gray"
-                                tick={<CustomizedAxisTick />}
-                            />
-                            <YAxis />
-                            <Tooltip />
-                            <Legend />
-                            {multipleLine()}
-                        </LineChart>
-                    ) : (
-                        <AreaChart
-                            data={data}
-                            margin={{
-                                top: 20,
-                                right: 20,
-                                left: 0,
-                                bottom: 0,
-                            }}
-                        >
-                            <defs>{multipleArea("linearGradient")}</defs>
-                            <CartesianGrid
-                                strokeDasharray="6 3"
-                                className="chartGrid"
-                            />
-                            <XAxis
-                                dataKey="month"
-                                stroke="gray"
-                                tick={<CustomizedAxisTick />}
-                            />
-                            <YAxis />
-                            <Tooltip />
-                            <Legend />
-                            {multipleArea("area")}
-                        </AreaChart>
-                    )}
+                    {RenderChart()}
                 </ResponsiveContainer>
             </div>
         </div>

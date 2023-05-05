@@ -46,7 +46,7 @@ const ProductCard = ({ product }) => {
             >
                 <div className="productImage">
                     <img
-                        src={product?.cover ? product.cover : defaultImage}
+                        src={product?.cover || defaultImage}
                         alt=""
                         className="image"
                     />
@@ -57,32 +57,54 @@ const ProductCard = ({ product }) => {
                         "Loading..."
                     ) : error ? (
                         error.response.data.message
-                    ) : data.name ? (
-                        <p className="itemDetail">{data.name}</p>
+                    ) : data?.name ? (
+                        <div className="itemDetail">{data?.name}</div>
                     ) : (
-                        <p className="itemDetail">{data.username}</p>
+                        <div className="itemDetail">{data?.username}</div>
+                    )}
+                    {product?.saleDate && (
+                        <div className="itemDetail">
+                            <span>
+                                {"Sale Date: "}
+                                {dateFormat(product?.saleDate, "dd-mm-yyyy")}
+                            </span>
+                        </div>
                     )}
                     {product?.arrivalDate && (
-                        <p className="itemDetail">
-                            {"Arrival Date: "}
-                            {dateFormat(product.arrivalDate, "dd-mm-yyyy")}
-                        </p>
+                        <div className="itemDetail">
+                            <span>
+                                {"Arrival Date: "}
+                                {dateFormat(product?.arrivalDate, "dd-mm-yyyy")}
+                            </span>
+                        </div>
                     )}
                     {product?.deliveryDate && (
-                        <p className="itemDetail">
-                            {"Delivery Date: "}
-                            {dateFormat(product.deliveryDate, "dd-mm-yyyy")}
-                        </p>
+                        <div className="itemDetail">
+                            <span>
+                                {"Delivery Date: "}
+                                {dateFormat(
+                                    product?.deliveryDate,
+                                    "dd-mm-yyyy"
+                                )}
+                            </span>
+                        </div>
                     )}
                     {product?.port && (
-                        <p className="itemDetail">Port: {product.port}</p>
+                        <div className="itemDetail">
+                            <span>Port: {product?.port}</span>
+                        </div>
+                    )}
+                    {product?.document && (
+                        <div className="itemDetail">
+                            <span>Document: {product?.document}</span>
+                        </div>
                     )}
                     {product?.status && (
-                        <p className="itemDetail">
-                            <span className={`status ${product.status}`}>
+                        <div className="itemDetail">
+                            <span className={`status ${product?.status}`}>
                                 {product.status}
                             </span>
-                        </p>
+                        </div>
                     )}
                 </div>
             </div>

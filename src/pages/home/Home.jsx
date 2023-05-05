@@ -9,7 +9,7 @@ import { apiRequest } from "utils/apiAxios";
 import dateFormat from "dateformat";
 
 const today = new Date();
-const thisMonth = dateFormat(today, "mmmm yyyy").toUpperCase();
+const thisMonth = dateFormat(today, "mmmm").toUpperCase();
 const thisMonthNum = today.getMonth() + 1;
 const thisYearNum = today.getFullYear();
 
@@ -18,9 +18,9 @@ const stats = [
         id: 1,
         title: "TOTAL PRODUCTS",
         menu: [],
-        query: "products",
+        query: `products`,
         isMoney: false,
-        to: "/products",
+        to: `/products`,
         link: "View all products",
         icon: (
             <StoreOutlined
@@ -34,12 +34,30 @@ const stats = [
     },
     {
         id: 2,
-        title: `PRODUCTS ( ${thisMonth} )`,
-        menu: [],
-        query: `productsMonth/?month=${thisMonthNum}&year=${thisYearNum}`,
+        title: "TOTAL SOLD PRODUCTS",
+        menu: ["pending", "sold", "done"],
+        query: `/productsWithStatus?status=done`,
         isMoney: false,
-        to: "/products",
-        link: "View all products",
+        to: `/products?status=done`,
+        link: "View all",
+        icon: (
+            <StoreOutlined
+                className="icon"
+                style={{
+                    color: "green",
+                    backgroundColor: "rgba(0, 128, 0, 0.2)",
+                }}
+            />
+        ),
+    },
+    {
+        id: 3,
+        title: `PRODUCTS ( ${thisMonth} ${thisYearNum} )`,
+        menu: [thisMonth],
+        query: `productsMonth?month=${thisMonthNum}&year=${thisYearNum}`,
+        isMoney: false,
+        to: `/products?startArrivalDate=${thisYearNum}-${thisMonthNum}-01&endArrivalDate=${thisYearNum}-${thisMonthNum}-31`,
+        link: "View all",
         icon: (
             <ShoppingCartOutlined
                 className="icon"
@@ -51,37 +69,19 @@ const stats = [
         ),
     },
     {
-        id: 3,
+        id: 4,
         title: "PRODUCTS IN STOCK",
         menu: [],
-        query: "productsInStock",
+        query: `productsInStock`,
         isMoney: false,
-        to: "/products",
-        link: "View all products",
+        to: `/products?status=pending`,
+        link: "View all",
         icon: (
             <ShoppingCartOutlined
                 className="icon"
                 style={{
                     color: "crimson",
                     backgroundColor: "rgba(255, 0, 0, 0.2)",
-                }}
-            />
-        ),
-    },
-    {
-        id: 4,
-        title: "CATEGORIES",
-        menu: [],
-        query: "categories",
-        isMoney: false,
-        to: "/categories",
-        link: "View all categories",
-        icon: (
-            <StoreOutlined
-                className="icon"
-                style={{
-                    color: "purple",
-                    backgroundColor: "rgba(128, 0, 128, 0.2)",
                 }}
             />
         ),
@@ -94,7 +94,7 @@ const Home = () => {
         error: errorProducts,
         data: dataProducts,
     } = useQuery({
-        queryKey: ["products", "home"],
+        queryKey: ["home", "product"],
         queryFn: async () => {
             const res = await apiRequest.get(
                 `/products?status=pending&sortName=arrivalDate`
@@ -104,14 +104,28 @@ const Home = () => {
     });
 
     const {
-        isLoading: isLoadingChart,
-        error: errorChart,
-        data: dataChart,
+        isLoading: isLoadingSellerChart,
+        error: errorSellerChart,
+        data: dataSellerChart,
     } = useQuery({
-        queryKey: ["analys", "chart", "home"],
+        queryKey: ["home", "seller"],
         queryFn: async () => {
             const res = await apiRequest.get(
                 `/analys/productsPerUserByMonth?year=${thisYearNum}`
+            );
+            return res.data;
+        },
+    });
+
+    const {
+        isLoading: isLoadingKpiChart,
+        error: errorKpiChart,
+        data: dataKpiChart,
+    } = useQuery({
+        queryKey: ["home", "kpi"],
+        queryFn: async () => {
+            const res = await apiRequest.get(
+                `/analys/productsPerUserOneMonth?year=${thisYearNum}&month=${thisMonthNum}`
             );
             return res.data;
         },
@@ -122,7 +136,7 @@ const Home = () => {
         error: errorProductEvent,
         data: dataProductEvent,
     } = useQuery({
-        queryKey: ["products", "events", "home"],
+        queryKey: ["home", "events"],
         queryFn: async () => {
             const res = await apiRequest.get(`/productevent/productEvent`);
             return res.data;
@@ -165,19 +179,44 @@ const Home = () => {
             </div>
             <div className="homeMiddle">
                 <div className="homeChart">
-                    {isLoadingChart ? (
+                    {isLoadingSellerChart ? (
                         "Loading..."
-                    ) : errorChart ? (
+                    ) : errorSellerChart ? (
                         <Chart
-                            title={errorChart.message}
+                            title={errorSellerChart.message}
                             aspect={2 / 1}
                             data={null}
+                            initChart="LineChart"
+                            dataKey="month"
                         />
                     ) : (
                         <Chart
                             title={`Seller analysis by month ${thisYearNum}`}
                             aspect={2 / 1}
-                            data={dataChart}
+                            data={dataSellerChart}
+                            initChart="LineChart"
+                            dataKey="month"
+                        />
+                    )}
+                </div>
+                <div className="homeChart">
+                    {isLoadingKpiChart ? (
+                        "Loading..."
+                    ) : errorKpiChart ? (
+                        <Chart
+                            title={errorKpiChart.message}
+                            aspect={2 / 1}
+                            data={null}
+                            initChart="LineChart"
+                            dataKey="month"
+                        />
+                    ) : (
+                        <Chart
+                            title={`Kpi analysis ${thisMonth} ${thisYearNum}`}
+                            aspect={2 / 1}
+                            data={dataKpiChart}
+                            initChart="BarChart"
+                            dataKey="name"
                         />
                     )}
                 </div>

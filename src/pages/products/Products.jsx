@@ -10,7 +10,7 @@ import ProductDetail from "components/productCard/ProductCard";
 import Datatable from "components/datatable/Datatable";
 import Pagination from "components/pagination/Pagination";
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 import dateFormat from "dateformat";
@@ -75,6 +75,7 @@ const productColumns = [
 
 const Products = () => {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
 
     const [open, setOpen] = useState(false);
     const [view, setView] = useState("grid");
@@ -82,6 +83,9 @@ const Products = () => {
     const [search, setSearch] = useState("");
     const [sortName, setSortName] = useState("createdAt");
     const [sortOrder, setSortOrder] = useState("dsc");
+    const [status] = useState(searchParams.get("status"));
+    const [startArrivalDate] = useState(searchParams.get("startArrivalDate"));
+    const [endArrivalDate] = useState(searchParams.get("endArrivalDate"));
     const minRef = useRef();
     const maxRef = useRef();
 
@@ -95,9 +99,20 @@ const Products = () => {
     } = useQuery({
         queryKey: ["products"],
         queryFn: async () => {
-            const res = await apiRequest.get(
-                `/products?search=${search}&sortName=${sortName}&sortOrder=${sortOrder}`
-            );
+            let route = `/products?sortName=${sortName}&sortOrder=${sortOrder}`;
+            if (status) {
+                route += `&status=${status}`;
+            }
+            if (search) {
+                route += `&search=${search}`;
+            }
+            if (startArrivalDate) {
+                route += `&startArrivalDate=${startArrivalDate}`;
+            }
+            if (endArrivalDate) {
+                route += `&endArrivalDate=${endArrivalDate}`;
+            }
+            const res = await apiRequest.get(route);
             const products = res.data?.map((data, index) => {
                 return {
                     id: index + 1,

@@ -27,8 +27,14 @@ const StatisticsCard = ({ stat }) => {
                 </div>
                 {open && (
                     <div className="openMenu">
-                        {menu?.map((item) => (
-                            <span onClick={() => {}}>{item}</span>
+                        {menu?.map((value, index) => (
+                            <div
+                                className={"menuItem"}
+                                onClick={() => {}}
+                                key={index}
+                            >
+                                <span className="item">{value}</span>
+                            </div>
                         ))}
                     </div>
                 )}

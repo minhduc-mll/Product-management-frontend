@@ -1,16 +1,20 @@
 import "./formUpdate.scss";
-import { DriveFolderUploadOutlined } from "@mui/icons-material";
+import { DriveFolderUploadOutlined, EastOutlined } from "@mui/icons-material";
 import { useReducer, useState } from "react";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 import { formReducer } from "utils/formReducer";
 import defaultImage from "assets/no-image.jpg";
 import dateFormat from "dateformat";
+import { useNavigate } from "react-router-dom";
 
 const FormUpdate = ({ route, inputs, obj, id }) => {
+    const navigate = useNavigate();
+
     const [formObject, dispatch] = useReducer(formReducer, {
         ...obj,
         birthday: obj?.birthday && dateFormat(obj?.birthday, "yyyy-mm-dd"),
+        saleDate: obj?.saleDate && dateFormat(obj?.saleDate, "yyyy-mm-dd"),
         arrivalDate:
             obj?.arrivalDate && dateFormat(obj?.arrivalDate, "yyyy-mm-dd"),
         deliveryDate:
@@ -67,7 +71,7 @@ const FormUpdate = ({ route, inputs, obj, id }) => {
         e.preventDefault();
         const formData = new FormData();
         for (const key in formObject) {
-            formObject[key] && formData.append(key, formObject[key]);
+            formObject[key] != null && formData.append(key, formObject[key]);
         }
         mutatePut(formData);
     };
@@ -78,8 +82,12 @@ const FormUpdate = ({ route, inputs, obj, id }) => {
                 <div
                     className="top"
                     style={{ display: isSuccess ? "flex" : "none" }}
+                    onClick={() => {
+                        navigate(`/${route}/${id}`);
+                    }}
                 >
                     <div className="success">Update Successful</div>
+                    <EastOutlined className="icon" />
                 </div>
                 <div className="bottom">
                     <div className="left">
@@ -102,14 +110,14 @@ const FormUpdate = ({ route, inputs, obj, id }) => {
                     </div>
                     <div className="right">
                         <div className="formInput">
-                            {inputs?.map((input) => (
-                                <div className="input" key={input.id}>
-                                    <label>{input.label}</label>
+                            {inputs?.map((value, index) => (
+                                <div className="input" key={index}>
+                                    <label>{value.label}</label>
                                     <input
-                                        name={input.name}
-                                        type={input.type}
-                                        placeholder={input.placeholder}
-                                        value={formObject[input.name]}
+                                        name={value.name}
+                                        type={value.type}
+                                        placeholder={value.placeholder}
+                                        value={formObject[value.name] || ""}
                                         onChange={(e) => handleChange(e)}
                                     />
                                 </div>

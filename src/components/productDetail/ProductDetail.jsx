@@ -14,34 +14,59 @@ const ProductDetail = ({ product }) => {
                     />
                 </div>
                 <h1 className="itemTitle">{product?.productId}</h1>
-                {product?.desc && <p className="itemDetail">{product?.desc}</p>}
+                {product?.desc && (
+                    <div className="itemDetail">{product?.desc}</div>
+                )}
                 {product?.price && (
-                    <p className="itemDetail">Price: {product?.price}</p>
+                    <div className="itemDetail">
+                        <span>Price: {product?.price}</span>
+                    </div>
                 )}
                 {product?.deposit && (
-                    <p className="itemDetail">
-                        Deposit: {product?.deposit}.000.000
-                    </p>
+                    <div className="itemDetail">
+                        <span>Deposit: {product?.deposit}.000.000</span>
+                    </div>
+                )}
+                {product?.saleDate && (
+                    <div className="itemDetail">
+                        <span>
+                            {"Sale date: "}
+                            {dateFormat(product?.saleDate, "dd-mm-yyyy")}
+                        </span>
+                    </div>
                 )}
                 {product?.arrivalDate && (
-                    <p className="itemDetail">
-                        {"Arrival date: "}
-                        {dateFormat(product?.arrivalDate, "dd-mm-yyyy")}
-                    </p>
+                    <div className="itemDetail">
+                        <span>
+                            {"Arrival date: "}
+                            {dateFormat(product?.arrivalDate, "dd-mm-yyyy")}
+                        </span>
+                    </div>
                 )}
                 {product?.deliveryDate && (
-                    <p className="itemDetail">
-                        {"Delivery date: "}
-                        {dateFormat(product?.deliveryDate, "dd-mm-yyyy")}
-                    </p>
+                    <div className="itemDetail">
+                        <span>
+                            {"Delivery date: "}
+                            {dateFormat(product?.deliveryDate, "dd-mm-yyyy")}
+                        </span>
+                    </div>
                 )}
-                {product?.port && <p className="itemDetail">{product?.port}</p>}
+                {product?.port && (
+                    <div className="itemDetail">
+                        <span>Port: {product?.port}</span>
+                    </div>
+                )}
+                {product?.document && (
+                    <div className="itemDetail">
+                        <span>Document: {product?.document}</span>
+                    </div>
+                )}
                 {product?.status && (
-                    <p className="itemDetail">
+                    <div className="itemDetail">
                         <span className={`status ${product?.status}`}>
                             {product?.status}
                         </span>
-                    </p>
+                    </div>
                 )}
             </div>
         </div>

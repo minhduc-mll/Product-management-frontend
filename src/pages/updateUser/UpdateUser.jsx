@@ -5,50 +5,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
-
-const userInputs = [
-    {
-        id: 1,
-        name: "username",
-        type: "text",
-        label: "Username",
-        placeholder: "Username",
-    },
-    {
-        id: 2,
-        name: "name",
-        type: "text",
-        label: "Name",
-        placeholder: "Name",
-    },
-    {
-        id: 3,
-        name: "email",
-        type: "email",
-        label: "Email",
-        placeholder: "Email",
-    },
-    {
-        id: 4,
-        name: "phone",
-        type: "text",
-        label: "Phone",
-        placeholder: "Phone",
-    },
-    {
-        id: 5,
-        name: "birthday",
-        type: "date",
-        label: "Birthday",
-    },
-    {
-        id: 6,
-        name: "role",
-        type: "text",
-        label: "Role",
-        placeholder: "Role",
-    },
-];
+import { userInputs } from "utils/inputForm";
 
 const UpdateUser = ({ route }) => {
     const { id } = useParams();

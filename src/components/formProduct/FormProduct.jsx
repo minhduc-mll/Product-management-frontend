@@ -1,5 +1,5 @@
 import "./formProduct.scss";
-import { DriveFolderUploadOutlined } from "@mui/icons-material";
+import { DriveFolderUploadOutlined, EastOutlined } from "@mui/icons-material";
 import { useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
@@ -57,7 +57,6 @@ const FormProduct = ({ inputs }) => {
         onSuccess: () => {
             queryClient.invalidateQueries(["products"]);
             setIsSuccess(true);
-            navigate(`/products/${formObject.productId}`);
         },
     });
 
@@ -72,8 +71,12 @@ const FormProduct = ({ inputs }) => {
                 <div
                     className="top"
                     style={{ display: isSuccess ? "flex" : "none" }}
+                    onClick={() => {
+                        navigate(`/products/${formObject.productId}`);
+                    }}
                 >
                     <div className="success">Update Successful</div>
+                    <EastOutlined className="icon" />
                 </div>
                 <div className="bottom">
                     <div className="left">
@@ -103,13 +106,13 @@ const FormProduct = ({ inputs }) => {
                     </div>
                     <div className="right">
                         <div className="formInput">
-                            {inputs?.map((input) => (
-                                <div className="input" key={input.id}>
-                                    <label>{input.label}</label>
+                            {inputs?.map((value, index) => (
+                                <div className="input" key={index}>
+                                    <label>{value.label}</label>
                                     <input
-                                        name={input.name}
-                                        type={input.type}
-                                        placeholder={input.placeholder}
+                                        name={value.name}
+                                        type={value.type}
+                                        placeholder={value.placeholder}
                                         onChange={(e) => handleChange(e)}
                                     />
                                 </div>

@@ -111,6 +111,8 @@ const Single = ({ route }) => {
                             title={errorChart.message}
                             aspect={3 / 1}
                             data={null}
+                            initChart="LineChart"
+                            dataKey="month"
                         />
                     ) : (
                         <Chart
@@ -119,6 +121,8 @@ const Single = ({ route }) => {
                             }`}
                             aspect={3 / 1}
                             data={dataChart}
+                            initChart="LineChart"
+                            dataKey="month"
                         />
                     )}
                 </div>
