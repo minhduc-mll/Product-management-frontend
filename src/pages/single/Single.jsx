@@ -15,7 +15,7 @@ const Single = ({ route }) => {
         error,
         data: user,
     } = useQuery({
-        queryKey: [`${route}s`, id],
+        queryKey: [`${route}`, id],
         queryFn: async () => {
             const res = await apiRequest.get(`/${route}s/${id}`);
             return res.data;
@@ -32,7 +32,9 @@ const Single = ({ route }) => {
     } = useQuery({
         queryKey: [`products`, `${route}`, userId],
         queryFn: async () => {
-            const res = await apiRequest.get(`/products/${route}/${userId}`);
+            const res = await apiRequest.get(
+                `/products/${route}/${userId}?sortName=createdAt&sortOrder=dsc`
+            );
             return res.data;
         },
         enabled: !!userId,

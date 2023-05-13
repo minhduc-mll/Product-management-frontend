@@ -6,6 +6,7 @@ import {
     AttachMoneyOutlined,
     CalendarMonthOutlined,
     GroupOutlined,
+    Diversity1Outlined,
     ReportOutlined,
     PersonOutline,
     BarChartOutlined,
@@ -17,34 +18,46 @@ import { checkRoleAdmin } from "utils/auth";
 const userItems = [
     {
         text: "Dashboard",
+        link: "/dashboard",
         icon: <HomeOutlined className="icon" />,
     },
     {
         text: "Quick Menu",
-        icon: null,
+        title: true,
     },
     {
         text: "Products",
+        link: "/products",
         icon: <StoreOutlined className="icon" />,
     },
     {
         text: "Categories",
+        link: "/categories",
         icon: <CategoryOutlined className="icon" />,
     },
     {
         text: "Transactions",
+        link: "/transactions",
         icon: <AttachMoneyOutlined className="icon" />,
     },
     {
         text: "Calendar",
+        link: "/calendar",
         icon: <CalendarMonthOutlined className="icon" />,
     },
     {
         text: "Customers",
+        link: "/customers",
         icon: <GroupOutlined className="icon" />,
     },
     {
+        text: "Employees",
+        link: "/employees",
+        icon: <Diversity1Outlined className="icon" />,
+    },
+    {
         text: "Feedback",
+        link: "/feedback",
         icon: <ReportOutlined className="icon" />,
     },
 ];
@@ -52,14 +65,16 @@ const userItems = [
 const adminItems = [
     {
         text: "Manage",
-        icon: null,
+        title: true,
     },
     {
         text: "Users",
+        link: "/users",
         icon: <PersonOutline className="icon" />,
     },
     {
         text: "Analytics",
+        link: "/admin/analytics",
         icon: <BarChartOutlined className="icon" />,
     },
 ];
@@ -70,25 +85,22 @@ const Sidebar = () => {
     const { pathname } = useLocation();
     const isAdmin = checkRoleAdmin();
 
-    const renderSidebar = ({ text, icon }) => {
-        if (!icon) {
+    const renderSidebar = ({ text, link, icon, title }) => {
+        if (title) {
             return (
                 <h1 className="title" key={text}>
                     {text}
                 </h1>
             );
         }
-        const lcText = text.toLowerCase();
 
         return (
             <div className="item" key={text}>
                 <div
-                    className={
-                        active === lcText ? "itemButton active" : "itemButton"
-                    }
+                    className={`itemButton ${active === link && "active"}`}
                     onClick={() => {
-                        navigate(`/${lcText}`);
-                        setActive(lcText);
+                        navigate(`${link}`);
+                        setActive(link);
                     }}
                 >
                     {icon}
@@ -99,18 +111,18 @@ const Sidebar = () => {
     };
 
     useEffect(() => {
-        setActive(pathname.substring(1));
+        setActive(pathname);
     }, [pathname]);
 
     return (
         <div className="sidebar">
             <div className="wrapper">
-                {userItems?.map(({ text, icon }) => {
-                    return renderSidebar({ text, icon });
+                {userItems?.map(({ text, link, icon, title }) => {
+                    return renderSidebar({ text, link, icon, title });
                 })}
                 {isAdmin &&
-                    adminItems?.map(({ text, icon }) => {
-                        return renderSidebar({ text, icon });
+                    adminItems?.map(({ text, link, icon, title }) => {
+                        return renderSidebar({ text, link, icon, title });
                     })}
             </div>
         </div>

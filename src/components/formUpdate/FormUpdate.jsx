@@ -1,14 +1,14 @@
 import "./formUpdate.scss";
 import { DriveFolderUploadOutlined, EastOutlined } from "@mui/icons-material";
 import { useReducer, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 import { formReducer } from "utils/formReducer";
 import defaultImage from "assets/no-image.jpg";
 import dateFormat from "dateformat";
-import { useNavigate } from "react-router-dom";
 
-const FormUpdate = ({ route, inputs, obj, id }) => {
+const FormUpdate = ({ inputs, image, obj, route, id }) => {
     const navigate = useNavigate();
 
     const [formObject, dispatch] = useReducer(formReducer, {
@@ -57,8 +57,8 @@ const FormUpdate = ({ route, inputs, obj, id }) => {
         error: errorPut,
         mutate: mutatePut,
     } = useMutation({
-        mutationFn: async (formObject) => {
-            const res = await apiRequest.put(`/${route}/${id}`, formObject);
+        mutationFn: async (formData) => {
+            const res = await apiRequest.put(`/${route}/${id}`, formData);
             return res.data;
         },
         onSuccess: () => {
@@ -83,42 +83,50 @@ const FormUpdate = ({ route, inputs, obj, id }) => {
                     className="top"
                     style={{ display: isSuccess ? "flex" : "none" }}
                     onClick={() => {
-                        navigate(`/${route}/${id}`);
+                        route === "auth"
+                            ? navigate(`/${obj.username}`)
+                            : navigate(
+                                  `/${route}/${formObject.productId || id}`
+                              );
                     }}
                 >
                     <div className="success">Update Successful</div>
                     <EastOutlined className="icon" />
                 </div>
                 <div className="bottom">
-                    <div className="left">
-                        <label htmlFor="file">
-                            <div className="formUpload">
-                                <div>Upload Image </div>
-                                <DriveFolderUploadOutlined className="icon" />
-                            </div>
-                            <img
-                                src={file || defaultImage}
-                                alt="avata"
-                                htmlFor="file"
+                    {image && (
+                        <div className="left">
+                            <label htmlFor="file">
+                                <div className="formUpload">
+                                    <div>Upload Image </div>
+                                    <DriveFolderUploadOutlined className="icon" />
+                                </div>
+                                <img
+                                    src={file || defaultImage}
+                                    alt="avata"
+                                    htmlFor="file"
+                                />
+                            </label>
+                            <input
+                                type="file"
+                                id="file"
+                                onChange={(e) => handleUpload(e)}
                             />
-                        </label>
-                        <input
-                            type="file"
-                            id="file"
-                            onChange={(e) => handleUpload(e)}
-                        />
-                    </div>
+                        </div>
+                    )}
                     <div className="right">
                         <div className="formInput">
                             {inputs?.map((value, index) => (
                                 <div className="input" key={index}>
                                     <label>{value.label}</label>
                                     <input
+                                        id={value.name}
                                         name={value.name}
                                         type={value.type}
                                         placeholder={value.placeholder}
                                         value={formObject[value.name] || ""}
                                         onChange={(e) => handleChange(e)}
+                                        required={value.required}
                                     />
                                 </div>
                             ))}

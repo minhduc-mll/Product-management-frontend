@@ -40,15 +40,16 @@ const UpdateProfile = () => {
                     </div>
                     <div className="right">
                         <FormUpdate
-                            route="users"
                             inputs={profileInputs}
+                            image={true}
                             obj={data}
+                            route="auth"
+                            id={data._id}
                         />
                         <FormPassword
-                            route="users"
                             inputs={passwordInputs}
-                            obj={data}
-                            id={data._id}
+                            route="auth"
+                            id="change_password"
                         />
                     </div>
                 </div>

@@ -5,7 +5,7 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 import { formReducer, initialState } from "utils/formReducer";
 
-const FormPassword = ({ route, inputs, user }) => {
+const FormPassword = ({ inputs, route, id }) => {
     const [formObject, dispatch] = useReducer(formReducer, initialState);
     const [isSuccess, setIsSuccess] = useState(false);
 
@@ -21,10 +21,7 @@ const FormPassword = ({ route, inputs, user }) => {
 
     const { isLoading, error, mutate } = useMutation({
         mutationFn: async (formObject) => {
-            const res = await apiRequest.put(
-                `/${route}/${user?._id}`,
-                formObject
-            );
+            const res = await apiRequest.put(`/${route}/${id}`, formObject);
             return res.data;
         },
         onSuccess: () => {
@@ -35,10 +32,11 @@ const FormPassword = ({ route, inputs, user }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        formObject.forEach((value) => {
-            console.log(value);
-        });
-        mutate();
+        const formData = new FormData();
+        for (const key in formObject) {
+            formObject[key] && formData.append(key, formObject[key]);
+        }
+        mutate(formData);
     };
 
     return (
@@ -48,7 +46,7 @@ const FormPassword = ({ route, inputs, user }) => {
                     className="top"
                     style={{ display: isSuccess ? "flex" : "none" }}
                 >
-                    <div className="success">Change Password Successfully</div>
+                    <div className="success">Update Successful</div>
                     <EastOutlined className="icon" />
                 </div>
                 <div className="wrapper">
@@ -57,10 +55,12 @@ const FormPassword = ({ route, inputs, user }) => {
                             <div className="input" key={index}>
                                 <label>{value.label}</label>
                                 <input
+                                    id={value.name}
                                     name={value.name}
                                     type={value.type}
                                     placeholder={value.placeholder}
                                     onChange={(e) => handleChange(e)}
+                                    required={value.required}
                                 />
                             </div>
                         ))}

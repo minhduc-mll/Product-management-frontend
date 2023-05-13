@@ -5,16 +5,20 @@ import {
     MonetizationOnOutlined,
 } from "@mui/icons-material";
 import StatisticsCard from "components/statisticsCard/StatisticsCard";
-import CalendarCard from "components/calendarCard/CalendarCard";
 import Chart from "components/chart/Chart";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 import dateFormat from "dateformat";
 
 const today = new Date();
-const thisMonth = dateFormat(today, "mmmm yyyy").toUpperCase();
 const thisMonthNum = today.getMonth() + 1;
-const thisYearNum = 2022 || today.getFullYear();
+const thisYearNum = today.getFullYear();
+const lastMonthNum = today.getMonth();
+const lastYearNum = today.getFullYear() - 1;
+const lastMonth = dateFormat(
+    new Date(thisYearNum, lastMonthNum - 1),
+    "mmmm yyyy"
+).toUpperCase();
 console.log(thisMonthNum);
 
 const stats = [
@@ -75,11 +79,10 @@ const stats = [
     },
     {
         id: 4,
-        title: `TOTAL REVENUE ( ${thisMonth} )`,
+        title: `REVENUE ( ${lastMonth} )`,
         menu: [],
-        query: "totalDeposit",
+        query: `totalRevenueByMonth?month=${lastMonthNum}&year=${thisYearNum}`,
         isMoney: true,
-        diff: 168,
         to: "",
         link: "See details",
         icon: (
@@ -94,11 +97,10 @@ const stats = [
     },
     {
         id: 5,
-        title: `PROFITS ( ${thisMonth} )`,
+        title: `PROFITS ( ${lastMonth} )`,
         menu: [],
-        query: "totalDeposit",
+        query: `totalProfitsByMonth?month=${lastMonthNum}&year=${thisYearNum}`,
         isMoney: true,
-        diff: 86,
         to: "",
         link: "See details",
         icon: (
@@ -122,7 +124,21 @@ const Analytics = () => {
         queryKey: ["analys", "chart", "productByMonth"],
         queryFn: async () => {
             const res = await apiRequest.get(
-                `/analys/productsByMonth?year=${thisYearNum}`
+                `/analys/productsByMonth?year=${lastYearNum}`
+            );
+            return res.data;
+        },
+    });
+
+    const {
+        isLoading: isLoadingProfitChart,
+        error: errorProfitChart,
+        data: dataProfitChart,
+    } = useQuery({
+        queryKey: ["analys", "chart", "profitsByMonth"],
+        queryFn: async () => {
+            const res = await apiRequest.get(
+                `/analys/profitsByMonth?year=${lastYearNum}`
             );
             return res.data;
         },
@@ -136,21 +152,21 @@ const Analytics = () => {
         queryKey: ["analys", "chart", "categoryByMonth"],
         queryFn: async () => {
             const res = await apiRequest.get(
-                `/analys/productsPerCategoryByMonth?year=${thisYearNum}`
+                `/analys/productsPerCategoryByMonth?year=${lastYearNum}`
             );
             return res.data;
         },
     });
 
     const {
-        isLoading: isLoadingProductEvent,
-        error: errorProductEvent,
-        data: dataProductEvent,
+        isLoading: isLoadingProfitCategoryChart,
+        error: errorProfitCategoryChart,
+        data: dataProfitCategoryChart,
     } = useQuery({
-        queryKey: ["products", "events"],
+        queryKey: ["analys", "chart", "profitPerCategoryByMonth"],
         queryFn: async () => {
             const res = await apiRequest.get(
-                `/productevent/productArrivalEvent`
+                `/analys/profitsPerCategoryByMonth?year=${lastYearNum}`
             );
             return res.data;
         },
@@ -160,36 +176,12 @@ const Analytics = () => {
         <div className="analytics">
             <div className="analyticsTop">
                 <div className="analyticsStats">
-                    {stats?.map((stat) => (
-                        <StatisticsCard stat={stat} key={stat.id} />
+                    {stats?.map((value, index) => (
+                        <StatisticsCard stat={value} key={index} />
                     ))}
                 </div>
-                <div className="analyticsCalendar">
-                    {isLoadingProductEvent ? (
-                        "Loading..."
-                    ) : errorProductEvent ? (
-                        <CalendarCard
-                            title={errorProductEvent.message}
-                            height="auto"
-                            center="title"
-                            initialView="listMonth"
-                            editable={false}
-                            initialEvents={null}
-                        />
-                    ) : (
-                        <CalendarCard
-                            title={`Calendar Arrival date`}
-                            height="auto"
-                            center="title"
-                            right="today prev,next"
-                            initialView="listMonth"
-                            editable={false}
-                            initialEvents={dataProductEvent}
-                        />
-                    )}
-                </div>
             </div>
-            <div className="analyticsBottom">
+            <div className="analyticsMiddle">
                 <div className="analyticsChart">
                     {isLoadingProductChart ? (
                         "Loading..."
@@ -203,7 +195,7 @@ const Analytics = () => {
                         />
                     ) : (
                         <Chart
-                            title={`Product analysis by month ${thisYearNum}`}
+                            title={`Product analysis by month ${lastYearNum}`}
                             aspect={2 / 1}
                             data={dataProductChart}
                             initChart="LineChart"
@@ -211,6 +203,29 @@ const Analytics = () => {
                         />
                     )}
                 </div>
+                <div className="analyticsChart">
+                    {isLoadingProfitChart ? (
+                        "Loading..."
+                    ) : errorProfitChart ? (
+                        <Chart
+                            title={errorProfitChart.message}
+                            aspect={2 / 1}
+                            data={null}
+                            initChart="LineChart"
+                            dataKey="month"
+                        />
+                    ) : (
+                        <Chart
+                            title={`Profits analysis by month ${lastYearNum}`}
+                            aspect={2 / 1}
+                            data={dataProfitChart}
+                            initChart="BarChart"
+                            dataKey="month"
+                        />
+                    )}
+                </div>
+            </div>
+            <div className="analyticsBottom">
                 <div className="analyticsChart">
                     {isLoadingCategoryChart ? (
                         "Loading..."
@@ -224,9 +239,30 @@ const Analytics = () => {
                         />
                     ) : (
                         <Chart
-                            title={`Category analysis by month ${thisYearNum}`}
+                            title={`Category analysis by month ${lastYearNum}`}
                             aspect={2 / 1}
                             data={dataCategoryChart}
+                            initChart="LineChart"
+                            dataKey="month"
+                        />
+                    )}
+                </div>
+                <div className="analyticsChart">
+                    {isLoadingProfitCategoryChart ? (
+                        "Loading..."
+                    ) : errorProfitCategoryChart ? (
+                        <Chart
+                            title={errorProfitCategoryChart.message}
+                            aspect={2 / 1}
+                            data={null}
+                            initChart="LineChart"
+                            dataKey="month"
+                        />
+                    ) : (
+                        <Chart
+                            title={`Profits Per Category analysis by month ${lastYearNum}`}
+                            aspect={2 / 1}
+                            data={dataProfitCategoryChart}
                             initChart="LineChart"
                             dataKey="month"
                         />

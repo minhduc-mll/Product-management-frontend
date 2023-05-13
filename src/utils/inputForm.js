@@ -34,18 +34,21 @@ const passwordInputs = [
         name: "oldPassword",
         type: "password",
         label: "Current Password",
+        required: true,
     },
     {
         id: 2,
         name: "newPassword",
         type: "password",
         label: "New Password",
+        required: true,
     },
     {
         id: 3,
         name: "rePassword",
         type: "password",
         label: "Enter New Password",
+        required: true,
     },
 ];
 
@@ -56,6 +59,7 @@ const categoryInputs = [
         label: "Title",
         type: "text",
         placeholder: "Title",
+        required: true,
     },
     {
         id: 2,
@@ -73,6 +77,7 @@ const productInputs = [
         label: "Product ID",
         type: "text",
         placeholder: "Product ID",
+        required: true,
     },
     {
         id: 2,
@@ -80,6 +85,7 @@ const productInputs = [
         label: "Category",
         type: "text",
         placeholder: "Category",
+        required: true,
     },
     {
         id: 3,
@@ -97,31 +103,31 @@ const productInputs = [
     },
     {
         id: 5,
+        name: "amount",
+        label: "Amount",
+        type: "text",
+        placeholder: "Amount",
+    },
+    {
+        id: 6,
         name: "saleDate",
         label: "Sale date",
         type: "date",
         placeholder: "Sale date",
     },
     {
-        id: 6,
+        id: 7,
         name: "arrivalDate",
         label: "Arrival date",
         type: "date",
         placeholder: "Arrival date",
     },
     {
-        id: 7,
+        id: 8,
         name: "deliveryDate",
         label: "Delivery date",
         type: "date",
         placeholder: "Delivery date",
-    },
-    {
-        id: 8,
-        name: "desc",
-        label: "Description",
-        type: "text",
-        placeholder: "Description",
     },
     {
         id: 9,
@@ -153,10 +159,35 @@ const productInputs = [
     },
     {
         id: 13,
+        name: "desc",
+        label: "Description",
+        type: "text",
+        placeholder: "Description",
+    },
+    {
+        id: 14,
         name: "status",
         label: "Status",
         type: "text",
         placeholder: "Status",
+        required: true,
+    },
+];
+
+const productInputsAdmin = [
+    {
+        id: 1,
+        name: "amount",
+        label: "Amount",
+        type: "text",
+        placeholder: "Amount",
+    },
+    {
+        id: 2,
+        name: "payment",
+        label: "Payment",
+        type: "text",
+        placeholder: "Payment",
     },
 ];
 
@@ -174,6 +205,7 @@ const customerInputs = [
         label: "Phone",
         type: "text",
         placeholder: "Phone",
+        required: true,
     },
     {
         id: 3,
@@ -219,6 +251,7 @@ const userInputs = [
         label: "Username",
         type: "text",
         placeholder: "Username",
+        required: true,
     },
     {
         id: 2,
@@ -269,6 +302,7 @@ export {
     passwordInputs,
     categoryInputs,
     productInputs,
+    productInputsAdmin,
     customerInputs,
     userInputs,
 };

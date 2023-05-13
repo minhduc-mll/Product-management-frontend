@@ -34,7 +34,7 @@ const UserProfile = () => {
     } = useQuery({
         queryKey: [`products`, `user`, userId],
         queryFn: async () => {
-            const res = await apiRequest.get(`/products/user/${userId}`);
+            const res = await apiRequest.get(`/products/user/${userId}?sortName=createdAt&sortOrder=dsc`);
             return res.data;
         },
         enabled: !!userId,

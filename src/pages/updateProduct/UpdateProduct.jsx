@@ -5,15 +5,17 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
-import { productInputs } from "utils/inputForm";
+import { productInputs, productInputsAdmin } from "utils/inputForm";
+import { checkRoleAdmin } from "utils/auth";
 
-const UpdateProduct = ({ route }) => {
+const UpdateProduct = () => {
     const { id } = useParams();
+    const isAdmin = checkRoleAdmin();
 
     const { isLoading, error, data, refetch } = useQuery({
-        queryKey: [`${route}`, id],
+        queryKey: [`product`, id],
         queryFn: async () => {
-            const res = await apiRequest.get(`/${route}/${id}`);
+            const res = await apiRequest.get(`/products/${id}`);
             return res.data;
         },
         enabled: !!id,
@@ -34,13 +36,26 @@ const UpdateProduct = ({ route }) => {
                 error.response.data.message
             ) : (
                 <div className="bottom">
-                    <ProductDetail product={data} />
-                    <FormUpdate
-                        route="products"
-                        inputs={productInputs}
-                        obj={data}
-                        id={data.productId}
-                    />
+                    <div className="left">
+                        <ProductDetail product={data} />
+                    </div>
+                    <div className="right">
+                        <FormUpdate
+                            inputs={productInputs}
+                            obj={data}
+                            image={true}
+                            route="products"
+                            id={data.productId}
+                        />
+                        {isAdmin && (
+                            <FormUpdate
+                                inputs={productInputsAdmin}
+                                obj={data}
+                                route="products"
+                                id={data.productId}
+                            />
+                        )}
+                    </div>
                 </div>
             )}
         </div>

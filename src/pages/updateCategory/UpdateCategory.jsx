@@ -1,19 +1,18 @@
-import "./updateCustomer.scss";
-import UserDetail from "components/userDetail/UserDetail";
+import "./updateCategory.scss";
 import FormUpdate from "components/formUpdate/FormUpdate";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
-import { customerInputs } from "utils/inputForm";
+import { categoryInputs } from "utils/inputForm";
 
-const UpdateCustomer = () => {
+const UpdateCategory = () => {
     const { id } = useParams();
 
     const { isLoading, error, data, refetch } = useQuery({
-        queryKey: [`customer`, id],
+        queryKey: [`category`, id],
         queryFn: async () => {
-            const res = await apiRequest.get(`/customers/${id}`);
+            const res = await apiRequest.get(`/categories/${id}`);
             return res.data;
         },
         enabled: !!id,
@@ -24,9 +23,15 @@ const UpdateCustomer = () => {
     }, [id, refetch]);
 
     return (
-        <div className="updateCustomer">
+        <div className="updateCategory">
             <div className="top">
-                <h1 className="title">Edit Customer</h1>
+                {isLoading ? (
+                    "Update Category"
+                ) : error ? (
+                    error.response.data.message
+                ) : (
+                    <h1 className="title">{`Update Category ${data.title}`}</h1>
+                )}
             </div>
             {isLoading ? (
                 "Loading..."
@@ -34,12 +39,11 @@ const UpdateCustomer = () => {
                 error.response.data.message
             ) : (
                 <div className="bottom">
-                    <UserDetail user={data} />
                     <FormUpdate
-                        inputs={customerInputs}
+                        inputs={categoryInputs}
                         obj={data}
                         image={true}
-                        route="customers"
+                        route="categories"
                         id={data._id}
                     />
                 </div>
@@ -48,4 +52,4 @@ const UpdateCustomer = () => {
     );
 };
 
-export default UpdateCustomer;
+export default UpdateCategory;

@@ -6,12 +6,15 @@ import Product from "pages/product/Product";
 import NewProduct from "pages/newProduct/NewProduct";
 import UpdateProduct from "pages/updateProduct/UpdateProduct";
 import Categories from "pages/categories/Categories";
+import Category from "pages/category/Category";
 import NewCategory from "pages/newCategory/NewCategory";
+import UpdateCategory from "pages/updateCategory/UpdateCategory";
 import Calendar from "pages/calendar/Calendar";
 import Customers from "pages/customers/Customers";
 import NewCustomer from "pages/newCustomer/NewCustomer";
 import UpdateCustomer from "pages/updateCustomer/UpdateCustomer";
 import Single from "pages/single/Single";
+import Employees from "pages/employees/Employees";
 import Users from "pages/users/Users";
 import NewUser from "pages/newUser/NewUser";
 import UpdateUser from "pages/updateUser/UpdateUser";
@@ -66,7 +69,7 @@ function App() {
                 },
                 {
                     path: "/products/update/:id",
-                    element: <UpdateProduct route="products" />,
+                    element: <UpdateProduct />,
                 },
                 {
                     path: "/categories",
@@ -74,7 +77,7 @@ function App() {
                 },
                 {
                     path: "/categories/:id",
-                    element: <Product />,
+                    element: <Category />,
                 },
                 {
                     path: "/categories/new",
@@ -82,7 +85,7 @@ function App() {
                 },
                 {
                     path: "/categories/update/:id",
-                    element: <UpdateProduct route="categories" />,
+                    element: <UpdateCategory />,
                 },
                 {
                     path: "/transactions",
@@ -106,7 +109,11 @@ function App() {
                 },
                 {
                     path: "/customers/update/:id",
-                    element: <UpdateCustomer route="customers" />,
+                    element: <UpdateCustomer />,
+                },
+                {
+                    path: "/employees",
+                    element: <Employees />,
                 },
                 {
                     path: "/feedback",
@@ -143,10 +150,10 @@ function App() {
                 },
                 {
                     path: "/users/update/:id",
-                    element: <UpdateUser route="users" />,
+                    element: <UpdateUser />,
                 },
                 {
-                    path: "/analytics",
+                    path: "/admin/analytics",
                     element: <Analytics />,
                 },
             ],

@@ -75,7 +75,7 @@ const FormProduct = ({ inputs }) => {
                         navigate(`/products/${formObject.productId}`);
                     }}
                 >
-                    <div className="success">Update Successful</div>
+                    <div className="success">Create Successful</div>
                     <EastOutlined className="icon" />
                 </div>
                 <div className="bottom">
@@ -114,6 +114,7 @@ const FormProduct = ({ inputs }) => {
                                         type={value.type}
                                         placeholder={value.placeholder}
                                         onChange={(e) => handleChange(e)}
+                                        required={value.required}
                                     />
                                 </div>
                             ))}

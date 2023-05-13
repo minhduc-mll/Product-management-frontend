@@ -10,7 +10,9 @@ const Calendar = () => {
     const { isLoading, error, data } = useQuery({
         queryKey: ["events"],
         queryFn: async () => {
-            const res = await apiRequest.get(`/events`);
+            const res = await apiRequest.get(
+                `/events?sortName=start&sortOrder=dsc`
+            );
             return res.data;
         },
     });

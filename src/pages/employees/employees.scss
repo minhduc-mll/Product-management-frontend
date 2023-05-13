@@ -1,0 +1,79 @@
+.employees {
+    flex: 5;
+    width: 100%;
+
+    .employeesTop {
+        padding: 20px;
+        margin: 20px;
+        -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
+        box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
+
+        .employeesTitle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+
+            .title {
+                font-size: 20px;
+            }
+        }
+
+        .employeesMenu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .menuFilters {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+
+                .searchInput {
+                    display: flex;
+                    align-items: center;
+                    width: fit-content;
+                    padding: 5px;
+                    border: 0.5px solid gray;
+                    border-radius: 100px;
+
+                    &:hover {
+                        border-color: var(--primary-lime-green);
+                    }
+
+                    input {
+                        font-size: 14px;
+                        border: none;
+                        outline: none;
+                        background: transparent;
+
+                        &::placeholder {
+                            font-size: 12px;
+                            color: gray;
+                        }
+                    }
+
+                    .icon {
+                        font-size: 25px;
+                        cursor: pointer;
+
+                        &:hover {
+                            color: var(--primary-lime-green);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .employeesBottom {
+        margin: 20px;
+
+        .gridView {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+    }
+}

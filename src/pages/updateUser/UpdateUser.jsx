@@ -7,13 +7,13 @@ import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 import { userInputs } from "utils/inputForm";
 
-const UpdateUser = ({ route }) => {
+const UpdateUser = () => {
     const { id } = useParams();
 
     const { isLoading, error, data, refetch } = useQuery({
-        queryKey: [`${route}`, id],
+        queryKey: [`user`, id],
         queryFn: async () => {
-            const res = await apiRequest.get(`/${route}/${id}`);
+            const res = await apiRequest.get(`/users/${id}`);
             return res.data;
         },
         enabled: !!id,
@@ -36,9 +36,10 @@ const UpdateUser = ({ route }) => {
                 <div className="bottom">
                     <UserDetail user={data} />
                     <FormUpdate
-                        route="users"
                         inputs={userInputs}
                         obj={data}
+                        image={true}
+                        route="users"
                         id={data._id}
                     />
                 </div>

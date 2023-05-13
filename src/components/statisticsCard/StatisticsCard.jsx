@@ -1,9 +1,14 @@
 import "./statisticsCard.scss";
-import { KeyboardArrowUp, MoreVert } from "@mui/icons-material";
+import {
+    KeyboardArrowUp,
+    KeyboardArrowDown,
+    MoreVert,
+} from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
+import { formatNumber } from "utils/formatNumber";
 
 const StatisticsCard = ({ stat }) => {
     const [open, setOpen] = useState(false);
@@ -46,19 +51,23 @@ const StatisticsCard = ({ stat }) => {
                     ) : error ? (
                         error.response.data.message
                     ) : (
-                        <span>
-                            {data}
-                            {isMoney && "M"}
-                        </span>
+                        <span>{isMoney ? formatNumber(data) : data}</span>
                     )}
                 </div>
-                <div className="percentage positive">
-                    {diff ? (
+                <div
+                    className={`percentage ${data > 0 ? "positive" : "negative"}
+                    `}
+                >
+                    {data > 0 ? (
                         <>
-                            <KeyboardArrowUp className="icon" /> {diff}%
+                            <KeyboardArrowUp className="icon" />
+                            {diff && <span>{diff}%</span>}
                         </>
                     ) : (
-                        <KeyboardArrowUp className="icon" />
+                        <>
+                            <KeyboardArrowDown className="icon" />
+                            {diff && <span>{diff}%</span>}  
+                        </>
                     )}
                 </div>
             </div>

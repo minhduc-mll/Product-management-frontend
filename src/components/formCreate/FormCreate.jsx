@@ -111,6 +111,7 @@ const FormCreate = ({ route, inputs }) => {
                                         type={value.type}
                                         placeholder={value.placeholder}
                                         onChange={(e) => handleChange(e)}
+                                        required={value.required}
                                     />
                                 </div>
                             ))}

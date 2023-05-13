@@ -16,17 +16,17 @@ import {
 } from "recharts";
 import { PureComponent, useState } from "react";
 
-const color = {
-    blue: "#1677ff",
-    darkBlue: "#5a54f9",
-    purple: "#9e339f",
-    pink: "#ed4192",
-    darkRed: "#e0282e",
-    darkOrange: "#f4801a",
-    gold: "#f2bd27",
-    seaGreen: "#00b96b",
-    limeGreen: "#52c41a",
-};
+const color = [
+    "#52c41a", // limeGreen
+    "#1677ff", // blue
+    "#5a54f9", // darkBlue
+    "#9e339f", // purple
+    "#ed4192", // pink
+    "#e0282e", // darkRed
+    "#f4801a", // darkOrange
+    "#f2bd27", // gold
+    "#00b96b", // seaGreen
+];
 
 const getRandomColor = () => {
     return "#" + ((Math.random() * 0xffffff) << 0).toString(16);
@@ -68,7 +68,7 @@ const Chart = ({ title, aspect, data, initChart = "LineChart", dataKey }) => {
                         <Line
                             type="monotone"
                             dataKey={value}
-                            stroke={getRandomColor()}
+                            stroke={color[index] || getRandomColor()}
                             strokeWidth={2}
                             key={index}
                         />
@@ -78,7 +78,7 @@ const Chart = ({ title, aspect, data, initChart = "LineChart", dataKey }) => {
                         <Area
                             type="monotone"
                             dataKey={value}
-                            stroke={getRandomColor()}
+                            stroke={color[index] || getRandomColor()}
                             strokeWidth={2}
                             fillOpacity={1}
                             fill={`url(#linear)`}
@@ -89,7 +89,7 @@ const Chart = ({ title, aspect, data, initChart = "LineChart", dataKey }) => {
                     return (
                         <Bar
                             dataKey={value}
-                            fill={color.limeGreen}
+                            fill={color[index] || getRandomColor()}
                             key={index}
                         />
                     );
@@ -105,12 +105,12 @@ const Chart = ({ title, aspect, data, initChart = "LineChart", dataKey }) => {
                         >
                             <stop
                                 offset="5%"
-                                stopColor={color.limeGreen}
+                                stopColor={color[index] || getRandomColor()}
                                 stopOpacity={0.6}
                             />
                             <stop
                                 offset="95%"
-                                stopColor={color.limeGreen}
+                                stopColor={color[index] || getRandomColor()}
                                 stopOpacity={0}
                             />
                         </linearGradient>
@@ -127,7 +127,7 @@ const Chart = ({ title, aspect, data, initChart = "LineChart", dataKey }) => {
                     margin={{
                         top: 20,
                         right: 20,
-                        left: 0,
+                        left: 20,
                         bottom: 0,
                     }}
                 >
@@ -154,7 +154,7 @@ const Chart = ({ title, aspect, data, initChart = "LineChart", dataKey }) => {
                     margin={{
                         top: 20,
                         right: 20,
-                        left: 0,
+                        left: 20,
                         bottom: 0,
                     }}
                 >
@@ -182,7 +182,7 @@ const Chart = ({ title, aspect, data, initChart = "LineChart", dataKey }) => {
                     margin={{
                         top: 20,
                         right: 20,
-                        left: 0,
+                        left: 20,
                         bottom: 0,
                     }}
                 >
