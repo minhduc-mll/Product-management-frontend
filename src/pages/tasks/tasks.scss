@@ -1,0 +1,104 @@
+.tasks {
+    flex: 5;
+    width: 100%;
+
+    .tasksTop {
+        padding: 10px 20px;
+        margin: 20px;
+        -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
+        box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
+
+        .tasksTitle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .title {
+                font-size: 20px;
+            }
+
+            .addButton {
+                font-size: 16px;
+                font-weight: 400;
+                padding: 5px;
+                border-radius: 5px;
+                color: var(--primary-lime-green);
+                border: 1px solid var(--primary-lime-green);
+                background-color: transparent;
+                cursor: pointer;
+
+                &:hover {
+                    color: white;
+                    background-color: var(--primary-lime-green);
+                }
+            }
+        }
+    }
+
+    .tasksBottom {
+        display: flex;
+        margin: 20px;
+
+        .react-kanban-board {
+            width: 100%;
+            padding: 0 0 20px 0;
+
+            :nth-child(1) {
+                display: flex;
+                gap: 20px;
+            }
+
+            .react-kanban-column {
+                width: 25%;
+                padding: 10px;
+                border-radius: 10px;
+                -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
+                box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
+
+                :nth-child(2) {
+                    div {
+                        width: 100%;
+                    }
+                }
+
+                .kanban-card {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    background: #ddd;
+                    padding: 1rem;
+                    gap: 1rem;
+                    margin-top: 1.2rem;
+                    border-radius: 5px;
+
+                    :nth-child(1) {
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                    }
+
+                    .remove-button {
+                        background: none;
+                        border: none;
+                        cursor: pointer;
+                    }
+                }
+
+                .column-header {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+
+                    .column-header-top {
+                        display: flex;
+                        justify-content: space-between;
+
+                        .icon {
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

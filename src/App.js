@@ -9,6 +9,7 @@ import Categories from "pages/categories/Categories";
 import Category from "pages/category/Category";
 import NewCategory from "pages/newCategory/NewCategory";
 import UpdateCategory from "pages/updateCategory/UpdateCategory";
+import Tasks from "pages/tasks/Tasks";
 import Calendar from "pages/calendar/Calendar";
 import Customers from "pages/customers/Customers";
 import NewCustomer from "pages/newCustomer/NewCustomer";
@@ -90,6 +91,10 @@ function App() {
                 {
                     path: "/transactions",
                     element: <ComingSoon title={`Transactions`} />,
+                },
+                {
+                    path: "/tasks",
+                    element: <Tasks />,
                 },
                 {
                     path: "/calendar",

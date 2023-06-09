@@ -4,6 +4,7 @@ import {
     StoreOutlined,
     CategoryOutlined,
     AttachMoneyOutlined,
+    FormatListNumberedOutlined,
     CalendarMonthOutlined,
     GroupOutlined,
     Diversity1Outlined,
@@ -39,6 +40,11 @@ const userItems = [
         text: "Transactions",
         link: "/transactions",
         icon: <AttachMoneyOutlined className="icon" />,
+    },
+    {
+        text: "Tasks",
+        link: "/tasks",
+        icon: <FormatListNumberedOutlined className="icon" />,
     },
     {
         text: "Calendar",

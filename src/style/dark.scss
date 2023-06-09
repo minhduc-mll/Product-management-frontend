@@ -133,6 +133,18 @@
         }
     }
 
+    .tasks {
+        .tasksBottom {
+            .react-kanban-board {
+                .react-kanban-column {
+                    .kanban-card {
+                        background-color: #333;
+                    }
+                }
+            }
+        }
+    }
+
     .pagination {
         .pagination-container {
             .pagination-item {
