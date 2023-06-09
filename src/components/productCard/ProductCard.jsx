@@ -9,7 +9,26 @@ import defaultImage from "assets/no-image.jpg";
 const ProductCard = ({ product }) => {
     const navigate = useNavigate();
 
-    const { isLoading, error, data } = useQuery({
+    const {
+        isLoading: isLoadingCategories,
+        error: errorCategories,
+        data: dataCategories,
+    } = useQuery({
+        queryKey: ["categories", product?.categoryId],
+        queryFn: async () => {
+            const res = await apiRequest.get(
+                `/categories/${product?.categoryId}`
+            );
+            return res.data;
+        },
+        enabled: !!product?.categoryId,
+    });
+
+    const {
+        isLoading: isLoadingProducts,
+        error: errorProducts,
+        data: dataProducts,
+    } = useQuery({
         queryKey: ["products", product?.sellerId],
         queryFn: async () => {
             const res = await apiRequest.get(`/users/${product?.sellerId}`);
@@ -53,14 +72,25 @@ const ProductCard = ({ product }) => {
                 </div>
                 <div className="productItems">
                     <h1 className="title">{product?.productId}</h1>
-                    {isLoading ? (
+                    {isLoadingCategories ? (
                         "Loading..."
-                    ) : error ? (
-                        error.response.data.message
-                    ) : data?.name ? (
-                        <div className="itemDetail">{data?.name}</div>
+                    ) : errorCategories ? (
+                        errorCategories.response.data.message
                     ) : (
-                        <div className="itemDetail">{data?.username}</div>
+                        <div className="itemDetail">
+                            {dataCategories?.title}
+                        </div>
+                    )}
+                    {isLoadingProducts ? (
+                        "Loading..."
+                    ) : errorProducts ? (
+                        errorProducts.response.data.message
+                    ) : dataProducts?.name ? (
+                        <div className="itemDetail">{dataProducts?.name}</div>
+                    ) : (
+                        <div className="itemDetail">
+                            {dataProducts?.username}
+                        </div>
                     )}
                     {product?.saleDate && (
                         <div className="itemDetail">

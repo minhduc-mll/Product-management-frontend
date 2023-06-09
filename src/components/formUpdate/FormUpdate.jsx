@@ -2,7 +2,7 @@ import "./formUpdate.scss";
 import { DriveFolderUploadOutlined, EastOutlined } from "@mui/icons-material";
 import { useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 import { formReducer } from "utils/formReducer";
 import defaultImage from "assets/no-image.jpg";
@@ -76,6 +76,76 @@ const FormUpdate = ({ inputs, image, obj, route, id }) => {
         mutatePut(formData);
     };
 
+    useQuery({
+        queryKey: ["categories"],
+        queryFn: async () => {
+            const res = await apiRequest.get(`/categories`);
+            const category = inputs?.find((input) => {
+                return input.name === "categoryId";
+            });
+            if (category) {
+                category.options = res.data?.map((data) => {
+                    return {
+                        value: data._id,
+                        title: data.title,
+                    };
+                });
+                category.options?.unshift({
+                    value: null,
+                    title: null,
+                });
+            }
+            console.log(category);
+            return res.data;
+        },
+    });
+
+    useQuery({
+        queryKey: ["customers"],
+        queryFn: async () => {
+            const res = await apiRequest.get(`/customers`);
+            const customer = inputs?.find((input) => {
+                return input.name === "customerId";
+            });
+            if (customer) {
+                customer.options = res.data?.map((data) => {
+                    return {
+                        value: data._id,
+                        title: data.name,
+                    };
+                });
+                customer.options?.unshift({
+                    value: "",
+                    title: "--- Please select ---",
+                });
+            }
+            return res.data;
+        },
+    });
+
+    useQuery({
+        queryKey: ["sellers"],
+        queryFn: async () => {
+            const res = await apiRequest.get(`/users`);
+            const seller = inputs?.find((input) => {
+                return input.name === "sellerId";
+            });
+            if (seller) {
+                seller.options = res.data?.map((data) => {
+                    return {
+                        value: data._id,
+                        title: data.name,
+                    };
+                });
+                seller.options?.unshift({
+                    value: "",
+                    title: "--- Please select ---",
+                });
+            }
+            return res.data;
+        },
+    });
+
     return (
         <div className="formUpdate">
             <form action="" onSubmit={handleSubmit}>
@@ -119,15 +189,37 @@ const FormUpdate = ({ inputs, image, obj, route, id }) => {
                             {inputs?.map((value, index) => (
                                 <div className="input" key={index}>
                                     <label>{value.label}</label>
-                                    <input
-                                        id={value.name}
-                                        name={value.name}
-                                        type={value.type}
-                                        placeholder={value.placeholder}
-                                        value={formObject[value.name] || ""}
-                                        onChange={(e) => handleChange(e)}
-                                        required={value.required}
-                                    />
+                                    {value.type === "select" ? (
+                                        <select
+                                            id={value.name}
+                                            name={value.name}
+                                            type={value.type}
+                                            value={formObject[value.name] || ""}
+                                            onChange={(e) => handleChange(e)}
+                                            required={value.required}
+                                        >
+                                            {value.options?.map(
+                                                (option, index) => (
+                                                    <option
+                                                        key={index}
+                                                        value={option.value}
+                                                    >
+                                                        {option.title}
+                                                    </option>
+                                                )
+                                            )}
+                                        </select>
+                                    ) : (
+                                        <input
+                                            id={value.name}
+                                            name={value.name}
+                                            type={value.type}
+                                            placeholder={value.placeholder}
+                                            value={formObject[value.name] || ""}
+                                            onChange={(e) => handleChange(e)}
+                                            required={value.required}
+                                        />
+                                    )}
                                 </div>
                             ))}
                         </div>

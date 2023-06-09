@@ -6,7 +6,7 @@ import {
     GridViewOutlined,
     ViewListOutlined,
 } from "@mui/icons-material";
-import ProductDetail from "components/productCard/ProductCard";
+import ProductCard from "components/productCard/ProductCard";
 import Datatable from "components/datatable/Datatable";
 import Pagination from "components/pagination/Pagination";
 import { useState, useEffect, useRef } from "react";
@@ -25,6 +25,20 @@ const productColumns = [
         field: "productId",
         headerName: "ProductId",
         flex: 1,
+    },
+    {
+        field: "saleDate",
+        headerName: "Sale Date",
+        flex: 1,
+        renderCell: (params) => {
+            return params.row.saleDate ? (
+                <div className="cellUser">
+                    {dateFormat(params.row.saleDate, "dd-mm-yyyy")}
+                </div>
+            ) : (
+                ""
+            );
+        },
     },
     {
         field: "arrivalDate",
@@ -53,6 +67,11 @@ const productColumns = [
                 ""
             );
         },
+    },
+    {
+        field: "desc",
+        headerName: "Description",
+        flex: 1,
     },
     {
         field: "port",
@@ -260,7 +279,7 @@ const Products = () => {
                                               className="item"
                                               key={value.productId}
                                           >
-                                              <ProductDetail product={value} />
+                                              <ProductCard product={value} />
                                           </div>
                                       );
                                   }

@@ -106,13 +106,35 @@ const FormCreate = ({ route, inputs }) => {
                             {inputs?.map((value, index) => (
                                 <div className="input" key={index}>
                                     <label>{value.label}</label>
-                                    <input
-                                        name={value.name}
-                                        type={value.type}
-                                        placeholder={value.placeholder}
-                                        onChange={(e) => handleChange(e)}
-                                        required={value.required}
-                                    />
+                                    {value.type === "select" ? (
+                                        <select
+                                            name={value.name}
+                                            type={value.type}
+                                            required={value.required}
+                                        >
+                                            {value.options?.map(
+                                                (option, index) => (
+                                                    <option
+                                                        key={index}
+                                                        value={
+                                                            option.value ||
+                                                            option
+                                                        }
+                                                    >
+                                                        {option.title || option}
+                                                    </option>
+                                                )
+                                            )}
+                                        </select>
+                                    ) : (
+                                        <input
+                                            name={value.name}
+                                            type={value.type}
+                                            placeholder={value.placeholder}
+                                            onChange={(e) => handleChange(e)}
+                                            required={value.required}
+                                        />
+                                    )}
                                 </div>
                             ))}
                         </div>

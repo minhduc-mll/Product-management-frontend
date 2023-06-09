@@ -1,8 +1,21 @@
 import "./productDetail.scss";
+import { useQuery } from "@tanstack/react-query";
+import { apiRequest } from "utils/apiAxios";
 import defaultImage from "assets/no-image.jpg";
 import dateFormat from "dateformat";
 
 const ProductDetail = ({ product }) => {
+    const { isLoading, error, data } = useQuery({
+        queryKey: ["categories", product?.categoryId],
+        queryFn: async () => {
+            const res = await apiRequest.get(
+                `/categories/${product?.categoryId}`
+            );
+            return res.data;
+        },
+        enabled: !!product?.categoryId,
+    });
+
     return (
         <div className="productDetail">
             <div className="productItems">
@@ -14,6 +27,14 @@ const ProductDetail = ({ product }) => {
                     />
                 </div>
                 <h1 className="itemTitle">{product?.productId}</h1>
+                {product?.categoryId &&
+                    (isLoading ? (
+                        "Loading..."
+                    ) : error ? (
+                        error.response.data.message
+                    ) : (
+                        <div className="itemDetail">{data.title}</div>
+                    ))}
                 {product?.desc && (
                     <div className="itemDetail">{product?.desc}</div>
                 )}

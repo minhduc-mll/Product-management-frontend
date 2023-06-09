@@ -83,7 +83,7 @@ const productInputs = [
         id: 2,
         name: "categoryId",
         label: "Category",
-        type: "text",
+        type: "select",
         placeholder: "Category",
         required: true,
     },
@@ -147,14 +147,14 @@ const productInputs = [
         id: 11,
         name: "customerId",
         label: "Customer",
-        type: "text",
+        type: "select",
         placeholder: "Customer",
     },
     {
         id: 12,
         name: "sellerId",
         label: "Seller",
-        type: "text",
+        type: "select",
         placeholder: "Seller",
     },
     {
@@ -168,9 +168,14 @@ const productInputs = [
         id: 14,
         name: "status",
         label: "Status",
-        type: "text",
+        type: "select",
         placeholder: "Status",
         required: true,
+        options: [
+            { value: "pending", title: "pending" },
+            { value: "sold", title: "sold" },
+            { value: "done", title: "done" },
+        ],
     },
 ];
 
@@ -292,8 +297,9 @@ const userInputs = [
         id: 7,
         name: "role",
         label: "Role",
-        type: "text",
+        type: "select",
         placeholder: "Role",
+        options: ["sale", "manager", "dev", "mod", "admin"],
     },
 ];
 

@@ -66,7 +66,7 @@ const StatisticsCard = ({ stat }) => {
                     ) : (
                         <>
                             <KeyboardArrowDown className="icon" />
-                            {diff && <span>{diff}%</span>}  
+                            {diff && <span>{diff}%</span>}
                         </>
                     )}
                 </div>
