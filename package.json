@@ -10,7 +10,6 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@asseinfo/react-kanban": "^2.2.0",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@fullcalendar/core": "^6.1.5",
@@ -35,7 +34,6 @@
     "react-router-dom": "^6.9.0",
     "react-scripts": "5.0.1",
     "recharts": "^2.5.0",
-    "rodal": "^2.0.1",
     "sass": "^1.59.3",
     "web-vitals": "^2.1.4"
   },
