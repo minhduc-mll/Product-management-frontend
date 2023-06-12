@@ -14,6 +14,7 @@ import { useMode, useModeDispatch } from "utils/darkModeContext";
 import { apiRequest } from "utils/apiAxios";
 import { getCurrentUser } from "utils/auth";
 import defaultAvatar from "assets/no-avatar.jpg";
+import { useQuery } from "@tanstack/react-query";
 
 const Navbar = () => {
     const darkMode = useMode();
@@ -23,6 +24,20 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     const currentUser = getCurrentUser();
+    const username = currentUser?.username;
+
+    const {
+        isLoading,
+        error,
+        data: user,
+    } = useQuery({
+        queryKey: [`profile`, username],
+        queryFn: async () => {
+            const res = await apiRequest.get(`/users/profile/${username}`);
+            return res.data;
+        },
+        enabled: !!username,
+    });
 
     const handleSwitchAppearance = () => {
         try {
@@ -81,10 +96,14 @@ const Navbar = () => {
                         <NotificationsNoneOutlined className="icon" />
                         <div className="counter">10</div>
                     </div>
-                    {currentUser ? (
+                    {isLoading || error ? (
+                        <Link to={`/login`} className="link">
+                            <div className="item">Sign in</div>
+                        </Link>
+                    ) : (
                         <div className="user" ref={menuRef}>
                             <img
-                                src={currentUser?.img || defaultAvatar}
+                                src={user?.image || defaultAvatar}
                                 alt=""
                                 className="avatar"
                                 onClick={handleOpenMenu}
@@ -92,19 +111,17 @@ const Navbar = () => {
                             {isMenuOpen && (
                                 <ul className="options">
                                     <li className="userTitle">
-                                        {currentUser?.username}
+                                        {user?.username}
                                     </li>
                                     <Link
-                                        to={`/${currentUser?.username}`}
+                                        to={`/${user?.username}`}
                                         className="link"
                                     >
                                         <li
                                             className="optionItem"
                                             onClick={() => {
                                                 handleOpenMenu();
-                                                navigate(
-                                                    `/${currentUser?.username}`
-                                                );
+                                                navigate(`/${user?.username}`);
                                             }}
                                         >
                                             <span>Profile</span>
@@ -141,10 +158,6 @@ const Navbar = () => {
                                 </ul>
                             )}
                         </div>
-                    ) : (
-                        <Link to={`/login`} className="link">
-                            <div className="item">Sign in</div>
-                        </Link>
                     )}
                 </div>
             </div>
