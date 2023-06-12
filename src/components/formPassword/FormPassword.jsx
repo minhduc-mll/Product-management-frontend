@@ -66,7 +66,7 @@ const FormPassword = ({ inputs, route, id }) => {
                         ))}
                     </div>
                     <span className="error">
-                        {error && error.response.data.message}
+                        {error && error.response?.data.message}
                     </span>
                     <div className="link">Forget your password?</div>
                     <div className="sendButton">

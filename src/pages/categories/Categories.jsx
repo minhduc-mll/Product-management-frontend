@@ -56,7 +56,7 @@ const Categories = () => {
                 {isLoading ? (
                     "Loading..."
                 ) : error ? (
-                    error.response.data.message
+                    error.response?.data.message
                 ) : (
                     <Datatable
                         target="categories"

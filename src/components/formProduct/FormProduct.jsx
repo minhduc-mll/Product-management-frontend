@@ -213,7 +213,7 @@ const FormProduct = ({ inputs }) => {
                             ))}
                         </div>
                         <span className="error">
-                            {error && error.response.data.message}
+                            {error && error.response?.data.message}
                         </span>
                         <div className="sendButton">
                             {uploading || isLoading ? (

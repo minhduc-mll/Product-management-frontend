@@ -44,33 +44,34 @@ const StatisticsCard = ({ stat }) => {
                     </div>
                 )}
             </div>
-            <div className="statMiddle">
-                <div className="counter">
-                    {isLoading ? (
-                        "Loading..."
-                    ) : error ? (
-                        error.response.data.message
-                    ) : (
+            {isLoading ? (
+                "Loading..."
+            ) : error ? (
+                error.response?.data.message
+            ) : (
+                <div className="statMiddle">
+                    <div className="counter">
                         <span>{isMoney ? formatNumber(data) : data}</span>
-                    )}
+                    </div>
+                    <div
+                        className={`percentage ${
+                            data > 0 ? "positive" : "negative"
+                        }`}
+                    >
+                        {data > 0 ? (
+                            <>
+                                <KeyboardArrowUp className="icon" />
+                                {diff && <span>{diff}%</span>}
+                            </>
+                        ) : (
+                            <>
+                                <KeyboardArrowDown className="icon" />
+                                {diff && <span>{diff}%</span>}
+                            </>
+                        )}
+                    </div>
                 </div>
-                <div
-                    className={`percentage ${data > 0 ? "positive" : "negative"}
-                    `}
-                >
-                    {data > 0 ? (
-                        <>
-                            <KeyboardArrowUp className="icon" />
-                            {diff && <span>{diff}%</span>}
-                        </>
-                    ) : (
-                        <>
-                            <KeyboardArrowDown className="icon" />
-                            {diff && <span>{diff}%</span>}
-                        </>
-                    )}
-                </div>
-            </div>
+            )}
             <div className="statBottom">
                 <Link to={to} className="link">
                     {link}

@@ -32,7 +32,7 @@ const UpdateProfile = () => {
             {isLoading ? (
                 "Loading..."
             ) : error ? (
-                error.response.data.message
+                error.response?.data.message
             ) : (
                 <div className="bottom">
                     <div className="left">

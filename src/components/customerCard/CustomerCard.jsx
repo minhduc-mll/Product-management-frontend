@@ -122,7 +122,7 @@ const CustomerCard = ({ customer }) => {
                         {isLoading ? (
                             "Loading..."
                         ) : error ? (
-                            error.response.data.message
+                            error.response?.data.message
                         ) : (
                             <p className="itemDetail">{data.name}</p>
                         )}

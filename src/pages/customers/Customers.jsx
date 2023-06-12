@@ -168,7 +168,7 @@ const Customers = () => {
                         {isLoading
                             ? "Loading..."
                             : error
-                            ? error.response.data.message
+                            ? error.response?.data.message
                             : view === "grid" && (
                                   <Pagination
                                       currentPage={currentPage}
@@ -202,7 +202,7 @@ const Customers = () => {
                         {isLoading
                             ? "Loading..."
                             : error
-                            ? error.response.data.message
+                            ? error.response?.data.message
                             : customersData?.map((value, index) => {
                                   if (
                                       index >= (currentPage - 1) * pageSize &&
@@ -222,7 +222,7 @@ const Customers = () => {
                         {isLoading ? (
                             "Loading..."
                         ) : error ? (
-                            error.response.data.message
+                            error.response?.data.message
                         ) : (
                             <Datatable
                                 target="customers"

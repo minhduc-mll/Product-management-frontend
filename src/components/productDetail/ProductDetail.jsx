@@ -31,7 +31,7 @@ const ProductDetail = ({ product }) => {
                     (isLoading ? (
                         "Loading..."
                     ) : error ? (
-                        error.response.data.message
+                        error.response?.data.message
                     ) : (
                         <div className="itemDetail">{data.title}</div>
                     ))}

@@ -28,7 +28,7 @@ const UpdateCategory = () => {
                 {isLoading ? (
                     "Update Category"
                 ) : error ? (
-                    error.response.data.message
+                    error.response?.data.message
                 ) : (
                     <h1 className="title">{`Update Category ${data.title}`}</h1>
                 )}
@@ -36,7 +36,7 @@ const UpdateCategory = () => {
             {isLoading ? (
                 "Loading..."
             ) : error ? (
-                error.response.data.message
+                error.response?.data.message
             ) : (
                 <div className="bottom">
                     <FormUpdate

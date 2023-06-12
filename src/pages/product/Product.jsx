@@ -114,7 +114,7 @@ const Product = () => {
                 {isLoading ? (
                     "Loading..."
                 ) : error ? (
-                    error.response.data.message
+                    error.response?.data.message
                 ) : (
                     <ProductDetail product={product} />
                 )}

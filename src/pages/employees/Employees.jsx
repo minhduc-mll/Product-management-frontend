@@ -61,7 +61,7 @@ const Employees = () => {
                     {isLoading
                         ? "Loading..."
                         : error
-                        ? error.response.data.message
+                        ? error.response?.data.message
                         : employeesData?.map((value, index) => {
                               return (
                                   <div className="item" key={index}>
