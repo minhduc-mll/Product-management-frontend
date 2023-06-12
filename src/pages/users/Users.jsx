@@ -7,6 +7,11 @@ import dateFormat from "dateformat";
 
 const userColumns = [
     {
+        field: "id",
+        headerName: "Id",
+        width: 88,
+    },
+    {
         field: "username",
         headerName: "User",
         flex: 1,
@@ -64,7 +69,13 @@ const Users = () => {
         queryKey: ["users"],
         queryFn: async () => {
             const res = await apiRequest.get(`/users`);
-            return res.data;
+            const users = res.data?.map((data, index) => {
+                return {
+                    id: index + 1,
+                    ...data,
+                };
+            });
+            return users;
         },
     });
 

@@ -110,6 +110,7 @@ const FormCreate = ({ route, inputs }) => {
                                         <select
                                             name={value.name}
                                             type={value.type}
+                                            onChange={(e) => handleChange(e)}
                                             required={value.required}
                                         >
                                             {value.options?.map(

@@ -22,7 +22,6 @@ const FormProduct = ({ inputs }) => {
             type: "CHANGE_INPUT",
             payload: { name: e.target.name, value: e.target.value },
         });
-        console.log(formObject);
     };
 
     const handleUpload = async (e) => {
@@ -52,8 +51,7 @@ const FormProduct = ({ inputs }) => {
 
     const { isLoading, error, mutate } = useMutation({
         mutationFn: async (formObject) => {
-            const res = await apiRequest.post("/products", formObject);
-            console.log(res.data);
+            await apiRequest.post("/products", formObject);
         },
         onSuccess: () => {
             queryClient.invalidateQueries(["products"]);
