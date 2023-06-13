@@ -8,7 +8,7 @@ export const apiRequest = axios.create({
 export const cloudinaryUpload = async (file) => {
     const data = new FormData();
     data.append("file", file);
-    data.append("upload_preset", "hgtp_containers");
+    data.append("upload_preset", process.env.REACT_APP_CLOUDINARY_PRESET);
 
     try {
         const res = await axios.post(
