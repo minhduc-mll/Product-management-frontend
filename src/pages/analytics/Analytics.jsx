@@ -11,15 +11,9 @@ import { apiRequest } from "utils/apiAxios";
 import dateFormat from "dateformat";
 
 const today = new Date();
+const thisMonth = dateFormat(today, "mmmm").toUpperCase();
 const thisMonthNum = today.getMonth() + 1;
 const thisYearNum = today.getFullYear();
-const lastMonthNum = today.getMonth();
-const lastYearNum = today.getFullYear() - 1;
-const lastMonth = dateFormat(
-    new Date(thisYearNum, lastMonthNum - 1),
-    "mmmm yyyy"
-).toUpperCase();
-console.log(thisMonthNum);
 
 const stats = [
     {
@@ -79,9 +73,9 @@ const stats = [
     },
     {
         id: 4,
-        title: `REVENUE ( ${lastMonth} )`,
+        title: `REVENUE ( ${thisMonth} ${thisYearNum})`,
         menu: [],
-        query: `totalRevenueByMonth?month=${lastMonthNum}&year=${thisYearNum}`,
+        query: `totalRevenueByMonth?month=${thisMonthNum}&year=${thisYearNum}`,
         isMoney: true,
         to: "",
         link: "See details",
@@ -97,9 +91,9 @@ const stats = [
     },
     {
         id: 5,
-        title: `PROFITS ( ${lastMonth} )`,
+        title: `PROFITS ( ${thisMonth} ${thisYearNum})`,
         menu: [],
-        query: `totalProfitsByMonth?month=${lastMonthNum}&year=${thisYearNum}`,
+        query: `totalProfitsByMonth?month=${thisMonthNum}&year=${thisYearNum}`,
         isMoney: true,
         to: "",
         link: "See details",
@@ -124,7 +118,7 @@ const Analytics = () => {
         queryKey: ["analys", "chart", "productByMonth"],
         queryFn: async () => {
             const res = await apiRequest.get(
-                `/analys/productsByMonth?year=${lastYearNum}`
+                `/analys/productsByMonth?year=${thisYearNum}`
             );
             return res.data;
         },
@@ -138,7 +132,7 @@ const Analytics = () => {
         queryKey: ["analys", "chart", "profitsByMonth"],
         queryFn: async () => {
             const res = await apiRequest.get(
-                `/analys/profitsByMonth?year=${lastYearNum}`
+                `/analys/profitsByMonth?year=${thisYearNum}`
             );
             return res.data;
         },
@@ -152,7 +146,7 @@ const Analytics = () => {
         queryKey: ["analys", "chart", "categoryByMonth"],
         queryFn: async () => {
             const res = await apiRequest.get(
-                `/analys/productsPerCategoryByMonth?year=${lastYearNum}`
+                `/analys/productsPerCategoryByMonth?year=${thisYearNum}`
             );
             return res.data;
         },
@@ -166,7 +160,7 @@ const Analytics = () => {
         queryKey: ["analys", "chart", "profitPerCategoryByMonth"],
         queryFn: async () => {
             const res = await apiRequest.get(
-                `/analys/profitsPerCategoryByMonth?year=${lastYearNum}`
+                `/analys/profitsPerCategoryByMonth?year=${thisYearNum}`
             );
             return res.data;
         },
@@ -195,7 +189,7 @@ const Analytics = () => {
                         />
                     ) : (
                         <Chart
-                            title={`Product analysis by month ${lastYearNum}`}
+                            title={`Product analysis by month ${thisYearNum}`}
                             aspect={2 / 1}
                             data={dataProductChart}
                             initChart="LineChart"
@@ -216,7 +210,7 @@ const Analytics = () => {
                         />
                     ) : (
                         <Chart
-                            title={`Profits analysis by month ${lastYearNum}`}
+                            title={`Profits analysis by month ${thisYearNum}`}
                             aspect={2 / 1}
                             data={dataProfitChart}
                             initChart="BarChart"
@@ -239,7 +233,7 @@ const Analytics = () => {
                         />
                     ) : (
                         <Chart
-                            title={`Category analysis by month ${lastYearNum}`}
+                            title={`Category analysis by month ${thisYearNum}`}
                             aspect={2 / 1}
                             data={dataCategoryChart}
                             initChart="LineChart"
@@ -260,7 +254,7 @@ const Analytics = () => {
                         />
                     ) : (
                         <Chart
-                            title={`Profits Per Category analysis by month ${lastYearNum}`}
+                            title={`Profits Per Category analysis by month ${thisYearNum}`}
                             aspect={2 / 1}
                             data={dataProfitCategoryChart}
                             initChart="LineChart"
