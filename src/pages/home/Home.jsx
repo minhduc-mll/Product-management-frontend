@@ -36,7 +36,7 @@ const stats = [
         id: 2,
         title: "TOTAL SOLD PRODUCTS",
         menu: ["pending", "sold", "done"],
-        query: `/productsWithStatus?status=done`,
+        query: `productsWithStatus?status=done`,
         isMoney: false,
         to: `/products?status=done`,
         link: "View all",

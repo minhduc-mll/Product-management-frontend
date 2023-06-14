@@ -20,7 +20,7 @@ const Login = () => {
             localStorage.setItem("currentUser", JSON.stringify(res.data));
             navigate(`/dashboard`);
         } catch (err) {
-            setError(err.response.data);
+            setError(err.response?.data || err.message);
         }
     };
 
