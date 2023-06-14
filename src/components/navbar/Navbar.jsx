@@ -11,10 +11,11 @@ import {
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMode, useModeDispatch } from "utils/darkModeContext";
+import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 import { getCurrentUser } from "utils/auth";
 import defaultAvatar from "assets/no-avatar.jpg";
-import { useQuery } from "@tanstack/react-query";
+import logo from "assets/hgtp-logo.png";
 
 const Navbar = () => {
     const darkMode = useMode();
@@ -89,10 +90,11 @@ const Navbar = () => {
                 <div className="left">
                     <Link to={`/`} className="link">
                         <div className="logo">
-                            <span className="character">h</span>
-                            <span className="character">g</span>
-                            <span className="character">t</span>
-                            <span className="character">p</span>
+                            <img src={logo} alt="HGTP" className="logo" />
+                            <span className="character">H</span>
+                            <span className="character">G</span>
+                            <span className="character">T</span>
+                            <span className="character">P</span>
                         </div>
                     </Link>
                 </div>

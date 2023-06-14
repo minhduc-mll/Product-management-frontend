@@ -14,14 +14,23 @@
         justify-content: space-between;
 
         .left {
+            flex: 1;
             display: flex;
+            align-items: center;
             justify-content: center;
 
             .logo {
+                display: flex;
+                align-items: center;
                 font-size: 32px;
                 font-weight: bold;
                 color: #57f851;
                 cursor: pointer;
+
+                .logo {
+                    width: 40px;
+                    height: auto;
+                }
 
                 .character {
                     margin-left: 5px;
@@ -30,8 +39,10 @@
         }
 
         .right {
+            flex: 5;
             display: flex;
             align-items: center;
+            justify-content: flex-end;
 
             .item {
                 position: relative;
