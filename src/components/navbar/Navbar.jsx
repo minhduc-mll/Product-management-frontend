@@ -47,6 +47,15 @@ const Navbar = () => {
         }
     };
 
+    const handleLogin = async () => {
+        try {
+            localStorage.removeItem("currentUser");
+            navigate(`/login`);
+        } catch (err) {
+            console.log(err.message);
+        }
+    };
+
     const handleLogout = async () => {
         try {
             await apiRequest.post(`/auth/logout`);
@@ -97,9 +106,9 @@ const Navbar = () => {
                         <div className="counter">10</div>
                     </div>
                     {isLoading || error ? (
-                        <Link to={`/login`} className="link">
-                            <div className="item">Sign in</div>
-                        </Link>
+                        <div className="link" onClick={handleLogin}>
+                            <span>Login</span>
+                        </div>
                     ) : (
                         <div className="user" ref={menuRef}>
                             <img
