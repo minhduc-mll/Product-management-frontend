@@ -4,13 +4,9 @@
     place-items: center;
     padding: 0 24px;
     color: #000;
-    background: linear-gradient(
-            rgba(255, 255, 255, 0.5),
-            rgba(255, 255, 255, 0.5)
-        ),
-        url("https://cdn1.epicgames.com/ue/product/Screenshot/HighresScreenshot00006-1920x1080-4492761cda27fc89c9cc1e4979551e95.jpg?resize=1&w=1920");
-    background-size: cover;
+    background: url("https://cafefcdn.com/203337114487263232/2022/3/21/photo-1-1647826928766131678865.jpg");
     // background-image: "../assets/background.svg";
+    background-size: cover;
     animation: rotate 6s infinite alternate linear;
 
     .login-card {

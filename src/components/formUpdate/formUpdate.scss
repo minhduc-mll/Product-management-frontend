@@ -35,28 +35,30 @@
                 text-align: center;
                 padding: 0 20px;
 
-                label {
-                    .formUpload {
-                        margin-bottom: 20px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        gap: 10px;
+                .uploadImage {
+                    label {
+                        .formUpload {
+                            margin-bottom: 20px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 10px;
 
-                        .icon {
-                            cursor: pointer;
+                            .icon {
+                                cursor: pointer;
 
-                            &:hover {
-                                color: var(--primary-lime-green);
+                                &:hover {
+                                    color: var(--primary-lime-green);
+                                }
                             }
                         }
-                    }
 
-                    img {
-                        width: 100%;
-                        border-radius: 0;
-                        object-fit: cover;
-                        cursor: pointer;
+                        img {
+                            width: 100%;
+                            border-radius: 0;
+                            object-fit: cover;
+                            cursor: pointer;
+                        }
                     }
                 }
 

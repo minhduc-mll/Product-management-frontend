@@ -31,7 +31,6 @@ const FormUpdate = ({ inputs, image, obj, route, id }) => {
             type: "CHANGE_INPUT",
             payload: { name: e.target.name, value: e.target.value },
         });
-        console.log(formObject);
     };
 
     const handleUpload = async (e) => {
@@ -95,7 +94,6 @@ const FormUpdate = ({ inputs, image, obj, route, id }) => {
                     title: null,
                 });
             }
-            console.log(category);
             return res.data;
         },
     });
@@ -166,22 +164,24 @@ const FormUpdate = ({ inputs, image, obj, route, id }) => {
                 <div className="bottom">
                     {image && (
                         <div className="left">
-                            <label htmlFor="file">
-                                <div className="formUpload">
-                                    <div>Upload Image </div>
-                                    <DriveFolderUploadOutlined className="icon" />
-                                </div>
-                                <img
-                                    src={file || defaultImage}
-                                    alt="avata"
-                                    htmlFor="file"
+                            <div className="uploadImage">
+                                <label htmlFor="file">
+                                    <div className="formUpload">
+                                        <div>Upload Image </div>
+                                        <DriveFolderUploadOutlined className="icon" />
+                                    </div>
+                                    <img
+                                        src={file || defaultImage}
+                                        alt="avata"
+                                        htmlFor="file"
+                                    />
+                                </label>
+                                <input
+                                    type="file"
+                                    id="file"
+                                    onChange={(e) => handleUpload(e)}
                                 />
-                            </label>
-                            <input
-                                type="file"
-                                id="file"
-                                onChange={(e) => handleUpload(e)}
-                            />
+                            </div>
                         </div>
                     )}
                     <div className="right">

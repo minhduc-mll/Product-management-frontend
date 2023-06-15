@@ -1,13 +1,29 @@
 import "./eventCard.scss";
 import { DeleteOutlined } from "@mui/icons-material";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiRequest } from "utils/apiAxios";
 import dateFormat from "dateformat";
 
 const EventCard = ({ event }) => {
-    const handleDelete = () => {};
-
     const dateStart = new Date(event?.start);
     const dateEnd = new Date(event?.end);
     const diffTime = dateEnd - dateStart;
+
+    const queryClient = useQueryClient();
+
+    const mutateDelete = useMutation({
+        mutationFn: async (id) => {
+            await apiRequest.delete(`/events/${id}`);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries(["events"]);
+        },
+    });
+
+    const handleDelete = () => {
+        const id = event?._id;
+        mutateDelete.mutate(id);
+    };
 
     return (
         <div className="eventCard">
