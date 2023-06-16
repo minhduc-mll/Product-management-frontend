@@ -10,6 +10,7 @@ import Category from "pages/category/Category";
 import NewCategory from "pages/newCategory/NewCategory";
 import UpdateCategory from "pages/updateCategory/UpdateCategory";
 import Tasks from "pages/tasks/Tasks";
+import NewTask from "pages/newTask/NewTask";
 import Calendar from "pages/calendar/Calendar";
 import Customers from "pages/customers/Customers";
 import NewCustomer from "pages/newCustomer/NewCustomer";
@@ -23,7 +24,7 @@ import Analytics from "pages/analytics/Analytics";
 import UserProfile from "pages/userProfile/UserProfile";
 import UpdateProfile from "pages/updateProfile/UpdateProfile";
 import ComingSoon from "pages/comingSoon/ComingSoon";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import { RequireAuth } from "utils/auth";
 
 function App() {
@@ -97,6 +98,14 @@ function App() {
                     element: <Tasks />,
                 },
                 {
+                    path: "/tasks/new",
+                    element: <NewTask />,
+                },
+                {
+                    path: "/tasks/:id",
+                    element: <Navigate to="/tasks" replace />,
+                },
+                {
                     path: "/calendar",
                     element: <Calendar />,
                 },
@@ -122,7 +131,11 @@ function App() {
                 },
                 {
                     path: "/feedback",
-                    element: <ComingSoon title={`Feedback`} />,
+                    element: (
+                        <ComingSoon
+                            title={`Liên hệ Zalo Minh Đức:\n 0949487687`}
+                        />
+                    ),
                 },
                 {
                     path: "/:id",
