@@ -316,7 +316,7 @@ const taskInputs = [
         id: 2,
         name: "title",
         label: "Container",
-        type: "text",
+        type: "select",
         placeholder: "Container",
         required: true,
     },

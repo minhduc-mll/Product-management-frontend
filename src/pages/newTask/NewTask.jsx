@@ -6,7 +6,7 @@ import { taskInputs } from "utils/inputForm";
 
 const NewTask = () => {
     useQuery({
-        queryKey: ["sellers"],
+        queryKey: ["addSellers"],
         queryFn: async () => {
             const res = await apiRequest.get(`/users`);
             const seller = taskInputs?.find((input) => {
@@ -20,6 +20,31 @@ const NewTask = () => {
                     };
                 });
                 seller.options?.unshift({
+                    value: "",
+                    title: "--- Please select ---",
+                });
+            }
+            return res.data;
+        },
+    });
+
+    useQuery({
+        queryKey: ["pending", "addProduct"],
+        queryFn: async () => {
+            const res = await apiRequest.get(
+                `/products?status=pending&sortName=productId`
+            );
+            const product = taskInputs?.find((input) => {
+                return input.name === "title";
+            });
+            if (product) {
+                product.options = res.data?.map((data) => {
+                    return {
+                        value: data.productId,
+                        title: data.productId,
+                    };
+                });
+                product.options?.unshift({
                     value: "",
                     title: "--- Please select ---",
                 });

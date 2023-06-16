@@ -94,7 +94,7 @@ const Home = () => {
         error: errorProducts,
         data: dataProducts,
     } = useQuery({
-        queryKey: ["home", "product"],
+        queryKey: ["pending", "product"],
         queryFn: async () => {
             const res = await apiRequest.get(
                 `/products?status=pending&sortName=arrivalDate`

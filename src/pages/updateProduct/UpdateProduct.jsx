@@ -22,9 +22,9 @@ const UpdateProduct = () => {
     });
 
     useQuery({
-        queryKey: ["categories"],
+        queryKey: ["addCategories"],
         queryFn: async () => {
-            const res = await apiRequest.get(`/categories`);
+            const res = await apiRequest.get(`/categories?sortName=title&sortOrder=asc`);
             const category = productInputs?.find((input) => {
                 return input.name === "categoryId";
             });
@@ -45,9 +45,9 @@ const UpdateProduct = () => {
     });
 
     useQuery({
-        queryKey: ["customers"],
+        queryKey: ["addCustomers"],
         queryFn: async () => {
-            const res = await apiRequest.get(`/customers`);
+            const res = await apiRequest.get(`/customers?sortName=name&sortOrder=asc`);
             const customer = productInputs?.find((input) => {
                 return input.name === "customerId";
             });
@@ -68,7 +68,7 @@ const UpdateProduct = () => {
     });
 
     useQuery({
-        queryKey: ["sellers"],
+        queryKey: ["addSellers"],
         queryFn: async () => {
             const res = await apiRequest.get(`/users`);
             const seller = productInputs?.find((input) => {
