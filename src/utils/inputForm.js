@@ -303,6 +303,32 @@ const userInputs = [
     },
 ];
 
+const taskInputs = [
+    {
+        id: 1,
+        name: "userId",
+        label: "Seller",
+        type: "select",
+        placeholder: "Seller",
+        required: true,
+    },
+    {
+        id: 2,
+        name: "title",
+        label: "Container",
+        type: "text",
+        placeholder: "Container",
+        required: true,
+    },
+    {
+        id: 3,
+        name: "desc",
+        label: "Description",
+        type: "text",
+        placeholder: "Description",
+    },
+];
+
 export {
     profileInputs,
     passwordInputs,
@@ -311,4 +337,5 @@ export {
     productInputsAdmin,
     customerInputs,
     userInputs,
+    taskInputs,
 };

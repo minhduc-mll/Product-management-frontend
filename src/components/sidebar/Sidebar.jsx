@@ -40,6 +40,7 @@ const userItems = [
         text: "Transactions",
         link: "/transactions",
         icon: <AttachMoneyOutlined className="icon" />,
+        show: "none",
     },
     {
         text: "Tasks",
@@ -91,7 +92,11 @@ const Sidebar = () => {
     const { pathname } = useLocation();
     const isAdmin = checkRoleAdmin();
 
-    const renderSidebar = ({ text, link, icon, title }) => {
+    const renderSidebar = ({ text, link, icon, title, show }) => {
+        if (show === "none") {
+            return;
+        }
+
         if (title) {
             return (
                 <h1 className="title" key={text}>
@@ -123,12 +128,12 @@ const Sidebar = () => {
     return (
         <div className="sidebar">
             <div className="wrapper">
-                {userItems?.map(({ text, link, icon, title }) => {
-                    return renderSidebar({ text, link, icon, title });
+                {userItems?.map(({ text, link, icon, title, show }) => {
+                    return renderSidebar({ text, link, icon, title, show });
                 })}
                 {isAdmin &&
-                    adminItems?.map(({ text, link, icon, title }) => {
-                        return renderSidebar({ text, link, icon, title });
+                    adminItems?.map(({ text, link, icon, title, show }) => {
+                        return renderSidebar({ text, link, icon, title, show });
                     })}
             </div>
         </div>

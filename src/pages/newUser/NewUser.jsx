@@ -9,7 +9,7 @@ const NewUser = () => {
                 <h1 className="title">Add New User</h1>
             </div>
             <div className="bottom">
-                <FormCreate route="users" inputs={userInputs} />
+                <FormCreate route="users" inputs={userInputs} image={true} />
             </div>
         </div>
     );

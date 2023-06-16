@@ -2,7 +2,7 @@ import "./formProduct.scss";
 import { DriveFolderUploadOutlined, EastOutlined } from "@mui/icons-material";
 import { useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { apiRequest, cloudinaryUpload } from "utils/apiAxios";
 import { formReducer, initialState } from "utils/formReducer";
 import defaultImage from "assets/no-image.jpg";
@@ -67,76 +67,6 @@ const FormProduct = ({ inputs }) => {
         }
         mutate(formData);
     };
-
-    useQuery({
-        queryKey: ["categories"],
-        queryFn: async () => {
-            const res = await apiRequest.get(`/categories`);
-            const category = inputs?.find((input) => {
-                return input.name === "categoryId";
-            });
-            if (category) {
-                category.options = res.data?.map((data) => {
-                    return {
-                        value: data._id,
-                        title: data.title,
-                    };
-                });
-                category.options?.unshift({
-                    value: null,
-                    title: null,
-                });
-            }
-            console.log(category);
-            return res.data;
-        },
-    });
-
-    useQuery({
-        queryKey: ["customers"],
-        queryFn: async () => {
-            const res = await apiRequest.get(`/customers`);
-            const customer = inputs?.find((input) => {
-                return input.name === "customerId";
-            });
-            if (customer) {
-                customer.options = res.data?.map((data) => {
-                    return {
-                        value: data._id,
-                        title: data.name,
-                    };
-                });
-                customer.options?.unshift({
-                    value: "",
-                    title: "--- Please select ---",
-                });
-            }
-            return res.data;
-        },
-    });
-
-    useQuery({
-        queryKey: ["sellers"],
-        queryFn: async () => {
-            const res = await apiRequest.get(`/users`);
-            const seller = inputs?.find((input) => {
-                return input.name === "sellerId";
-            });
-            if (seller) {
-                seller.options = res.data?.map((data) => {
-                    return {
-                        value: data._id,
-                        title: data.name,
-                    };
-                });
-                seller.options?.unshift({
-                    value: "",
-                    title: "--- Please select ---",
-                });
-            }
-            return res.data;
-        },
-    });
 
     return (
         <div className="formProduct">

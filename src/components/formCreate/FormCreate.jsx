@@ -7,7 +7,7 @@ import { apiRequest } from "utils/apiAxios";
 import { formReducer, initialState } from "utils/formReducer";
 import defaultImage from "assets/no-image.jpg";
 
-const FormCreate = ({ route, inputs }) => {
+const FormCreate = ({ route, inputs, image }) => {
     const [formObject, dispatch] = useReducer(formReducer, initialState);
     const [file, setFile] = useState(defaultImage);
     const [isSuccess, setIsSuccess] = useState(false);
@@ -47,6 +47,9 @@ const FormCreate = ({ route, inputs }) => {
         mutate: mutatePost,
     } = useMutation({
         mutationFn: async (formObject) => {
+            for (var key of formObject) {
+                console.log(key + ", " + formObject[key]);
+            }
             const res = await apiRequest.post(`/${route}`, formObject);
             return res.data;
         },
@@ -83,24 +86,26 @@ const FormCreate = ({ route, inputs }) => {
                     <DriveFolderUploadOutlined className="icon" />
                 </div>
                 <div className="bottom">
-                    <div className="left">
-                        <label htmlFor="file">
-                            <div className="formUpload">
-                                <div>Upload Image </div>
-                                <DriveFolderUploadOutlined className="icon" />
-                            </div>
-                            <img
-                                src={file || defaultImage}
-                                alt="avata"
-                                htmlFor="file"
+                    {image && (
+                        <div className="left">
+                            <label htmlFor="file">
+                                <div className="formUpload">
+                                    <div>Upload Image </div>
+                                    <DriveFolderUploadOutlined className="icon" />
+                                </div>
+                                <img
+                                    src={file || defaultImage}
+                                    alt="avata"
+                                    htmlFor="file"
+                                />
+                            </label>
+                            <input
+                                type="file"
+                                id="file"
+                                onChange={(e) => handleUpload(e)}
                             />
-                        </label>
-                        <input
-                            type="file"
-                            id="file"
-                            onChange={(e) => handleUpload(e)}
-                        />
-                    </div>
+                        </div>
+                    )}
                     <div className="right">
                         <div className="formInput">
                             {inputs?.map((value, index) => (
