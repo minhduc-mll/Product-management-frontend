@@ -35,12 +35,12 @@ const Employees = () => {
         <div className="employees">
             <div className="employeesTop">
                 <div className="employeesTitle">
-                    <h1 className="title">All Employees</h1>
+                    <h1 className="title">Tất cả nhân viên kinh doanh</h1>
                 </div>
                 <div className="employeesMenu">
                     <div className="menuFilters">
                         <div className="totalInput">
-                            <span>Total employee: {employeesData?.length}</span>
+                            <span>Tổng: {employeesData?.length}</span>
                         </div>
                         <div className="searchInput">
                             <input

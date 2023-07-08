@@ -49,7 +49,13 @@ const ProductCard = ({ product }) => {
     });
 
     const handleDelete = async () => {
-        mutate();
+        const deleteConfirm = window.confirm(
+            `Bạn thực sụ muốn xóa ${product.productId}`
+        );
+
+        if (deleteConfirm) {
+            mutate();
+        }
     };
 
     return (

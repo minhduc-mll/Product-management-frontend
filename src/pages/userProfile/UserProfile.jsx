@@ -34,7 +34,9 @@ const UserProfile = () => {
     } = useQuery({
         queryKey: [`products`, `user`, userId],
         queryFn: async () => {
-            const res = await apiRequest.get(`/products/user/${userId}?sortName=createdAt&sortOrder=dsc`);
+            const res = await apiRequest.get(
+                `/products/user/${userId}?sortName=createdAt&sortOrder=dsc`
+            );
             return res.data;
         },
         enabled: !!userId,
@@ -58,7 +60,7 @@ const UserProfile = () => {
     return (
         <div className="userProfile">
             <div className="userProfileTop">
-                <h1 className="title">Infomation</h1>
+                <h1 className="title">Thông tin</h1>
                 <div className="buttons">
                     {userId !== currentUser._id ? (
                         ""
@@ -69,7 +71,7 @@ const UserProfile = () => {
                                 navigate(`/profile/update/`);
                             }}
                         >
-                            Edit
+                            Cập nhật
                         </button>
                     )}
                 </div>
@@ -93,9 +95,9 @@ const UserProfile = () => {
                         />
                     ) : (
                         <Chart
-                            title={`Products sold per month by ${
+                            title={`Thống kê số Cont ${
                                 user.name || user.username
-                            }`}
+                            } bán mỗi tháng`}
                             aspect={3 / 1}
                             data={dataChart}
                             initChart="LineChart"
@@ -115,9 +117,9 @@ const UserProfile = () => {
                         />
                     ) : (
                         <Regulartable
-                            title={`Products sold by ${
+                            title={`Cont ${
                                 user.name || user.username
-                            }`}
+                            } bán mỗi tháng`}
                             products={dataProducts}
                         />
                     )}

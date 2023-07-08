@@ -23,12 +23,12 @@ const productColumns = [
     },
     {
         field: "productId",
-        headerName: "ProductId",
+        headerName: "Cont",
         flex: 1,
     },
     {
         field: "arrivalDate",
-        headerName: "Arrival Date",
+        headerName: "Ngày về",
         flex: 1,
         renderCell: (params) => {
             return params.row.arrivalDate ? (
@@ -42,7 +42,7 @@ const productColumns = [
     },
     {
         field: "deliveryDate",
-        headerName: "Delivery Date",
+        headerName: "Ngày giao",
         flex: 1,
         renderCell: (params) => {
             return params.row.deliveryDate ? (
@@ -56,12 +56,12 @@ const productColumns = [
     },
     {
         field: "port",
-        headerName: "Port",
+        headerName: "Cảng",
         flex: 1,
     },
     {
         field: "status",
-        headerName: "Status",
+        headerName: "Trạng thái",
         flex: 1,
         renderCell: (params) => {
             return (
@@ -142,7 +142,7 @@ const Category = () => {
                             {errorCategory.response.data.message}
                         </h1>
                     ) : (
-                        <h1 className="title">{`All Products From Category ${dataCategory.title}`}</h1>
+                        <h1 className="title">{`Tất cả Cont ${dataCategory.title}`}</h1>
                     )}
                     <button
                         className="addButton"
@@ -150,7 +150,7 @@ const Category = () => {
                             navigate(`/categories/update/${id}`);
                         }}
                     >
-                        Edit Category
+                        Cập nhật
                     </button>
                 </div>
                 <div className="categoryMenu">
@@ -167,12 +167,14 @@ const Category = () => {
                             />
                         </div>
                         <div className="sortSelect">
-                            <span className="sortBy">Sort by</span>
+                            <span className="sortBy">Sắp xếp theo</span>
                             <span
                                 className="sortType"
                                 onClick={() => setOpen(!open)}
                             >
-                                {sortName === "createdAt" ? "Newest" : "Status"}
+                                {sortName === "createdAt"
+                                    ? "Mới nhất"
+                                    : "Trạng thái"}
                             </span>
                             <span className="sortOrder">
                                 {sortOrder === "dsc" ? (
@@ -191,13 +193,13 @@ const Category = () => {
                                 <div className="openMenu">
                                     {sortName === "createdAt" ? (
                                         <span onClick={() => reSort("status")}>
-                                            Status
+                                            Trạng thái
                                         </span>
                                     ) : (
                                         <span
                                             onClick={() => reSort("createdAt")}
                                         >
-                                            Newest
+                                            Mới nhất
                                         </span>
                                     )}
                                 </div>
@@ -268,7 +270,7 @@ const Category = () => {
                             errorProducts.response.data.message
                         ) : (
                             <Datatable
-                                target="category"
+                                target="products"
                                 rows={dataProducts}
                                 columns={productColumns}
                             />

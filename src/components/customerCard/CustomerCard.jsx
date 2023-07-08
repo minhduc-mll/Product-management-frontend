@@ -38,7 +38,13 @@ const CustomerCard = ({ customer }) => {
     });
 
     const handleDelete = async () => {
-        mutate();
+        const deleteConfirm = window.confirm(
+            `Bạn thực sụ muốn xóa ${customer.name}`
+        );
+
+        if (deleteConfirm) {
+            mutate();
+        }
     };
 
     return (

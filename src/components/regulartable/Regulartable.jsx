@@ -15,13 +15,13 @@ import Pagination from "components/pagination/Pagination";
 
 const tableColumns = [
     "",
-    "ProductId",
-    "Category",
-    "Price",
-    "Arrival Date",
-    "Port",
-    "Documents",
-    "Status",
+    "Cont",
+    "Loại hàng",
+    "Giá bán",
+    "Ngày về",
+    "Cảng",
+    "Giấy tờ",
+    "Trạng thái",
 ];
 
 const Regulartable = ({ title, products, pageSize = 15 }) => {

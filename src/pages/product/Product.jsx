@@ -81,13 +81,17 @@ const Product = () => {
     });
 
     const handleDelete = async () => {
-        mutate();
+        const deleteConfirm = window.confirm(`Bạn thực sụ muốn xóa ${id}`);
+
+        if (deleteConfirm) {
+            mutate();
+        }
     };
 
     return (
         <div className="product">
             <div className="productTop">
-                <h1 className="title">Infomation</h1>
+                <h1 className="title">Thông tin cont {id}</h1>
                 <div className="buttons">
                     <button
                         className="addButton"
@@ -95,7 +99,7 @@ const Product = () => {
                             navigate(`/products/new`);
                         }}
                     >
-                        Add New
+                        Thêm mới
                     </button>
                     <button
                         className="updateButton"
@@ -103,10 +107,10 @@ const Product = () => {
                             navigate(`/products/update/${id}`);
                         }}
                     >
-                        Update
+                        Cập nhật
                     </button>
                     <button className="deleteButton" onClick={handleDelete}>
-                        Delete
+                        Xóa
                     </button>
                 </div>
             </div>
@@ -131,7 +135,7 @@ const Product = () => {
                         />
                     ) : (
                         <CalendarCard
-                            title="Calendar"
+                            title="Lịch hàng về và lịch giao hàng"
                             height="auto"
                             center="title"
                             initialView="dayGridMonth"

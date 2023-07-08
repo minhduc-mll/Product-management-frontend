@@ -89,7 +89,7 @@ const Users = () => {
                     }}
                     className="addButton"
                 >
-                    Add new
+                    Thêm mới
                 </button>
             </div>
             <div className="usersBottom">

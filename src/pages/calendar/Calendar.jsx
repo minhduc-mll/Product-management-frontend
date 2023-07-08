@@ -1,5 +1,4 @@
 import "./calendar.scss";
-import EventCard from "components/eventCard/EventCard";
 import CalendarCard from "components/calendarCard/CalendarCard";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
@@ -7,12 +6,14 @@ import { apiRequest } from "utils/apiAxios";
 const Calendar = () => {
     const queryClient = useQueryClient();
 
-    const { isLoading, error, data } = useQuery({
+    const {
+        isLoading: isLoadingProductEvent,
+        error: errorProductEvent,
+        data: dataProductEvent,
+    } = useQuery({
         queryKey: ["events"],
         queryFn: async () => {
-            const res = await apiRequest.get(
-                `/events?sortName=start&sortOrder=dsc`
-            );
+            const res = await apiRequest.get(`/productevent/productEvent`);
             return res.data;
         },
     });
@@ -38,7 +39,7 @@ const Calendar = () => {
         mutationFn: async ({ id }) => {
             await apiRequest.delete(`/events/${id}`);
         },
-        onSuccess: (data, { eventSelected }) => {
+        onSuccess: (_, { eventSelected }) => {
             queryClient.invalidateQueries(["events"]);
             eventSelected.remove();
         },
@@ -74,26 +75,13 @@ const Calendar = () => {
 
     return (
         <div className="calendar">
-            <div className="calendarTop">
-                <h1 className="title">Calendar</h1>
-            </div>
             <div className="calendarBottom">
-                <div className="calendarEvents">
-                    <h1 className="title">Events</h1>
-                    <div className="event">
-                        {isLoading || error
-                            ? ""
-                            : data?.map((event) => (
-                                  <EventCard event={event} key={event._id} />
-                              ))}
-                    </div>
-                </div>
                 <div className="calendarRight">
-                    {isLoading || error ? (
+                    {isLoadingProductEvent || errorProductEvent ? (
                         ""
                     ) : (
                         <CalendarCard
-                            height="75vh"
+                            height="auto"
                             left="prev,next today"
                             center="title"
                             right="dayGridMonth,timeGridWeek,timeGridDay,listMonth"
@@ -101,7 +89,7 @@ const Calendar = () => {
                             editable={true}
                             handleSelect={handleAddEvent}
                             handleEventClick={handleDeleteEvent}
-                            initialEvents={data}
+                            initialEvents={dataProductEvent}
                         />
                     )}
                 </div>

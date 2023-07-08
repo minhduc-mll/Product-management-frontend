@@ -8,14 +8,14 @@ const Task = () => {
         <div className="task">
             <div className="taskTop">
                 <div className="taskTitle">
-                    <h1 className="title">To Do Today</h1>
+                    <h1 className="title">Công việc hôm nay</h1>
                     <button
                         className="addButton"
                         onClick={() => {
                             navigate(`/task/new`);
                         }}
                     >
-                        Add new
+                        Thêm mới
                     </button>
                 </div>
             </div>

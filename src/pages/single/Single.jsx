@@ -68,13 +68,19 @@ const Single = ({ route }) => {
     });
 
     const handleDelete = async () => {
-        mutate();
+        const deleteConfirm = window.confirm(
+            `Bạn thực sụ muốn xóa ${user.name || user.username}`
+        );
+
+        if (deleteConfirm) {
+            mutate();
+        }
     };
 
     return (
         <div className="single">
             <div className="singleTop">
-                <h1 className="title">Infomation</h1>
+                <h1 className="title">Thông tin</h1>
                 <div className="buttons">
                     <>
                         <button
@@ -83,7 +89,7 @@ const Single = ({ route }) => {
                                 navigate(`/${route}s/new`);
                             }}
                         >
-                            Add New
+                            Thêm mới
                         </button>
                         <button
                             className="updateButton"
@@ -91,10 +97,10 @@ const Single = ({ route }) => {
                                 navigate(`/${route}s/update/${id}`);
                             }}
                         >
-                            Update
+                            Cập nhật
                         </button>
                         <button className="deleteButton" onClick={handleDelete}>
-                            Delete
+                            Xóa
                         </button>
                     </>
                 </div>
@@ -118,7 +124,7 @@ const Single = ({ route }) => {
                         />
                     ) : (
                         <Chart
-                            title={`Products sold per month by ${
+                            title={`Cont mỗi tháng ${
                                 user.name || user.username
                             }`}
                             aspect={3 / 1}
@@ -140,9 +146,7 @@ const Single = ({ route }) => {
                         />
                     ) : (
                         <Regulartable
-                            title={`Products sold by ${
-                                user.name || user.username
-                            }`}
+                            title={`Cont ${user.name || user.username}`}
                             products={dataProducts}
                         />
                     )}

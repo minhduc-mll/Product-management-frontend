@@ -42,14 +42,14 @@ const Categories = () => {
     return (
         <div className="categories">
             <div className="categoriesTop">
-                <h1 className="title">All Categories</h1>
+                <h1 className="title">Tất cả loại hàng</h1>
                 <button
                     onClick={() => {
                         navigate(`/categories/new`);
                     }}
                     className="addButton"
                 >
-                    Add new
+                    Thêm mới
                 </button>
             </div>
             <div className="categoriesBottom">

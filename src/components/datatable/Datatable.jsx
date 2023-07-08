@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 
-const Datatable = ({ target, rows, columns }) => {
+const Datatable = ({ target, rows, columns, name }) => {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
 
@@ -18,8 +18,12 @@ const Datatable = ({ target, rows, columns }) => {
         },
     });
 
-    const handleDelete = async (id) => {
-        mutate(id);
+    const handleDelete = async (id, title) => {
+        const deleteConfirm = window.confirm(`Bạn thực sụ muốn xóa ${title}`);
+
+        if (deleteConfirm) {
+            mutate(id);
+        }
     };
 
     const handleView = async (id) => {
@@ -51,9 +55,15 @@ const Datatable = ({ target, rows, columns }) => {
                             className="deleteButton"
                             onClick={() => {
                                 if (target === "products") {
-                                    handleDelete(params.row.productId);
+                                    handleDelete(
+                                        params.row.productId,
+                                        params.row.productId
+                                    );
                                 } else {
-                                    handleDelete(params.row._id);
+                                    handleDelete(
+                                        params.row._id,
+                                        params.row.title || params.row.name
+                                    );
                                 }
                             }}
                         >

@@ -23,12 +23,12 @@ const productColumns = [
     },
     {
         field: "productId",
-        headerName: "ProductId",
+        headerName: "Cont",
         flex: 1,
     },
     {
         field: "saleDate",
-        headerName: "Sale Date",
+        headerName: "Ngày bán",
         flex: 1,
         renderCell: (params) => {
             return params.row.saleDate ? (
@@ -42,7 +42,7 @@ const productColumns = [
     },
     {
         field: "arrivalDate",
-        headerName: "Arrival Date",
+        headerName: "Ngày về",
         flex: 1,
         renderCell: (params) => {
             return params.row.arrivalDate ? (
@@ -56,7 +56,7 @@ const productColumns = [
     },
     {
         field: "deliveryDate",
-        headerName: "Delivery Date",
+        headerName: "Ngày giao",
         flex: 1,
         renderCell: (params) => {
             return params.row.deliveryDate ? (
@@ -70,17 +70,17 @@ const productColumns = [
     },
     {
         field: "desc",
-        headerName: "Description",
+        headerName: "Mô tả",
         flex: 1,
     },
     {
         field: "port",
-        headerName: "Port",
+        headerName: "Cảng",
         flex: 1,
     },
     {
         field: "status",
-        headerName: "Status",
+        headerName: "Trạng thái",
         flex: 1,
         renderCell: (params) => {
             return (
@@ -155,14 +155,14 @@ const Products = () => {
         <div className="products">
             <div className="productsTop">
                 <div className="productsTitle">
-                    <h1 className="title">All Products</h1>
+                    <h1 className="title">Tất cả Cont</h1>
                     <button
                         className="addButton"
                         onClick={() => {
                             navigate(`/products/new`);
                         }}
                     >
-                        Add new
+                        Thêm mới
                     </button>
                 </div>
                 <div className="productsMenu">
@@ -179,7 +179,7 @@ const Products = () => {
                             />
                         </div>
                         <div className="sortInput">
-                            <span>Price</span>
+                            <span>Giá bán</span>
                             <input
                                 ref={minRef}
                                 type="number"
@@ -193,12 +193,14 @@ const Products = () => {
                             <button onClick={refetch}>Apply</button>
                         </div>
                         <div className="sortSelect">
-                            <span className="sortBy">Sort by</span>
+                            <span className="sortBy">Sắp xếp theo</span>
                             <span
                                 className="sortType"
                                 onClick={() => setOpen(!open)}
                             >
-                                {sortName === "createdAt" ? "Newest" : "Status"}
+                                {sortName === "createdAt"
+                                    ? "Mới nhất"
+                                    : "Trạng thái"}
                             </span>
                             <span className="sortOrder">
                                 {sortOrder === "dsc" ? (
@@ -217,13 +219,13 @@ const Products = () => {
                                 <div className="openMenu">
                                     {sortName === "createdAt" ? (
                                         <span onClick={() => reSort("status")}>
-                                            Status
+                                            Trạng thái
                                         </span>
                                     ) : (
                                         <span
                                             onClick={() => reSort("createdAt")}
                                         >
-                                            Newest
+                                            Mới nhất
                                         </span>
                                     )}
                                 </div>

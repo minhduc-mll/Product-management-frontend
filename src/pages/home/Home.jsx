@@ -16,12 +16,12 @@ const thisYearNum = today.getFullYear();
 const stats = [
     {
         id: 1,
-        title: "TOTAL PRODUCTS",
+        title: "TỔNG CONT",
         menu: [],
         query: `products`,
         isMoney: false,
         to: `/products`,
-        link: "View all products",
+        link: "Xem tất cả",
         icon: (
             <StoreOutlined
                 className="icon"
@@ -34,12 +34,12 @@ const stats = [
     },
     {
         id: 2,
-        title: "TOTAL SOLD PRODUCTS",
+        title: "TỔNG CONT ĐÃ BÁN",
         menu: ["pending", "sold", "done"],
         query: `productsWithStatus?status=done`,
         isMoney: false,
         to: `/products?status=done`,
-        link: "View all",
+        link: "Xem tất cả",
         icon: (
             <StoreOutlined
                 className="icon"
@@ -52,12 +52,12 @@ const stats = [
     },
     {
         id: 3,
-        title: `PRODUCTS ( ${thisMonth} ${thisYearNum} )`,
+        title: `CONT THÁNG ${thisMonth} ${thisYearNum}`,
         menu: [thisMonth],
         query: `productsMonth?month=${thisMonthNum}&year=${thisYearNum}`,
         isMoney: false,
         to: `/products?startArrivalDate=${thisYearNum}-${thisMonthNum}-01&endArrivalDate=${thisYearNum}-${thisMonthNum}-31`,
-        link: "View all",
+        link: "Xem tất cả",
         icon: (
             <ShoppingCartOutlined
                 className="icon"
@@ -70,12 +70,12 @@ const stats = [
     },
     {
         id: 4,
-        title: "PRODUCTS IN STOCK",
+        title: "CONT CHƯA BÁN",
         menu: [],
         query: `productsInStock`,
         isMoney: false,
         to: `/products?status=pending`,
-        link: "View all",
+        link: "Xem tất cả",
         icon: (
             <ShoppingCartOutlined
                 className="icon"
@@ -165,7 +165,7 @@ const Home = () => {
                         />
                     ) : (
                         <CalendarCard
-                            title={`Calendar Arrival date and Delivery date`}
+                            title={`Lịch hàng về và lịch giao hàng`}
                             height="auto"
                             left="prev,next today"
                             center="title"
@@ -191,7 +191,7 @@ const Home = () => {
                         />
                     ) : (
                         <Chart
-                            title={`Seller analysis by month ${thisYearNum}`}
+                            title={`Thống kê KPI theo tháng ${thisYearNum}`}
                             aspect={2 / 1}
                             data={dataSellerChart}
                             initChart="LineChart"
@@ -212,7 +212,7 @@ const Home = () => {
                         />
                     ) : (
                         <Chart
-                            title={`Kpi analysis ${thisMonth} ${thisYearNum}`}
+                            title={`KPI ${thisMonth} ${thisYearNum}`}
                             aspect={2 / 1}
                             data={dataKpiChart}
                             initChart="BarChart"
@@ -232,7 +232,7 @@ const Home = () => {
                         />
                     ) : (
                         <Regulartable
-                            title="Unsold Product"
+                            title="Cont chưa bán"
                             products={dataProducts}
                         />
                     )}

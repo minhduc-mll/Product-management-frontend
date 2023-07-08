@@ -23,12 +23,12 @@ const customerColumns = [
     },
     {
         field: "name",
-        headerName: "Name",
+        headerName: "Tên",
         flex: 1,
     },
     {
         field: "phone",
-        headerName: "Phone",
+        headerName: "Số điện thoại",
         flex: 1,
     },
     {
@@ -38,7 +38,7 @@ const customerColumns = [
     },
     {
         field: "birthday",
-        headerName: "Birthday",
+        headerName: "Ngày sinh",
         flex: 1,
         renderCell: (params) => {
             return params.row.birthday ? (
@@ -52,7 +52,7 @@ const customerColumns = [
     },
     {
         field: "company",
-        headerName: "Company",
+        headerName: "Công ty",
         flex: 1,
     },
 ];
@@ -103,14 +103,14 @@ const Customers = () => {
         <div className="customers">
             <div className="customersTop">
                 <div className="customersTitle">
-                    <h1 className="title">All Customers</h1>
+                    <h1 className="title">Tất cả khách hàng</h1>
                     <button
                         className="addButton"
                         onClick={() => {
                             navigate(`/customers/new`);
                         }}
                     >
-                        Add new
+                        Thêm mới
                     </button>
                 </div>
                 <div className="customersMenu">
@@ -127,12 +127,12 @@ const Customers = () => {
                             />
                         </div>
                         <div className="sortSelect">
-                            <span className="sortBy">Sort by</span>
+                            <span className="sortBy">Sắp xếp theo</span>
                             <span
                                 className="sortType"
                                 onClick={() => setOpen(!open)}
                             >
-                                {sortName === "name" ? "Name" : "Newest"}
+                                {sortName === "name" ? "Tên" : "Mới nhất"}
                             </span>
                             <span className="sortOrder">
                                 {sortOrder === "dsc" ? (
@@ -151,13 +151,13 @@ const Customers = () => {
                                 <div className="openMenu">
                                     {sortName === "createdAt" ? (
                                         <span onClick={() => reSort("name")}>
-                                            Name
+                                            Tên
                                         </span>
                                     ) : (
                                         <span
                                             onClick={() => reSort("createdAt")}
                                         >
-                                            Newest
+                                            Mới nhất
                                         </span>
                                     )}
                                 </div>
