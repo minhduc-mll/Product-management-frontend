@@ -7,6 +7,8 @@
 
 An admin dashboard website provides comprehensive features to efficiently manage various aspects of your business. With a user-friendly interface, it offers a range of functionalities to streamline operations and enhance productivity.
 
+API: https://github.com/minhduc-mll/Product-management-api
+
 ## Prerequisites
 
 - Require `Node version 18.x`
