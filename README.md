@@ -15,9 +15,21 @@ An admin dashboard website provides comprehensive features to efficiently manage
 
 To install, follow these steps:
 
+First , clone project
+
 ```
 git clone https://github.com/minhduc-mll/Product-management-frontend.git
 ```
+
+Create .env file and add environment variables
+
+```
+REACT_APP_BASE_URL = 
+REACT_APP_CLOUDINARY_URL = 
+REACT_APP_CLOUDINARY_PRESET = 
+```
+
+Then run the command
 
 ```
 npm install
