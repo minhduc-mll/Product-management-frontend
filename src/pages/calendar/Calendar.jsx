@@ -13,7 +13,7 @@ const Calendar = () => {
     } = useQuery({
         queryKey: ["events"],
         queryFn: async () => {
-            const res = await apiRequest.get(`/productevent/productEvent`);
+            const res = await apiRequest.get(`/productevent`);
             return res.data;
         },
     });
@@ -24,7 +24,7 @@ const Calendar = () => {
             return res.data;
         },
         onSuccess: (data, { calendarSelected }) => {
-            queryClient.invalidateQueries([`/events`]);
+            queryClient.invalidateQueries(["events"]);
             calendarSelected.addEvent({
                 _id: data?._id,
                 title: data?.title,
@@ -35,18 +35,44 @@ const Calendar = () => {
         },
     });
 
+    // const mutatePut = useMutation({
+    //     mutationFn: async ({ id, event }) => {
+    //         const res = await apiRequest.put(`/events/${id}`, event);
+    //         return res.data;
+    //     },
+    //     onSuccess: () => {
+    //         queryClient.invalidateQueries(["events"]);
+    //     },
+    // });
+
     const mutateDelete = useMutation({
         mutationFn: async ({ id }) => {
             await apiRequest.delete(`/events/${id}`);
         },
-        onSuccess: (_, { eventSelected }) => {
+        onSuccess: (_, { selected }) => {
             queryClient.invalidateQueries(["events"]);
-            eventSelected.remove();
+            selected.event.remove();
+        },
+    });
+
+    const mutatePutProduct = useMutation({
+        mutationFn: async ({ productId, formData }) => {
+            const res = await apiRequest.put(
+                `/products/${productId}`,
+                formData
+            );
+            return res.data;
+        },
+        onSuccess: (_, { selected }) => {
+            queryClient.invalidateQueries(["events"]);
+            if (selected) {
+                selected.event.remove();
+            }
         },
     });
 
     const handleAddEvent = (selected) => {
-        const title = prompt("Please enter a new title for your event");
+        const title = prompt("Nhập mã cont");
         const calendarSelected = selected.view.calendar;
         calendarSelected.unselect();
 
@@ -58,19 +84,58 @@ const Calendar = () => {
                 end: selected.endStr,
             };
             mutatePost.mutate({ event, calendarSelected });
+
+            const formData = new FormData();
+            formData.append("arrivalDate", selected.startStr);
+            mutatePutProduct.mutate({ productId: title, formData });
         }
     };
 
     const handleDeleteEvent = (selected) => {
         const deleteConfirm = window.confirm(
-            `Do you want to delete the event '${selected.event.title}'`
+            `Bạn muốn xóa sự kiện '${selected.event.title}'?`
         );
 
         if (deleteConfirm) {
-            const eventSelected = selected.event;
             const id = selected.event.extendedProps._id;
-            mutateDelete.mutate({ id, eventSelected });
+            if (id) {
+                mutateDelete.mutate({ id, selected });
+            } else {
+                const productId = selected.event.title;
+                const formData = new FormData();
+                if (selected.event.backgroundColor.includes("blue")) {
+                    formData.append("deliveryDate", "");
+                } else {
+                    formData.append("arrivalDate", "");
+                }
+                mutatePutProduct.mutate({ productId, formData, selected });
+            }
         }
+    };
+
+    // const handleUpdateEvent = (selected) => {
+    //     const id = selected.event.extendedProps._id;
+    //     const event = {
+    //         title: selected.title,
+    //         allDay: selected.allDay,
+    //         start: selected.startStr,
+    //         end: selected.endStr,
+    //     };
+    //     mutatePut.mutate({ id, event });
+    // };
+
+    const handleUpdateProduct = (selected) => {
+        const productId = selected.event.title;
+        const newDate = selected.event.startStr;
+        const formData = new FormData();
+        if (selected.event.backgroundColor.includes("blue")) {
+            formData.append("deliveryDate", newDate);
+            selected.event.setProp("backgroundColor", "blue");
+        } else {
+            formData.append("arrivalDate", newDate);
+            selected.event.setProp("backgroundColor", "green");
+        }
+        mutatePutProduct.mutate({ productId, formData });
     };
 
     return (
@@ -89,6 +154,7 @@ const Calendar = () => {
                             editable={true}
                             handleSelect={handleAddEvent}
                             handleEventClick={handleDeleteEvent}
+                            handleEventDrop={handleUpdateProduct}
                             initialEvents={dataProductEvent}
                         />
                     )}

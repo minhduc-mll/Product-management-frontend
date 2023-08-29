@@ -8,15 +8,19 @@ import listPlugin from "@fullcalendar/list";
 import { useEffect, useRef, useState } from "react";
 
 const CalendarCard = ({
+    hasHeader,
     title,
     height,
     left,
     center,
     right,
     initialView,
+    initialDate,
     editable,
     handleSelect,
+    handleDateClick,
     handleEventClick,
+    handleEventDrop,
     initialEvents,
 }) => {
     const [open, setOpen] = useState(false);
@@ -31,93 +35,66 @@ const CalendarCard = ({
 
     return (
         <div className="calendarCard">
-            {editable ? (
-                <div className="calendarCenter">
-                    <FullCalendar
-                        ref={calendarRef}
-                        height={height}
-                        plugins={[
-                            dayGridPlugin,
-                            timeGridPlugin,
-                            interactionPlugin,
-                            listPlugin,
-                        ]}
-                        headerToolbar={{
-                            left: left,
-                            center: center,
-                            right: right,
-                        }}
-                        initialView={activeView}
-                        editable={true}
-                        selectable={true}
-                        selectMirror={true}
-                        dayMaxEvents={true}
-                        select={handleSelect}
-                        eventClick={handleEventClick}
-                        initialEvents={initialEvents}
-                    />
-                </div>
-            ) : (
-                <>
-                    <div className="calendarTop">
-                        <h1 className="title">{title}</h1>
-                        <div
-                            className="iconClick"
-                            onClick={() => setOpen(!open)}
-                        >
-                            <MoreVert className="icon" />
-                        </div>
-                        {open && (
-                            <div className="openMenu">
-                                <div
-                                    className={
-                                        "menuItem " +
-                                        (activeView === "listMonth" && "active")
-                                    }
-                                    onClick={() => {
-                                        setActiveView("listMonth");
-                                    }}
-                                >
-                                    <span className="item">List</span>
-                                </div>
-                                <div
-                                    className={
-                                        "menuItem " +
-                                        (activeView === "dayGridMonth" &&
-                                            "active")
-                                    }
-                                    onClick={() =>
-                                        setActiveView("dayGridMonth")
-                                    }
-                                >
-                                    <span className="item">Month</span>
-                                </div>
+            {hasHeader && (
+                <div className="calendarTop">
+                    <h1 className="title">{title}</h1>
+                    <div className="iconClick" onClick={() => setOpen(!open)}>
+                        <MoreVert className="icon" />
+                    </div>
+                    {open && (
+                        <div className="openMenu">
+                            <div
+                                className={
+                                    "menuItem " +
+                                    (activeView === "listMonth" && "active")
+                                }
+                                onClick={() => {
+                                    setActiveView("listMonth");
+                                }}
+                            >
+                                <span className="item">List</span>
                             </div>
-                        )}
-                    </div>
-                    <div className="calendarBottom">
-                        <FullCalendar
-                            ref={calendarRef}
-                            height={height}
-                            plugins={[
-                                dayGridPlugin,
-                                timeGridPlugin,
-                                interactionPlugin,
-                                listPlugin,
-                            ]}
-                            headerToolbar={{
-                                left: left,
-                                center: center,
-                                right: right,
-                            }}
-                            initialView={activeView}
-                            selectable={true}
-                            dayMaxEvents={true}
-                            initialEvents={initialEvents}
-                        />
-                    </div>
-                </>
+                            <div
+                                className={
+                                    "menuItem " +
+                                    (activeView === "dayGridMonth" && "active")
+                                }
+                                onClick={() => setActiveView("dayGridMonth")}
+                            >
+                                <span className="item">Month</span>
+                            </div>
+                        </div>
+                    )}
+                </div>
             )}
+            <div className="calendarCenter">
+                <FullCalendar
+                    ref={calendarRef}
+                    height={height}
+                    plugins={[
+                        dayGridPlugin,
+                        timeGridPlugin,
+                        interactionPlugin,
+                        listPlugin,
+                    ]}
+                    headerToolbar={{
+                        left: left,
+                        center: center,
+                        right: right,
+                    }}
+                    initialView={activeView}
+                    initialDate={initialDate}
+                    editable={editable}
+                    selectable={true}
+                    selectMirror={true}
+                    dayMaxEvents={true}
+                    select={handleSelect}
+                    dateClick={handleDateClick}
+                    eventClick={handleEventClick}
+                    eventDrop={handleEventDrop}
+                    initialEvents={initialEvents}
+                />
+            </div>
         </div>
     );
 };

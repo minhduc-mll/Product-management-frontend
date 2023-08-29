@@ -2,18 +2,27 @@ import "./tasks.scss";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
-import { useEffect } from "react";
+import { useState } from "react";
 
 const Tasks = () => {
+    const [newtask, setNewTask] = useState({ userId: "", title: "" });
+
     const navigate = useNavigate();
+
+    const handleChange = (e, id) => {
+        e.preventDefault();
+        setNewTask({
+            userId: id,
+            title: e.target.value,
+        });
+    };
 
     const {
         isLoading,
         error,
         data: tasksData,
-        refetch,
     } = useQuery({
-        queryKey: ["Tasks"],
+        queryKey: ["tasks"],
         queryFn: async () => {
             const res = await apiRequest.get(`/tasks/userTasks`);
             return res.data;
@@ -22,16 +31,14 @@ const Tasks = () => {
 
     const queryClient = useQueryClient();
 
-    const mutatePut = useMutation({
+    const mutatePost = useMutation({
         mutationFn: async (formData) => {
-            const res = await apiRequest.put(
-                `/tasks/${formData.id}`,
-                formData.obj
-            );
+            const res = await apiRequest.post(`/tasks`, formData);
             return res.data;
         },
         onSuccess: () => {
             queryClient.invalidateQueries([`tasks`]);
+            setNewTask({ userId: "", title: "" });
         },
     });
 
@@ -45,13 +52,37 @@ const Tasks = () => {
         },
     });
 
+    const { data: taskData } = useQuery({
+        queryKey: ["pending", "addProduct"],
+        queryFn: async () => {
+            const res = await apiRequest.get(
+                `/products?status=pending&sortName=productId`
+            );
+            const options = res.data?.map((data) => {
+                return {
+                    id: data.productId,
+                    value: data.productId,
+                    title: data.productId,
+                };
+            });
+            options.unshift({
+                id: "0",
+                value: "",
+                title: "--- Please select ---",
+            });
+            return options;
+        },
+    });
+
     const handleDeleteTask = (id) => {
         mutateDelete.mutate(id);
     };
 
-    useEffect(() => {
-        refetch();
-    }, [mutatePut, mutateDelete, refetch]);
+    const handleAddTask = () => {
+        if (newtask.title) {
+            mutatePost.mutate(newtask);
+        }
+    };
 
     return (
         <div className="tasks">
@@ -106,6 +137,29 @@ const Tasks = () => {
                                           </button>
                                       </div>
                                   ))}
+                              </div>
+                              <div className="cardButton">
+                                  <select
+                                      name="title"
+                                      type="select"
+                                      className="input"
+                                      onChange={(e) => handleChange(e, task.id)}
+                                  >
+                                      {taskData?.map((option) => (
+                                          <option
+                                              key={option.id}
+                                              value={option.value}
+                                          >
+                                              {option.title}
+                                          </option>
+                                      ))}
+                                  </select>
+                                  <button
+                                      className="addButton"
+                                      onClick={handleAddTask}
+                                  >
+                                      Add
+                                  </button>
                               </div>
                           </div>
                       ))}

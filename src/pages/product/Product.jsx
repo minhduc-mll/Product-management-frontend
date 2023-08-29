@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 import ProductDetail from "components/productDetail/ProductDetail";
+import dateFormat from "dateformat";
 
 const Product = () => {
     const navigate = useNavigate();
@@ -61,9 +62,7 @@ const Product = () => {
     } = useQuery({
         queryKey: ["product", "events", id],
         queryFn: async () => {
-            const res = await apiRequest.get(
-                `/productevent/productEvent/${id}`
-            );
+            const res = await apiRequest.get(`/productevent/${id}`);
             return res.data;
         },
     });
@@ -127,6 +126,7 @@ const Product = () => {
                         "Loading..."
                     ) : errorProductEvent ? (
                         <CalendarCard
+                            hasHeader={true}
                             title={errorProductEvent.response.data.message}
                             center="title"
                             initialView="listMonth"
@@ -135,10 +135,18 @@ const Product = () => {
                         />
                     ) : (
                         <CalendarCard
+                            hasHeader={true}
                             title="Lịch hàng về và lịch giao hàng"
                             height="auto"
                             center="title"
                             initialView="dayGridMonth"
+                            initialDate={
+                                dataProductEvent[0] &&
+                                dateFormat(
+                                    dataProductEvent[0].start,
+                                    "yyyy-mm-dd"
+                                )
+                            }
                             editable={false}
                             initialEvents={dataProductEvent}
                         />

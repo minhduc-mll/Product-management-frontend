@@ -136,9 +136,9 @@ const Home = () => {
         error: errorProductEvent,
         data: dataProductEvent,
     } = useQuery({
-        queryKey: ["home", "events"],
+        queryKey: ["events"],
         queryFn: async () => {
-            const res = await apiRequest.get(`/productevent/productEvent`);
+            const res = await apiRequest.get(`/productevent`);
             return res.data;
         },
     });
@@ -156,6 +156,7 @@ const Home = () => {
                         "Loading..."
                     ) : errorProductEvent ? (
                         <CalendarCard
+                            hasHeader={true}
                             title={errorProductEvent.message}
                             height="auto"
                             center="title"
@@ -165,6 +166,7 @@ const Home = () => {
                         />
                     ) : (
                         <CalendarCard
+                            hasHeader={true}
                             title={`Lịch hàng về và lịch giao hàng`}
                             height="auto"
                             left="prev,next today"

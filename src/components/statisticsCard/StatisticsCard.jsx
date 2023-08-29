@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
-import { formatNumber } from "utils/formatNumber";
+import { formatNumber } from "utils/format.helper";
 
 const StatisticsCard = ({ stat }) => {
     const [open, setOpen] = useState(false);
