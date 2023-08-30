@@ -9,7 +9,7 @@ import {
     PlaceOutlined,
 } from "@mui/icons-material";
 import dateFormat from "dateformat";
-import defaultAvatar from "assets/no-avatar.jpg";
+import defaultAvatar from "assets/images/no-avatar.jpg";
 
 const UserDetail = ({ user }) => {
     return (

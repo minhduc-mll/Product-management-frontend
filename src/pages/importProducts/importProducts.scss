@@ -1,0 +1,112 @@
+.importProducts {
+    flex: 5;
+    width: 100%;
+
+    .productsTop {
+        padding: 20px;
+        margin: 20px;
+        -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.5);
+        box-shadow: 2px 4px 10px 1px rgba(160, 160, 160, 0.5);
+
+        .productsTitle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+
+            .title {
+                font-size: 20px;
+            }
+
+            .buttons {
+                display: flex;
+                gap: 10px;
+
+                .importButton {
+                    font-size: 16px;
+                    font-weight: 400;
+                    padding: 5px;
+                    border-radius: 5px;
+                    color: var(--primary-lime-green);
+                    border: 1px solid var(--primary-lime-green);
+                    background-color: transparent;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: white;
+                        background-color: var(--primary-lime-green);
+                    }
+                }
+            }
+        }
+
+        .productsMenu {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+
+            .importFile {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+
+                .fileLabel {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 5px;
+                    padding: 5px 10px;
+                    border: 1px solid rgba(160, 160, 160, 0.5);
+                    border-radius: 5px;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: black;
+                        background-color: #eee;
+                    }
+                }
+
+                .fileInput {
+                    display: none;
+                }
+
+                .fileName {
+                    font-size: 13px;
+                    margin-left: 5px;
+                }
+            }
+
+            .exportFile {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+
+                .fileLink {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 5px;
+                    padding: 5px 10px;
+                    border: 1px solid rgba(160, 160, 160, 0.5);
+                    border-radius: 5px;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: black;
+                        background-color: #eee;
+                    }
+                }
+            }
+        }
+    }
+
+    .productsBottom {
+        margin: 20px;
+
+        .listView {
+            padding: 0;
+        }
+    }
+}

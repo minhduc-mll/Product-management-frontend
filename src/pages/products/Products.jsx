@@ -156,14 +156,24 @@ const Products = () => {
             <div className="productsTop">
                 <div className="productsTitle">
                     <h1 className="title">Tất cả Cont</h1>
-                    <button
-                        className="addButton"
-                        onClick={() => {
-                            navigate(`/products/new`);
-                        }}
-                    >
-                        Thêm mới
-                    </button>
+                    <div className="buttons">
+                        <button
+                            className="importButton"
+                            onClick={() => {
+                                navigate(`/products/import`);
+                            }}
+                        >
+                            Nhập dữ liệu
+                        </button>
+                        <button
+                            className="addButton"
+                            onClick={() => {
+                                navigate(`/products/new`);
+                            }}
+                        >
+                            Thêm mới
+                        </button>
+                    </div>
                 </div>
                 <div className="productsMenu">
                     <div className="menuFilters">
@@ -245,6 +255,7 @@ const Products = () => {
                                       onPageChange={(page) => {
                                           setCurrentPage(page);
                                       }}
+                                      className="pagination"
                                   />
                               )}
                         <div className="changeView">

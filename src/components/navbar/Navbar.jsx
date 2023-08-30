@@ -14,8 +14,8 @@ import { useMode, useModeDispatch } from "utils/darkModeContext";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 import { getCurrentUser } from "utils/auth";
-import defaultAvatar from "assets/no-avatar.jpg";
-import logo from "assets/hgtp-logo.png";
+import defaultAvatar from "assets/images/no-avatar.jpg";
+import logo from "assets/images/hgtp-logo.png";
 
 const Navbar = () => {
     const darkMode = useMode();

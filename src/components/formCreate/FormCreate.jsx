@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 import { formReducer, initialState } from "utils/formReducer";
-import defaultImage from "assets/no-image.jpg";
+import defaultImage from "assets/images/no-image.jpg";
 
 const FormCreate = ({ route, inputs, image }) => {
     const [formObject, dispatch] = useReducer(formReducer, initialState);

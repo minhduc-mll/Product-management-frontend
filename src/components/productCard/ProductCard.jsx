@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 import dateFormat from "dateformat";
-import defaultImage from "assets/no-image.jpg";
+import defaultImage from "assets/images/no-image.jpg";
 
 const ProductCard = ({ product }) => {
     const navigate = useNavigate();

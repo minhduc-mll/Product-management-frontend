@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 import { formReducer } from "utils/formReducer";
-import defaultImage from "assets/no-image.jpg";
+import defaultImage from "assets/images/no-image.jpg";
 import dateFormat from "dateformat";
 
 const FormUpdate = ({ inputs, image, obj, route, id }) => {

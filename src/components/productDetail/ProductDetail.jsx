@@ -1,7 +1,7 @@
 import "./productDetail.scss";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
-import defaultImage from "assets/no-image.jpg";
+import defaultImage from "assets/images/no-image.jpg";
 import dateFormat from "dateformat";
 
 const ProductDetail = ({ product }) => {

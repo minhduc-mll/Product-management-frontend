@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 import dateFormat from "dateformat";
-import defaultAvatar from "assets/no-avatar.jpg";
+import defaultAvatar from "assets/images/no-avatar.jpg";
 
 const CustomerCard = ({ customer }) => {
     const navigate = useNavigate();

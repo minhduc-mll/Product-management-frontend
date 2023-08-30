@@ -5,6 +5,7 @@ import Products from "pages/products/Products";
 import Product from "pages/product/Product";
 import NewProduct from "pages/newProduct/NewProduct";
 import UpdateProduct from "pages/updateProduct/UpdateProduct";
+import ImportProducts from "pages/importProducts/ImportProducts";
 import Categories from "pages/categories/Categories";
 import Category from "pages/category/Category";
 import NewCategory from "pages/newCategory/NewCategory";
@@ -24,7 +25,11 @@ import Analytics from "pages/analytics/Analytics";
 import UserProfile from "pages/userProfile/UserProfile";
 import UpdateProfile from "pages/updateProfile/UpdateProfile";
 import ComingSoon from "pages/comingSoon/ComingSoon";
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import {
+    createBrowserRouter,
+    Navigate,
+    RouterProvider,
+} from "react-router-dom";
 import { RequireAuth } from "utils/auth";
 
 function App() {
@@ -72,6 +77,10 @@ function App() {
                 {
                     path: "/products/update/:id",
                     element: <UpdateProduct />,
+                },
+                {
+                    path: "/products/import",
+                    element: <ImportProducts />,
                 },
                 {
                     path: "/categories",
