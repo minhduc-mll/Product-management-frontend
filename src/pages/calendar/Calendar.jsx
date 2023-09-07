@@ -14,7 +14,7 @@ const Calendar = () => {
         left: 0,
     });
     const calendarElement = useRef(null);
-    const eventElement = useRef(null);
+
     const queryClient = useQueryClient();
 
     const {
@@ -184,14 +184,14 @@ const Calendar = () => {
             setPosition({
                 ...position,
                 top: top,
-                left: left,
+                left: left - 10,
                 transform: "translate(-100%, 0)",
             });
         } else {
             setPosition({
                 ...position,
                 top: top,
-                left: left + selected.el.offsetWidth,
+                left: left + selected.el.offsetWidth + 10,
                 transform: "translate(0, 0)",
             });
         }
@@ -231,7 +231,6 @@ const Calendar = () => {
                             className={`calendarEvent ${
                                 open ? "active" : "disable"
                             }`}
-                            ref={eventElement}
                             style={position}
                         >
                             <div className="eventDetail">

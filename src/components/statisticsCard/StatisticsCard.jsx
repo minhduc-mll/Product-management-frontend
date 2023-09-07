@@ -24,7 +24,7 @@ const StatisticsCard = ({ stat }) => {
     });
 
     return (
-        <div className="statisticsCard">
+        <div className="statisticsCard" id="statistics">
             <div className="statTop">
                 <h1 className="title">{title}</h1>
                 <div className="iconClick" onClick={() => setOpen(!open)}>
