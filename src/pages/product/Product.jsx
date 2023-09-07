@@ -6,11 +6,62 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 import ProductDetail from "components/productDetail/ProductDetail";
 import dateFormat from "dateformat";
+import axios from "axios";
 
 const Product = () => {
     const navigate = useNavigate();
 
     const { id } = useParams();
+
+    useQuery({
+        queryKey: ["maersk"],
+        queryFn: async () => {
+            const cont = "MRSU0112500";
+            const res = await axios.get(
+                `
+            https://api.maersk.com/synergy/tracking/${cont}?operator=MAEU`,
+                {
+                    headers: {
+                        "Api-Version": "v2",
+                        "Consumer-Key": "UtMm6JCDcGTnMGErNGvS2B98kt1Wl25H",
+                    },
+                }
+            );
+            const data = res.data;
+            console.log(data?.containers[0]?.container_num);
+            console.log(data?.containers[0]?.eta_final_delivery);
+            console.log(data?.origin?.city);
+            console.log(data?.destination?.city);
+            return res.data;
+        },
+    });
+
+    useQuery({
+        queryKey: ["cosco"],
+        queryFn: async () => {
+            const cont = "TEMU2906617";
+            const now = new Date().getTime();
+            const res = await axios.get(
+                `
+            https://elines.coscoshipping.com/ebtracking/public/containers/${cont}?timestamp=${now}`,
+                {
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                    },
+                }
+            );
+            const data = res.data;
+            console.log(
+                data?.content?.containers[0]?.container.containerNumber
+            );
+            console.log(
+                data?.content?.containers[0]?.container.containerLocation
+            );
+            console.log(data?.content?.containers[0]?.container.podEta);
+            console.log(data?.content?.containers[0]?.container.polEtd);
+            return res.data;
+        },
+    });
 
     const {
         isLoading,
