@@ -7,6 +7,7 @@ import { useState } from "react";
 import dateFormat from "dateformat";
 import * as XLSX from "xlsx";
 import fileExcel from "assets/files/default.xlsx";
+import { getDateFromExcelDateNumber } from "utils/format.helper";
 
 const productColumns = [
     {
@@ -123,9 +124,17 @@ const Products = () => {
                 const sheetName = workbook.SheetNames[0];
                 const sheet = workbook.Sheets[sheetName];
                 const parsedData = XLSX.utils.sheet_to_json(sheet);
-                const products = parsedData?.map((value, index) => {
+                const products = parsedData?.slice(1).map((value, index) => {
                     return {
-                        ...value,
+                        productId: value.__EMPTY_1,
+                        arrivalDate: getDateFromExcelDateNumber(
+                            value.__EMPTY_2
+                        ),
+                        deliveryDate: getDateFromExcelDateNumber(
+                            value.__EMPTY_10
+                        ),
+                        desc: value.__EMPTY_12,
+                        port: value.__EMPTY_3,
                         id: index + 1,
                     };
                 });
@@ -136,7 +145,6 @@ const Products = () => {
 
     const handleInsertData = () => {
         productsData?.map(async (value) => {
-            console.log(value);
             try {
                 const res = await apiRequest.get(
                     `/products/${value.productId}`
