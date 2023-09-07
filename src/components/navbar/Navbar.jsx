@@ -85,7 +85,7 @@ const Navbar = () => {
     }, [menuRef]);
 
     return (
-        <div className="navbar">
+        <div className="navbar" id="navbar">
             <div className="wrapper">
                 <div className="left">
                     <Link to={`/`} className="link">

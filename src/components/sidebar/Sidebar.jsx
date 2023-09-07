@@ -126,7 +126,7 @@ const Sidebar = () => {
     }, [pathname]);
 
     return (
-        <div className="sidebar">
+        <div className="sidebar" id="sidebar">
             <div className="wrapper">
                 {userItems?.map(({ text, link, icon, title, show }) => {
                     return renderSidebar({ text, link, icon, title, show });

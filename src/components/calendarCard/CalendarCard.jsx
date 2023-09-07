@@ -20,6 +20,8 @@ const CalendarCard = ({
     handleSelect,
     handleDateClick,
     handleEventClick,
+    handleEventMouseEnter,
+    handleEventMouseLeave,
     handleEventDrop,
     initialEvents,
 }) => {
@@ -91,6 +93,8 @@ const CalendarCard = ({
                     select={handleSelect}
                     dateClick={handleDateClick}
                     eventClick={handleEventClick}
+                    eventMouseEnter={handleEventMouseEnter}
+                    eventMouseLeave={handleEventMouseLeave}
                     eventDrop={handleEventDrop}
                     initialEvents={initialEvents}
                 />

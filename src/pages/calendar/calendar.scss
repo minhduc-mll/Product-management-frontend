@@ -43,7 +43,32 @@
         }
 
         .calendarRight {
+            position: relative;
             flex: 3;
+
+            .calendarEvent {
+                position: absolute;
+                background-color: white;
+                border: 1px solid gray;
+                border-radius: 10px;
+                padding: 15px;
+                z-index: 99;
+
+                .eventDetail {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    gap: 5px;
+                }
+
+                &.active {
+                    display: block;
+                }
+
+                &.disable {
+                    display: none;
+                }
+            }
         }
     }
 }

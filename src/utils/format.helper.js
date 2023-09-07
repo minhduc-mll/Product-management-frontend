@@ -7,7 +7,10 @@ export const formatNumber = (number) => {
 };
 
 export const formatDate = (date) => {
-    return dateFormat(date, "yyyy-mm-dd");
+    if (date) {
+        return dateFormat(date, "yyyy-mm-dd");
+    }
+    return "";
 };
 
 export const getDateFromExcelDateNumber = (dateNumber) => {

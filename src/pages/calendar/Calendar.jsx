@@ -2,8 +2,19 @@ import "./calendar.scss";
 import CalendarCard from "components/calendarCard/CalendarCard";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
+import { formatDate } from "utils/format.helper";
+import { useRef, useState } from "react";
 
 const Calendar = () => {
+    const [open, setOpen] = useState(false);
+    const [event, setEvent] = useState();
+    const [position, setPosition] = useState({
+        position: "absolute",
+        top: 0,
+        left: 0,
+    });
+    const calendarElement = useRef(null);
+    const eventElement = useRef(null);
     const queryClient = useQueryClient();
 
     const {
@@ -91,17 +102,33 @@ const Calendar = () => {
         }
     };
 
-    const handleDeleteEvent = (selected) => {
-        const deleteConfirm = window.confirm(
-            `Bạn muốn xóa sự kiện '${selected.event.title}'?`
-        );
+    const handleDeleteEvent = async (selected) => {
+        const productId = selected.event.title;
+        const res = await apiRequest.get(`/products/${productId}`);
+        const product = res.data;
+
+        let text = `Bạn muốn xóa sự kiện '${productId}'?\n\n`;
+        text += `Category: ` + product.category?.title + `\n`;
+        if (product.seller?.name) {
+            text += `Seller: ` + product.seller?.name + `\n`;
+        } else {
+            text += `Seller:\n`;
+        }
+        if (product.customer?.name) {
+            text += `Customer: ` + product.customer?.name + `\n`;
+        } else {
+            text += `Customer:\n`;
+        }
+        text += `Ngày về: ` + formatDate(product.arrivalDate) + `\n`;
+        text += `Ngày giao: ` + formatDate(product.deliveryDate);
+
+        const deleteConfirm = window.confirm(text);
 
         if (deleteConfirm) {
             const id = selected.event.extendedProps._id;
             if (id) {
                 mutateDelete.mutate({ id, selected });
             } else {
-                const productId = selected.event.title;
                 const formData = new FormData();
                 if (selected.event.backgroundColor.includes("blue")) {
                     formData.append("deliveryDate", "");
@@ -138,8 +165,47 @@ const Calendar = () => {
         mutatePutProduct.mutate({ productId, formData });
     };
 
+    const handleHoverEventIn = async (selected) => {
+        const navbar = document.getElementById("navbar");
+        const navbarHeight = navbar.offsetHeight;
+        const sidebar = document.getElementById("sidebar");
+        const sidebarWidth = sidebar.offsetWidth;
+        const top =
+            selected.jsEvent.clientY -
+            selected.jsEvent.layerY -
+            navbarHeight -
+            20;
+        const left =
+            selected.jsEvent.clientX -
+            selected.jsEvent.layerX -
+            sidebarWidth -
+            20;
+        if (left > calendarElement.current.offsetWidth / 2) {
+            setPosition({
+                ...position,
+                top: top,
+                left: left,
+                transform: "translate(-100%, 0)",
+            });
+        } else {
+            setPosition({
+                ...position,
+                top: top,
+                left: left + selected.el.offsetWidth,
+                transform: "translate(0, 0)",
+            });
+        }
+        const res = await apiRequest.get(`/products/${selected.event.title}`);
+        setEvent(res.data);
+        setOpen(true);
+    };
+
+    const handleHoverEventOut = () => {
+        setOpen(false);
+    };
+
     return (
-        <div className="calendar">
+        <div className="calendar" ref={calendarElement}>
             <div className="calendarBottom">
                 <div className="calendarRight">
                     {isLoadingProductEvent || errorProductEvent ? (
@@ -154,10 +220,42 @@ const Calendar = () => {
                             editable={true}
                             handleSelect={handleAddEvent}
                             handleEventClick={handleDeleteEvent}
+                            handleEventMouseEnter={handleHoverEventIn}
+                            handleEventMouseLeave={handleHoverEventOut}
                             handleEventDrop={handleUpdateProduct}
                             initialEvents={dataProductEvent}
                         />
                     )}
+                    {
+                        <div
+                            className={`calendarEvent ${
+                                open ? "active" : "disable"
+                            }`}
+                            ref={eventElement}
+                            style={position}
+                        >
+                            <div className="eventDetail">
+                                <span className="text title">
+                                    {event?.productId}
+                                </span>
+                                <span className="text">
+                                    Category: {event?.category?.title}
+                                </span>
+                                <span className="text">
+                                    Seller: {event?.seller?.name}
+                                </span>
+                                <span className="text">
+                                    Customer: {event?.customer?.name}
+                                </span>
+                                <span className="text">
+                                    Ngày về: {formatDate(event?.arrivalDate)}
+                                </span>
+                                <span className="text">
+                                    Ngày giao: {formatDate(event?.deliveryDate)}
+                                </span>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
