@@ -14,6 +14,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "utils/apiAxios";
 import dateFormat from "dateformat";
+import { formatDate } from "utils/format.helper";
 
 const productColumns = [
     {
@@ -105,8 +106,10 @@ const Products = () => {
     const [status] = useState(searchParams.get("status"));
     const [startArrivalDate] = useState(searchParams.get("startArrivalDate"));
     const [endArrivalDate] = useState(searchParams.get("endArrivalDate"));
-    const minRef = useRef();
-    const maxRef = useRef();
+    const startArrivalDateRef = useRef(null);
+    const endArrivalDateRef = useRef(null);
+    const startDeliveryDateRef = useRef(null);
+    const endDeliveryDateRef = useRef(null);
 
     const pageSize = 20;
 
@@ -131,6 +134,26 @@ const Products = () => {
             if (endArrivalDate) {
                 route += `&endArrivalDate=${endArrivalDate}`;
             }
+            if (startArrivalDateRef.current.value) {
+                route += `&startArrivalDate=${formatDate(
+                    startArrivalDateRef.current.value
+                )}`;
+            }
+            if (endArrivalDateRef.current.value) {
+                route += `&endArrivalDate=${formatDate(
+                    endArrivalDateRef.current.value
+                )}`;
+            }
+            if (startDeliveryDateRef.current.value) {
+                route += `&startDeliveryDate=${formatDate(
+                    startDeliveryDateRef.current.value
+                )}`;
+            }
+            if (endDeliveryDateRef.current.value) {
+                route += `&endDeliveryDate=${formatDate(
+                    endDeliveryDateRef.current.value
+                )}`;
+            }
             const res = await apiRequest.get(route);
             const products = res.data?.map((data, index) => {
                 return {
@@ -149,7 +172,19 @@ const Products = () => {
 
     useEffect(() => {
         refetch();
-    }, [search, sortName, sortOrder, refetch]);
+    }, [
+        search,
+        sortName,
+        sortOrder,
+        status,
+        startArrivalDate,
+        endArrivalDate,
+        startArrivalDateRef,
+        endArrivalDateRef,
+        startDeliveryDateRef,
+        endDeliveryDateRef,
+        refetch,
+    ]);
 
     return (
         <div className="products">
@@ -180,7 +215,7 @@ const Products = () => {
                         <div className="searchInput">
                             <input
                                 type="text"
-                                placeholder="Search..."
+                                placeholder="Search cont..."
                                 onChange={(e) => setSearch(e.target.value)}
                             />
                             <SearchOutlined
@@ -189,18 +224,34 @@ const Products = () => {
                             />
                         </div>
                         <div className="sortInput">
-                            <span>Giá bán</span>
-                            <input
-                                ref={minRef}
-                                type="number"
-                                placeholder="min"
-                            />
-                            <input
-                                ref={maxRef}
-                                type="number"
-                                placeholder="max"
-                            />
-                            <button onClick={refetch}>Apply</button>
+                            <span>Ngày về</span>
+                            <input ref={startArrivalDateRef} type="date" />
+                            <input ref={endArrivalDateRef} type="date" />
+                            <button
+                                onClick={() => {
+                                    refetch();
+                                    if (startArrivalDate || endArrivalDate) {
+                                        navigate("/products");
+                                    }
+                                }}
+                            >
+                                Apply
+                            </button>
+                        </div>
+                        <div className="sortInput">
+                            <span>Ngày giao</span>
+                            <input ref={startDeliveryDateRef} type="date" />
+                            <input ref={endDeliveryDateRef} type="date" />
+                            <button
+                                onClick={() => {
+                                    refetch();
+                                    if (startArrivalDate || endArrivalDate) {
+                                        navigate("/products");
+                                    }
+                                }}
+                            >
+                                Apply
+                            </button>
                         </div>
                         <div className="sortSelect">
                             <span className="sortBy">Sắp xếp theo</span>

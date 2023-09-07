@@ -79,7 +79,7 @@ const ProductCard = ({ product }) => {
                 <div className="productItems">
                     <h1 className="title">{product?.productId}</h1>
                     {isLoadingCategories ? (
-                        "Loading..."
+                        ""
                     ) : errorCategories ? (
                         errorCategories.response.data.message
                     ) : (
@@ -88,7 +88,7 @@ const ProductCard = ({ product }) => {
                         </div>
                     )}
                     {isLoadingProducts ? (
-                        "Loading..."
+                        ""
                     ) : errorProducts ? (
                         errorProducts.response.data.message
                     ) : dataProducts?.name ? (
